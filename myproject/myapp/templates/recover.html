@@ -1,0 +1,37 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RECOVER </title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" type="text/css" href="{% static '/styles/confirm_delete.css' %}">
+
+</head>
+<body>
+    
+    <div class="container">
+        <div class="header-image">
+            <img src="../static/img/icono-inamhi.png" alt="">
+        </div>
+        <div class="card">
+            <div class="card-body text-center">
+                <div class="header-titles">
+                    <h1 class="card-title"><i class="fas fa-exclamation-triangle mr-2"></i> Recuperacion de Contraseña</h1>
+                </div>
+                <p class="card-text">" Para Recuparar su contraseña contacte con el administrador"{{ model.codigo_bien }}</p>
+                
+            </div>
+        </div>
+    </div>
+    <!-- Bootstrap JS (optional) -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
+
+

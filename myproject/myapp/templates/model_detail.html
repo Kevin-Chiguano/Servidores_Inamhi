@@ -1,0 +1,69 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalle De Bien</title>
+    
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{% static 'styles/model_detail.css' %}">
+    <style>
+        .btn-download {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <h1 class="card-title">Detalle de Bien</h1>
+            {% if model %}
+                <p><strong>Código Bien:</strong> {{ model.codigo_bien }}</p>
+                <p><strong>Código Anterior:</strong> {{ model.codigo_anterior }}</p>
+                <p><strong>Código Provisional:</strong> {{ model.codigo_provisional }}</p>
+                <p><strong>Código Nuevo:</strong> {{ model.codigo_nuevo }}</p>
+                <p><strong>Nombre Bien:</strong> {{ model.nombre_bien }}</p>
+                <p><strong>Serie:</strong> {{ model.serie }}</p>
+                <p><strong>Modelo:</strong> {{ model.modelo }}</p>
+                <p><strong>Marca:</strong> {{ model.marca }}</p>
+                <p><strong>Color:</strong> {{ model.color }}</p>
+                <p><strong>Material:</strong> {{ model.material }}</p>
+                <p><strong>Estado:</strong> {{ model.estado }}</p>
+                <p><strong>Ubicación:</strong> {{ model.ubicacion }}</p>
+                <p><strong>Cédula:</strong> {{ model.cedula }}</p>
+                <p><strong>Custodio Actual:</strong> {{ model.custodio_actual }}</p>
+                <p><strong>Observación:</strong> {{ model.observacion }}</p>
+
+                {% if model.archivo %}
+                <p><strong>Archivo Adjunto:</strong> 
+        
+                    <a href="{{ model.archivo.url }}" download class="btn btn-primary btn-download">Descargar</a>
+                </p>
+                {% endif %}
+
+                {% if model.cambiocustodio_set.exists %}
+                <h2 class="card-title">Cambio de Custodio</h2>
+                {% for cambio_custodio in model.cambiocustodio_set.all %}
+                <p><strong>Nuevo Custodio:</strong> {{ cambio_custodio.nuevo_custodio }}</p>
+                <p><strong>Cédula Nuevo Custodio:</strong> {{ cambio_custodio.cedula_nuevo_custodio }}</p>
+                <p><strong>Fecha de Cambio:</strong> {{ cambio_custodio.fecha_cambio }}</p>
+                {% endfor %}
+                {% endif %}
+            {% else %}
+                <p>El objeto solicitado no existe o no se encontró.</p>
+            {% endif %}
+        </div>
+    </div>
+    <div class="container btn-container">
+        <a href="{% url 'model_list' %}" class="btn btn-secondary btn-actions mr-2">Regresar</a>
+        {% if perms.myapp.change_mymodel %}
+        <a href="{% url 'model_update' pk=model.pk %}" class="btn btn-warning btn-actions mr-2">Actualizar</a>
+        {% endif %}
+        {% if perms.myapp.delete_mymodel %}
+        <a href="{% url 'model_delete' pk=model.pk %}" class="btn btn-danger btn-actions">Eliminar</a>
+        {% endif %}
+    </div>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

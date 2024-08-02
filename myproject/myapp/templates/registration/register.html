@@ -1,0 +1,52 @@
+{% load static %}
+{% block content%}
+{% load crispy_forms_tags %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login y Registro</title>
+    <!-- <link rel="stylesheet" type="text/css" href="{% static '../registration/utilities/styles/style_login.css' %}"> -->
+    <link rel="stylesheet" type="text/css" href='{% static  "/styles/style_register.css" %}'> 
+</head>
+<body>
+  
+ <!-- para controlar el proyecto  -->
+<main>
+
+    <div class="Contenedor_todo">
+            <!-- contenedor de los formularios -->
+        <div class="contenedor__login-register">
+            <!-- formulario de inicio de sesion  -->  
+            <!-- sformulario del registro  -->
+            <form  action="" class="formulario__registro" method="post">
+                {% csrf_token %}
+                <h2>Registrarse</h2>
+                {{ form | crispy }}
+                <br>
+             
+                {% if messages %}
+                <div class="messages">
+                    {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+                    {% endfor %}
+                </div>
+                {% endif %}
+                    <button>Registrarse</button>    
+                    <button type="button" onclick="window.location.href='{% url 'login' %}'" >Iniciar sesion</button>  <!--daskd-->
+            </form>
+            
+        
+        </div>
+        
+    </div> 
+</main>
+<!-- para vincular con el javascript -->
+ <!-- para vincular con el javascript -->
+  <!-- <script src='{% static  "/logica/logica_uc.js" %}'></script>   -->
+</body>
+</html>
+{% endblock%}
+
+

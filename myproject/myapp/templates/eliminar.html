@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tabla con búsqueda y eliminación</title>
+    <link rel="stylesheet" href="../static/styles/style_delete.css">
+ 
+</head>
+
+<body>
+    <img src="../static/img/icono-inamhi.png" alt="">
+    <div class="container">
+        <h1>Tabla Con Búsqueda y Eliminación</h1>
+        <input type="text" id="busqueda" placeholder="Buscar...">
+        <table id="tabla">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Codigo Bien</th>
+                    <th>Codigo Anterior</th>
+                    <th>Codigo Provisional</th>
+                    <th>Codigo Nuevo</th>
+                    <th>Nombre Bien</th>
+                    <th>Serie</th>
+                    <th>Modelo</th>
+                    <th>Marca</th>
+                    <th>Color</th>
+                    <th>Material</th>
+                    <th>Estado</th>
+                    <th>Ubicación</th>
+                    <th>Cedula</th>
+                    <th>Custodio Actual</th>
+                    <th>Observación</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                
+
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        function confirmarEliminar(button) {
+            // Mostrar un mensaje de confirmación antes de eliminar
+            if (confirm("¿Está seguro que desea eliminar este registro?")) {
+                eliminarFila(button);
+            }
+        }
+
+        function eliminarFila(button) {
+            var fila = button.parentNode.parentNode;
+            var id = fila.cells[0].innerText;
+            fila.parentNode.removeChild(fila);
+            var eliminados = JSON.parse(localStorage.getItem("eliminados")) || [];
+            eliminados.push(id);
+            localStorage.setItem("eliminados", JSON.stringify(eliminados));
+        }
+
+        document.addEventListener("DOMContentLoaded", function () {
+            var eliminados = JSON.parse(localStorage.getItem("eliminados")) || [];
+            eliminados.forEach(function (id) {
+                var fila = document.querySelector("td:first-child").innerText;
+                if (fila) {
+                    fila.parentNode.style.display = "none";
+                }
+            });
+        });
+
+        document.getElementById("busqueda").addEventListener("keyup", function () {
+            var texto = this.value.toLowerCase();
+            var tabla = document.getElementById("tabla");
+            var filas = tabla.getElementsByTagName("tr");
+            for (var i = 0; i < filas.length; i++) {
+                var textoFila = filas[i].textContent.toLowerCase();
+                var id = filas[i].cells[0].innerText;
+                if (textoFila.includes(texto) && !filaEliminada(id)) {
+                    filas[i].style.display = "";
+                } else {
+                    filas[i].style.display = "none";
+                }
+            }
+        });
+
+        function filaEliminada(id) {
+            var eliminados = JSON.parse(localStorage.getItem("eliminados")) || [];
+            return eliminados.includes(id);
+        }
+    </script>
+</body>
+</html>
+

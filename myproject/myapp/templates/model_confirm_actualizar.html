@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirmacion</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Custom CSS for additional styling */
+        body, html {
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #f8f9fa;
+            background-color: #4C3DA8;
+        }
+        .container {
+            max-width: 600px;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .btn-actions {
+            margin-top: 10px;
+            margin-right: 10px;
+        }
+    
+        .header-image {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            max-width: 100px;
+        }
+        .header-image img {
+            width: 100%;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header-image">
+            <img src="../static/img/icono-inamhi.png" alt="">
+        </div>
+        <h1>Confirmar Actualización</h1>
+        <p>¿Está seguro de que desea actualizar los datos?</p>
+        <form method="post" action="{% url 'model_confirm_actualizar' model.pk %}">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-primary btn-actions">
+                <i class="fas fa-check"></i> Sí, actualizar
+            </button>
+            <a href="{% url 'model_update' model.pk %}" class="btn btn-secondary btn-actions">
+                <i class="fas fa-times"></i> Cancelar
+            </a>
+        </form>
+    </div>
+    <!-- Font Awesome Icons -->
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+</body>
+</html>

@@ -1,0 +1,157 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-size: cover;
+    background-position: center;
+    background-image: radial-gradient(circle 800px, #6437b7, #4d338a, #2b2a2c);
+}
+
+.container {
+    background-color: white;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(97, 11, 11, 0.1);
+    border-radius: 8px;
+    width: 100%;
+    max-width: 800px;
+    margin: 20px;
+    overflow: hidden;
+}
+
+.table-responsive {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+.table-bordered th, .table-bordered td {
+    border: 1px solid #000000;
+}
+
+th, td {
+    padding: 5px;
+    text-align: left;
+}
+
+th {
+    background-color: rgba(242, 242, 242, 0.8);
+    font-weight: bold;
+}
+
+.button-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 15px 32px;
+}
+
+.btn {
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: background-color 0.3s;
+}
+
+.btn-save {
+    background-color: #28a745; /* Color azul para el botón de Guardar */
+    color: white;
+}
+
+.btn-actions {
+    background-color: #db3737; /* Color verde para el botón de Regresar */
+    color: white;
+}
+
+.btn:hover {
+    transform: translateY(-3px);
+    border-radius: 5px;
+    transition: all 0.3s ease;
+}
+
+label {
+    color: #000000;
+    margin: 0;
+}
+
+table th, table td {
+    padding: 10px;
+}
+
+table td label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+table input[type="text"],
+table textarea,
+table select {
+    width: 100%;
+    max-width: 100%;
+    padding: 8px;
+    font-size: 16px;
+    border: 1px solid #e7c7c7;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+table textarea {
+    height: 50px;
+}
+
+.header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    color: white;
+    margin-top: 20px;
+}
+
+.header-image {
+    margin-bottom: 10px;
+}
+
+.header-image img {
+    width: 100%;
+    height: auto;
+    max-width: 200px;
+    display: block;
+    margin: 0 auto;
+}
+
+.header-titles h5 {
+    margin: 5px 0;
+}
+
+/* Media queries for responsiveness */
+@media (max-width: 768px) {
+    .container {
+        padding: 10px;
+        max-width: 100%;
+    }
+
+    .button-container {
+        flex-direction: column;
+    }
+
+    .btn {
+        width: 100%;
+        margin: 5px 0;
+    }
+}

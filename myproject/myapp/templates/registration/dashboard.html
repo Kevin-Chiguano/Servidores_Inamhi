@@ -1,0 +1,51 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" type="text/css" href="{% static '/styles/dashboard.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    
+</head>
+<body>
+   
+    <form action="{% url 'model_list' %}" method="post">
+        
+        
+        <div class="button-container">
+            
+            <button type="button" class="btn btn-actions"onclick="location.href='{% url 'salir' %}'"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</button>
+        </div>
+        {% csrf_token %}
+        
+        
+        <h2>Instituto Nacional de Meteorología e Hidrología - INAMHI Bienes por Custodio</h2>
+        
+        <span class="line"></span>
+        <div class="box">
+            
+            <div class="title">
+                <p>SISTEMA DE INVENTARIO</p>           
+            </div>
+            <div class="imagen">
+                <img src="{% static '/img/inventario.png' %}" alt="">
+            </div>
+            <button type="submit" class="btn btn-success"><i class="fas fa-paper-plane"></i> Ingresar</button>
+        </div>
+        <!--<div class="box-2">
+            <div class="title">
+                <p>SISTEMA DE TICKETS</p>
+            </div>
+            <div class="imagen">
+                <img src="{% static '/img/boleto.png' %}" alt="">
+            </div>-->
+            <!-- Botón para el Sistema de Soporte de Tickets -->
+            <!--<button type="button" class="btn btn-primary"onclick="location.href='{% url 'ticket_list' %}'"><i class="fas fa-ticket-alt"></i> Ingresar</button>-->
+        </div>
+    </form>
+</body>
+</html>
+
+      

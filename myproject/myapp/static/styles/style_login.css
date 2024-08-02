@@ -1,0 +1,229 @@
+/* reseteamos desde 0 */
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    font-family: sans-serif;
+}
+/* para el vody tenga la imagen de fondo y se centre */
+body{
+    /* background-image: url(../img/FONDO.jpg); */
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
+    width: 100%;
+    height: 100%;
+    background-image: radial-gradient(circle 800px,#6437b7,#4d338a, #2b2a2c);
+}
+/* para que se centre el contenido del main */
+main{
+    width: 100%;
+    padding: 20px;
+    margin:  auto;
+    margin-top: 100px;
+}
+/* para que se centre todo el contenedor  */
+/* para que se centre todo el contenedor  */
+.Contenedor_todo{
+    width: 100%;
+    /* ancho maximo  */
+    max-width: 800px;
+    margin:auto;
+    /* posicion para que los elementos se relacion con el  */
+    position: relative;
+}
+
+/* la caja del fondo  */
+.caja_trasera{
+    width: 100%;
+    /* que tenga 10px de arriba y abajo y de 20px de izquierda a derecha  
+    para que nos guarde uno pequeño margen */
+    padding: 10px 20px;
+    height: 365px;
+    /* para que las cajas esten una con otra con display:flex  */
+    display: flex;
+    justify-content: flex-end;
+    
+    /* poner color y opacidad con el 0.5 */
+    background-color: RGB(114,79,152);
+    border-radius: 15px;
+}
+.caja_trasera img{
+    transform: translateX(95%);
+    width: 80%;
+    margin-top: -80px;
+  
+}
+.caja_trasera div{
+    /* para que tenga 100px de alto y de ancho 40px  */
+    margin: 100px 40px;
+    color: white;
+    /* nos muestre una pequeña transicion  */
+    transition: all 500ms;
+}
+/* para el espaciado de las letras */
+.caja_trasera div p,
+.caja_trasera div button{
+    margin-top: 100%;
+    transform: translateX(-50%);
+}
+/* titulo */
+.caja_trasera div h3{
+    /* para que aumente el grosor las letras  */
+    font-weight: 400;
+    font-size: 26px;
+
+}
+.caja_trasera button{
+    /* botnon de alto 10px y ce ancho 40px */
+    padding: 10px 40px;
+    border: 2px solid white;
+    background: transparent;
+    font-size: 14px;
+    /* grosor de texto  */
+    font-weight: 600;
+    /* para que el usuario sepa que puede dar clic  al boton  */
+    cursor: pointer;
+    color: white;
+    /* para que no se me muestre la linea negra */
+    outline: none;
+    transition: all 300ms;
+    
+
+}
+/* boton para cuadno apse el cursor enciam del boton  */
+.caja_trasera button:hover{
+    background: white;
+    color: #4C3DA8;
+}
+/* formularios  */
+.contenedor__login-register{
+    display: flex;
+    /* para posicioanrlo en el centro  */
+    align-items: center;
+    width: 100%;
+    /* el ancho que va a medir los formularios */
+    max-width: 380px;
+    position: relative;
+    justify-content: flex-end; /* Alinea el contenido a la derecha */
+    width: 100%;
+    /* se posicione en el centro  */
+    top: -185px;
+    /* para que nos deje un pequeño espacio  */
+    left: 10px;
+}
+.contenedor__login-register form{
+    width: 100%;
+    /* 80px de arirba y abajo y de izquiera a derecha20px */
+    padding: 80px 20px;
+    background: white;
+    /* posision absoluta para que le podamos mover  */
+    position: absolute;
+    border-radius: 20px;
+}
+/* tiutlo h2  */
+.contenedor__login-register form h2{
+    font-size: 40px;
+    text-align: center;
+    margin-bottom: 20px ;
+    color: #4C3DA8;
+}
+/* los input */
+.contenedor__login-register form input{
+    width: 100%;
+    /* para que mantengan espaciado */
+    margin-top: 20px;
+    padding: 10px;
+    border:none;
+    /* color gris */
+    background: #f2f2f2;
+    /* el tamaño de las letras */
+    font-size: 16px;
+    outline: none;
+}
+.btn__registro-link {
+    margin-top: 20px; /* Espacio entre el formulario y el botón de registro */
+    text-align: center;
+    width: 100%;
+}
+
+.contenedor__login-register form button{
+    padding: 10px 40px;
+    /* que se despege de los input */
+    margin-top: 40px;
+    border: none;
+    font-size: 14px;
+    background: #4C3DA8;
+    color: white;
+    /* para que sepan que se peude dar clic */
+    cursor: pointer;
+    outline: none;
+}
+.contenedor__login-register a button{
+    padding: 10px 40px;
+    /* que se despege de los input */
+    margin-top: 40px;
+    border: none;
+    font-size: 14px;
+    background: #4C3DA8;
+    color: white;
+    /* para que sepan que se peude dar clic */
+    cursor: pointer;
+    outline: none;
+}
+
+.formulario__login{
+    opacity: 1;
+    display: block;
+}
+/* para que desaparesca el formulario de registro y aparesca el de iniciar sesion  */
+.formulario__registro{
+    display: none;
+}
+/* Responsive */
+/* cuando la pagina tenga un acncho de 850px */
+@media screen and (max-width: 850px){
+    /*  */
+    main{
+        margin-top: 50px;
+    }
+    .caja_trasera{
+        max-width: 350px;
+        height: 300px;
+        flex-direction: column;
+        margin: auto;
+    }
+    .caja_trasera div{
+        margin: 0px;
+        position: absolute;
+    }
+
+    /* responsive en los formularios  */
+    .contenedor__login-register{
+        top:-10px;
+        left: -5px;
+        margin: auto;
+    }
+    /* para que se me posicione bien y se me suba el fomulario  */
+    .contenedor__login-register form{
+        position: relative;
+    }
+    .caja_trasera img{
+        transform: translateX(-5%); 
+        width: 70%;
+        margin-bottom: 100px;
+      
+    }
+
+    .caja_trasera  button{
+        
+        margin-bottom: 40px;
+        color: white;
+       margin-left: 150px;
+    }
+}
+
+
+

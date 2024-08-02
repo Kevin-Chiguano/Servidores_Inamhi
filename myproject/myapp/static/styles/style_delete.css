@@ -1,0 +1,66 @@
+body {
+    background-image: radial-gradient(circle 800px, #6437b7, #4d338a, #2b2a2c);
+    color: white;
+    font-family: Arial, sans-serif;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    text-align: center;
+    position: relative; /* Para ajustar la imagen */
+}
+
+img {
+    position: absolute; /* Para posicionar la imagen */
+    top: 10px; /* Ajustar la distancia desde la parte superior */
+    right: 10px; /* Ajustar la distancia desde la derecha */
+}
+
+table {
+    width: 100%;
+    margin-top: 30px;
+    border: 4px solid white; /* Agregar borde blanco */
+}
+
+th, td {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+th {
+    background-color: #4d338a;
+}
+
+td {
+    background-color: #6437b7;
+}
+
+input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    margin-top: 20px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    background-color: #2b2a2c;
+    color: white;
+}
+
+input[type="text"]:focus {
+    outline: none;
+    border-color: #6437b7;
+}
+
+button {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 5px;
+    background-color: red; /* Cambiar el color del botón a rojo */
+    color: white;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: darkred; /* Cambiar el color del botón a rojo oscuro al pasar el ratón */
+}

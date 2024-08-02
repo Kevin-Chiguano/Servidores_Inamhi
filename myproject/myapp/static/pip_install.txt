@@ -1,0 +1,27 @@
+pip install openpyxl  
+ pip install io     
+ pip install reportlab   
+ pip install WeasyPrint
+ pip install xhtml2pdf
+
+ primero instalamos gettertext 
+aqui descargar el instalador la ultima version e instalar 
+ https://mlocati.github.io/articles/gettext-iconv-windows.html
+
+ reiniciamos el visual 
+ luego instalamos en la carpeta myproject 
+ en el terminal 
+ este codigo 
+
+ pip install crispy-bootstrap5
+
+ y agregamos en
+ o si ya esta agregado no lo tocamos jeje  
+ INSTALLED_APPS={
+    "crispy_forms",
+    "crispy_bootstrap5",
+ }
+estos son fuera
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+
+CRISPY_TEMPLATE_PACK = "bootstrap5"

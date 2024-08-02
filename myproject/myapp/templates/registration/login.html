@@ -1,0 +1,50 @@
+{% load static %}
+{% block content%}
+{% load crispy_forms_tags %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login y Registro</title>
+    <link rel="stylesheet" type="text/css" href='{% static  "/styles/style_login.css" %}'> 
+</head>
+<body>
+ <!-- para controlar el proyecto  -->
+<main>
+
+    <div class="Contenedor_todo">
+       
+        <div class="caja_trasera">
+            <div class="caja__trasera-login">
+                <img src='{% static  "/img/FondoInamhi.png" %}' alt="">
+            </div>
+             <!-- //esta es la caja trasera del registro  --> 
+            <div class="caja__trasera-registro">
+                 
+                 <a href="{% url 'register' %}" > 
+                    <button id="btn__registro">Registrarse</button> 
+                </a> 
+                 
+            </div>
+        </div>
+            <!-- contenedor de los formularios -->
+        <div class="contenedor__login-register">
+            <!-- formulario de inicio de sesion  -->
+            <form class="formulario__login" method="post" >
+                {% csrf_token %}
+                <h2>INAMHI</h2>
+                {{ form | crispy}} 
+                <button type="submit">Entrar</button>
+            </form>
+        </div>    
+    </div> 
+</main>
+{% endblock%}
+<!-- para vincular con el javascript -->
+ <!-- <script src='{% static  "/logica/logica_uc.js" %}'></script>  -->
+</body>
+</html>
+
+
+

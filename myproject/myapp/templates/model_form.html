@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% if form.instance.pk %}Actualizar{% else %}Crear{% endif %}</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../static/styles/style_create.css">
+    <!-- Font Awesome CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>   
+    <div class="header">
+        <div class="header-image">
+            <img src="../static/img/icono-inamhi.png" alt="Icono INAMHI">
+        </div>
+        <div class="header-titles">
+            <h5>REPÚBLICA DEL ECUADOR</h5>
+            <h5>INSTITUTO NACIONAL DE METEOROLOGIA E HIDROLOGIA -INAMHI BIENES POR CUSTODIO</h5>
+            <h5>REGISTRO DE CONSTATACIÓN FÍSICA DE BIENES 2024</h5>
+        </div>
+    </div>
+
+    <div class="container">            
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Descripción</th>
+                        </tr>
+                    </thead>
+                    <tbody> 
+                        <tr>
+                            <td><label for="id_codigo_tic">Codigo Tic</label></td>
+                            <td>{{ form.codigo_tic }}</td>
+                        </tr>
+                        <tr>
+                            <td><label for="id_codigo_bien">Código del Bien Esbye</label></td>
+                            <td>{{ form.codigo_bien }}</td>
+                        </tr>
+                        <tr>
+                            <td><label for="id_codigo_anterior">Código Anterior</label></td>
+                            <td>{{ form.codigo_anterior }}</td>
+                        </tr>
+                        <tr>
+                            <td><label for="id_codigo_provisional">Código Provisional</label></td>
+                            <td>{{ form.codigo_provisional }}</td>
+                        </tr>
+                        <tr>
+                            <td><label for="id_codigo_nuevo">Código Nuevo</label></td>
+                            <td>{{ form.codigo_nuevo }}</td>
+                        </tr>
+                        <tr>
+                            <td><label for="id_nombre_bien">Nombre del bien</label></td>
+                            <td>{{ form.nombre_bien }}</td>
+                        </tr>
+                        <tr>
+                            <td><label for="id_serie">Serie</label></td>
+                            <td>{{ form.serie }}</td>
+                        </tr>
+                        <tr>
+                            <td><label for="id_modelo">Modelo</label></td>
+                            <td>{{ form.modelo }}</td>
+                        </tr>
+                        <tr>
+                            <td><label for="id_marca">Marca</label></td>
+                            <td>{{ form.marca }}</td>
+                        </tr>
+                        <tr>
+                            <td><label for="id_color">Color</label></td>
+                            <td>{{ form.color }}</td>
+                        </tr>
+                        <tr>
+                            <td><label for="id_material">Material</label></td>
+                            <td>{{ form.material }}</td>
+                        </tr>
+                        <tr>
+                            <td><label for="id_estado">Estado</label></td>
+                            <td>{{ form.estado }}</td>
+                        </tr>
+                        <tr>
+                            <td><label for="id_ubicacion">Ubicación</label></td>
+                            <td>{{ form.ubicacion }}</td>
+                        </tr>
+                        <tr>
+                            <td><label for="id_cedula">Cédula Custodio</label></td>
+                            <td>{{ form.cedula }}</td>
+                        </tr>
+                        <tr>
+                            <td><label for="id_custodio_actual">Custodio Actual</label></td>
+                            <td>{{ form.custodio_actual }}</td>
+                        </tr>
+                        <tr>
+                            <td><label for="id_observacion">Observación</label></td>
+                            <td>{{ form.observacion }}</td>
+                        </tr>
+                        <tr>
+                            <td><label for="id_archivo">Archivo Adjunto</label></td>
+                            <td>{{ form.archivo }}</td>
+                        </tr>
+                        
+                    </tbody>
+                </table>
+            </div>
+            <div class="button-container">
+                <button class="btn btn-save"><i class="fas fa-plus"></i> Guardar</button>
+                <a href="{% url 'model_list' %}" class="btn btn-actions"><i class="fas fa-undo"></i> Regresar</a>
+            </div>            
+        </form>
+    </div>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,164 @@
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    min-height: 78vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-image: radial-gradient(circle 800px, #6437b7, #4d338a, #2b2a2c);
+}
+
+form {
+    position: relative;
+    background-color: #805bf3;
+    padding: 200px 55px 85px 55px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.9);
+    border-radius: 5px;
+    text-align: center;
+    width: 940px;
+    height: 200px;
+    margin-top: 50px;
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+}
+
+.button-container {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    margin: 0; /* Sin margen */
+    padding: 0; /* Sin padding */
+
+}
+
+.box, .box-2 {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.9);
+    background-color: white;
+    width: 45%;
+    height: 80%;
+    margin: 0 auto;
+    border-radius: 10px;
+    padding-bottom: 50px; /* Para hacer espacio para el botón */
+}
+
+.box .btn, .box-2 .btn {
+    position: absolute; /* Posicionamiento absoluto */
+    bottom: 10px; /* Distancia desde el borde inferior */
+    left: 0; /* Alineación a la izquierda */
+    right: 0; /* Alineación a la derecha */
+    margin-left: auto; /* Margen izquierdo automático */
+    max-width: 150px; /* Ancho máximo para los botones */
+    margin-right: auto; /* Margen derecho automático */
+   
+}
+form h2 {
+    position: absolute;
+    top: 0px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.box input,
+.box-2 input {
+    margin-top: auto; /* Mueve el input al final del div */
+    padding: 20px;
+    background-color: rgb(91, 77, 171, 0.9);
+    color: white;
+    font-size: 20px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.imagen img {
+    width: 80%;
+}
+
+.imagen {
+    position: fixed;
+    width: 100px;
+    margin-left: 20px;
+    margin-top: 40px;
+}
+
+.title {
+    text-align: right;
+    margin-right: 50px;
+    margin-top: 4cqw;
+    font-size: 20px;
+}
+
+h2 {
+    text-transform: uppercase;
+    margin-top: 50px;
+    color: white;
+}
+
+
+.btn-actions {
+    background-color: #db3737; /* Color rojo para el botón de Cerrar Sesión */
+    color: white;
+    margin-right: 10px;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+}
+
+.btn:hover {
+    transform: translateY(-3px);
+    border-radius: 5px;
+    transition: all 0.3s ease;
+}
+
+.btn {
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: background-color 0.3s;
+}
+
+
+button {
+   
+    color: white; /* Color del texto blanco */
+    text-align: center; /* Alineación del texto */
+    text-decoration: none; /* Sin subrayado */
+    display: inline-block; /* Mostrar como bloque en línea */
+    cursor: pointer; /* Cambiar el cursor a un puntero */
+    border: none; /* Sin borde */
+    border-radius: 12px; /* Bordes redondeados */
+    transition: background-color 0.3s; /* Transición suave del color de fondo */
+}
+
+.btn-primary
+{
+    background-color: #4CAF50; /* Color de fondo verde */
+}
+.btn-success
+{
+    background-color: #2847d3; /* Color de fondo azul */
+}
+
+
+.imagen {
+    margin-bottom: 10px;
+}
+
+.header-image img {
+    width: 100%;
+    height: auto;
+    max-width: 200px;
+    display: block;
+    margin: 0 auto;
+}
+
+

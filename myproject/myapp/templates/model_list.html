@@ -1,0 +1,177 @@
+ew{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Inventario</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Font Awesome CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <!-- Tu hoja de estilos personalizada -->
+    <link rel="stylesheet" type="text/css" href="{% static 'styles/model_list.css' %}">
+</head>
+<body>
+    <div class="container">
+        
+        <div class="header-image">
+            <img src="{% static 'img/icono-inamhi.png' %}" alt="">
+        </div>
+        <div>
+            <a href="{% url 'dashboard' %}" class="btn btn-primary btn-action"><i class="fas fa-arrow-left"></i> Regresar al Dashboard</a>
+
+        </div>
+        <div class="d-flex justify-content-end"> <!-- Este div envuelve el botón y lo alinea a la derecha -->
+            <a href="{% url 'salir' %}" class="btn btn-danger"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a>
+        </div>
+        <div class="header-titles">
+            <h5> REPÚBLICA DEL ECUADOR </h5>
+            <h5>INSTITUTO NACIONAL DE METEOROLOGIA E HIDROLOGIA -INAMHI BIENES POR CUSTODIO</h5>
+            <h5> REGISTRO DE CONSTATACIÓN FÍSICA DE BIENES 2024 </h5>
+        </div>
+        
+        <div class="mb-4">
+            {% if perms.myapp.change_mymodel %}
+            <a href="{% url 'model_create' %}" class="btn btn-primary btn-action"><i class="fas fa-plus"></i> Añadir Producto</a>
+            {% endif %}
+            <a href="{% url 'export_to_excel' %}" class="btn btn-success btn-action"><i class="fas fa-file-excel"></i> Exportar a Excel</a>
+            <a href="{% url 'export_to_pdf' %}" class="btn btn-warning btn-action"><i class="fas fa-file-pdf"></i> Exportar a PDF</a>
+        </div>
+
+        <!-- Barra de búsqueda -->
+        <div class="mb-4">
+            <input id="searchInput" type="text" class="form-control" placeholder="Buscar...">
+        </div>
+    </div>
+    <div class="table-container">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Codigo TIC</th>
+                    <th scope="col">Código Bien</th>
+                    <th scope="col">Código Anterior</th>
+                    <th scope="col">Código Provisional</th>
+                    <th scope="col">Código Nuevo</th>
+                    <th scope="col">Nombre Bien</th>
+                    <th scope="col">Serie</th>
+                    <th scope="col">Cédula</th>
+                    <th scope="col">Custodio Actual</th>
+                    <th scope="col">Archivo</th> <!-- Columna para el archivo -->
+                    <th scope="col">Nuevo Custodio</th> <!-- Nueva columna para el nuevo custodio -->
+                    <th scope="col">Cedula de Nuevo Custodio</th> <!-- Nueva columna para el nuevo custodio -->
+                    <th scope="col">Fecha de Cambio</th> <!-- Nueva columna para el nuevo custodio -->
+                    <th scope="col">Acciones</th>
+                </tr>
+            </thead>
+            
+            <tbody id="tableBody">
+                {% for model in models %}
+                    {% if model.estado_registro %}
+                        <tr>
+                            <th scope="row">{{ model.codigo_tic }}</th> <!-- Aquí se muestra el código TIC en lugar de forloop.counter -->
+                            <td>{{ model.codigo_bien }}</td>
+                            <td>{{ model.codigo_anterior }}</td>
+                            <td>{{ model.codigo_provisional }}</td>
+                            <td>{{ model.codigo_nuevo }}</td>
+                            <td>{{ model.nombre_bien }}</td>
+                            <td>{{ model.serie }}</td>
+                            <td>{{ model.cedula }}</td>
+                            <td>{{ model.custodio_actual }}</td>
+                            
+                            <td>
+                                {% if model.archivo %}
+                                    <a href="{{ model.archivo.url }}" class="btn btn-primary btn-sm" download="{{ model.archivo.name }}"><i class="fas fa-download"></i> Descargar</a>
+                                {% else %}
+                                    No hay archivo adjunto
+                                {% endif %}
+                            </td>
+                            <!-- Mostrar información de Cambio de Custodio -->
+                            {% for cambio_custodio in model.cambiocustodio_set.all %}
+                                <td>{{ cambio_custodio.nuevo_custodio }}</td>
+                                <td>{{ cambio_custodio.cedula_nuevo_custodio }}</td>
+                                <td>{{ cambio_custodio.fecha_cambio }}</td>
+                            {% empty %}
+                                <td>No hay cambio de custodio</td>
+                                <td>No hay cambio de custodio</td>
+                                <td>No hay cambio de fecha</td>
+                            {% endfor %}
+                            <td>
+                                <a href="{% url 'model_detail' pk=model.pk %}" class="btn btn-info btn-sm btn-action"><i class="far fa-eye"></i> Ver</a>
+                                <!--{% if perms.myapp.change_mymodel %}
+                                <a href="{% url 'model_update' pk=model.pk %}" class="btn btn-warning btn-sm btn-action"><i class="far fa-edit"></i> Editar</a>
+                                {% endif %}
+                                {% if perms.myapp.delete_mymodel %}
+                                <a href="{% url 'model_delete' pk=model.pk %}" class="btn btn-danger btn-sm btn-action"><i class="far fa-trash-alt"></i> Eliminar</a>
+                                {% endif %}-->
+                            </td>
+                        </tr>
+                    {% endif %}
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <!-- Bootstrap JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- Font Awesome JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
+    <!-- Script de búsqueda -->
+    <script>
+        document.getElementById('searchInput').addEventListener('keyup', function() {
+            let input = document.getElementById('searchInput').value.toLowerCase();
+            let rows = document.getElementById('tableBody').getElementsByTagName('tr');
+            
+            for (let i = 0; i < rows.length; i++) {
+                let row = rows[i];
+                let cells = row.getElementsByTagName('td');
+                let match = false;
+                
+                for (let j = 0; j < cells.length; j++) {
+                    if (cells[j].innerHTML.toLowerCase().includes(input)) {
+                        match = true;
+                        break;
+                    }
+                }
+                
+                if (match) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            }
+        });
+    </script>
+    <script>
+        // Función para almacenar la posición de desplazamiento en sessionStorage
+        function saveScrollPosition() {
+            sessionStorage.setItem('scrollPosition', window.scrollY);
+        }
+    
+        // Función para restaurar la posición de desplazamiento desde sessionStorage
+        function restoreScrollPosition() {
+            var scrollPosition = sessionStorage.getItem('scrollPosition');
+            if (scrollPosition !== null) {
+                window.scrollTo(0, parseInt(scrollPosition));
+                sessionStorage.removeItem('scrollPosition'); 
+                // Limpiar sessionStorage después de restaurar
+                // Limpiar sessionStorage después de restaurar
+            }
+        }
+    
+        // Evento que se dispara cuando se hace clic en un enlace de detalles (Ver)
+        document.addEventListener('DOMContentLoaded', function() {
+            var detailLinks = document.querySelectorAll('.btn-info'); // Selector para enlaces de detalles
+            detailLinks.forEach(function(link) {
+                link.addEventListener('click', function() {
+                    saveScrollPosition(); // Almacena la posición de desplazamiento antes de redirigir
+                });
+            });
+        });
+    
+        // Restaurar la posición de desplazamiento al cargar la página
+        window.addEventListener('load', function() {
+            restoreScrollPosition();
+        });
+    </script>
+</body>
+</html>
