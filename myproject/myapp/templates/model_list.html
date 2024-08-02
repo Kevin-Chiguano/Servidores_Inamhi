@@ -48,20 +48,22 @@ ew{% load static %}
         <table class="table">
             <thead>
                 <tr>
-                    <th scope="col">Codigo TIC</th>
-                    <th scope="col">Código Bien</th>
-                    <th scope="col">Código Anterior</th>
-                    <th scope="col">Código Provisional</th>
-                    <th scope="col">Código Nuevo</th>
-                    <th scope="col">Nombre Bien</th>
-                    <th scope="col">Serie</th>
-                    <th scope="col">Cédula</th>
+                    <th scope="col">Direccion IP</th>
+                    <th scope="col">Usuario</th>
+                    <th scope="col">Contraseña</th>
+                    <th scope="col">Servicio</th>
+                    <th scope="col">Puerto</th>
+                    <th scope="col">Ruta Importante</th>
+                    <th scope="col">Ubicacion Fisica</th>
+                    <th scope="col">Numero de serie/ Modelo o identificacion</th>
+                    <!-- 
                     <th scope="col">Custodio Actual</th>
-                    <th scope="col">Archivo</th> <!-- Columna para el archivo -->
-                    <th scope="col">Nuevo Custodio</th> <!-- Nueva columna para el nuevo custodio -->
-                    <th scope="col">Cedula de Nuevo Custodio</th> <!-- Nueva columna para el nuevo custodio -->
-                    <th scope="col">Fecha de Cambio</th> <!-- Nueva columna para el nuevo custodio -->
+                    <th scope="col">Archivo</th> <!- Columna para el archivo ->
+                    <th scope="col">Nuevo Custodio</th> <!- Nueva columna para el nuevo custodio ->
+                    <th scope="col">Cedula de Nuevo Custodio</th> <!- Nueva columna para el nuevo custodio ->
+                    <th scope="col">Fecha de Cambio</th> <!- Nueva columna para el nuevo custodio ->
                     <th scope="col">Acciones</th>
+                    -->
                 </tr>
             </thead>
             
@@ -77,8 +79,9 @@ ew{% load static %}
                             <td>{{ model.nombre_bien }}</td>
                             <td>{{ model.serie }}</td>
                             <td>{{ model.cedula }}</td>
-                            <td>{{ model.custodio_actual }}</td>
-                            
+                            <!--<td>{{ model.custodio_actual }}</td>-->
+                        
+                            <!--
                             <td>
                                 {% if model.archivo %}
                                     <a href="{{ model.archivo.url }}" class="btn btn-primary btn-sm" download="{{ model.archivo.name }}"><i class="fas fa-download"></i> Descargar</a>
@@ -86,7 +89,9 @@ ew{% load static %}
                                     No hay archivo adjunto
                                 {% endif %}
                             </td>
+                            -->
                             <!-- Mostrar información de Cambio de Custodio -->
+                             <!--
                             {% for cambio_custodio in model.cambiocustodio_set.all %}
                                 <td>{{ cambio_custodio.nuevo_custodio }}</td>
                                 <td>{{ cambio_custodio.cedula_nuevo_custodio }}</td>
@@ -95,7 +100,7 @@ ew{% load static %}
                                 <td>No hay cambio de custodio</td>
                                 <td>No hay cambio de custodio</td>
                                 <td>No hay cambio de fecha</td>
-                            {% endfor %}
+                            {% endfor %}-->
                             <td>
                                 <a href="{% url 'model_detail' pk=model.pk %}" class="btn btn-info btn-sm btn-action"><i class="far fa-eye"></i> Ver</a>
                                 <!--{% if perms.myapp.change_mymodel %}
@@ -109,6 +114,7 @@ ew{% load static %}
                     {% endif %}
                 {% endfor %}
             </tbody>
+            
         </table>
     </div>
     <!-- Bootstrap JS -->
