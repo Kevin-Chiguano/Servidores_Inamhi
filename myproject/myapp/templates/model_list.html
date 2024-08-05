@@ -65,56 +65,7 @@ ew{% load static %}
                     <th scope="col">Acciones</th>
                     -->
                 </tr>
-            </thead>
-            
-            <tbody id="tableBody">
-                {% for model in models %}
-                    {% if model.estado_registro %}
-                        <tr>
-                            <th scope="row">{{ model.codigo_tic }}</th> <!-- Aquí se muestra el código TIC en lugar de forloop.counter -->
-                            <td>{{ model.codigo_bien }}</td>
-                            <td>{{ model.codigo_anterior }}</td>
-                            <td>{{ model.codigo_provisional }}</td>
-                            <td>{{ model.codigo_nuevo }}</td>
-                            <td>{{ model.nombre_bien }}</td>
-                            <td>{{ model.serie }}</td>
-                            <td>{{ model.cedula }}</td>
-                            <!--<td>{{ model.custodio_actual }}</td>-->
-                        
-                            <!--
-                            <td>
-                                {% if model.archivo %}
-                                    <a href="{{ model.archivo.url }}" class="btn btn-primary btn-sm" download="{{ model.archivo.name }}"><i class="fas fa-download"></i> Descargar</a>
-                                {% else %}
-                                    No hay archivo adjunto
-                                {% endif %}
-                            </td>
-                            -->
-                            <!-- Mostrar información de Cambio de Custodio -->
-                             <!--
-                            {% for cambio_custodio in model.cambiocustodio_set.all %}
-                                <td>{{ cambio_custodio.nuevo_custodio }}</td>
-                                <td>{{ cambio_custodio.cedula_nuevo_custodio }}</td>
-                                <td>{{ cambio_custodio.fecha_cambio }}</td>
-                            {% empty %}
-                                <td>No hay cambio de custodio</td>
-                                <td>No hay cambio de custodio</td>
-                                <td>No hay cambio de fecha</td>
-                            {% endfor %}-->
-                            <td>
-                                <a href="{% url 'model_detail' pk=model.pk %}" class="btn btn-info btn-sm btn-action"><i class="far fa-eye"></i> Ver</a>
-                                <!--{% if perms.myapp.change_mymodel %}
-                                <a href="{% url 'model_update' pk=model.pk %}" class="btn btn-warning btn-sm btn-action"><i class="far fa-edit"></i> Editar</a>
-                                {% endif %}
-                                {% if perms.myapp.delete_mymodel %}
-                                <a href="{% url 'model_delete' pk=model.pk %}" class="btn btn-danger btn-sm btn-action"><i class="far fa-trash-alt"></i> Eliminar</a>
-                                {% endif %}-->
-                            </td>
-                        </tr>
-                    {% endif %}
-                {% endfor %}
-            </tbody>
-            
+            </thead>      
         </table>
     </div>
     <!-- Bootstrap JS -->

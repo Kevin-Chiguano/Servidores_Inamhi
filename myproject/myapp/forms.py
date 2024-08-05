@@ -1,5 +1,4 @@
 from django import forms
-from .models import MyModel, CambioCustodio
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User, Group
 from django.contrib.auth.forms import AuthenticationForm
@@ -47,9 +46,8 @@ class CustomUserCreationForm(UserCreationForm):
 class MyModelForm(forms.ModelForm):
     class Meta:
         model = MyModel
-        fields = ['codigo_tic','codigo_bien', 'codigo_anterior', 'codigo_provisional', 'codigo_nuevo', 'nombre_bien', 
-                  'serie', 'modelo', 'marca', 'color', 'material', 'estado', 'ubicacion', 'cedula', 
-                  'custodio_actual', 'observacion', 'archivo']
+        fields = ['DireccionIp', 'Usuario', 'Contrasena', 'Servicio', 'Puerto', 'RutaImportante', 
+                  'UbicacionFisica', 'NumeroSerie']
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

@@ -1,7 +1,5 @@
-# views.py
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import MyModel, CambioCustodio
-from .forms import MyModelForm, CambioCustodioForm, CustomUserCreationForm
+from .models import MyModel
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required, permission_required
 from django.http import HttpResponse
@@ -13,19 +11,13 @@ from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 from io import BytesIO
 from django.utils import timezone
 from django.contrib import messages
-from django.contrib.auth.models import Permission
-from django.db import migrations
-from reportlab.lib.units import inch
 import pytz
-
 
 def home(request):
     return render(request, 'registration/login.html')
 
 def register(request):
-    data = {
-        'form': CustomUserCreationForm()
-    }
+    data = {'form': CustomUserCreationForm()}
     if request.method == 'POST':
         user_creation_form = CustomUserCreationForm(data=request.POST)
         if user_creation_form.is_valid():
@@ -35,116 +27,22 @@ def register(request):
                 login(request, user)
                 messages.success(request, '¡Usuario registrado correctamente!')
                 return redirect('register')
-
     return render(request, 'registration/register.html', data)
 
-
-#Permisos required
 @login_required
-@permission_required('myapp.can_view_mymodel', raise_exception=True)
+@permission_required('myapp.view_mymodel', raise_exception=True)
 def model_detail(request, pk):
     model = get_object_or_404(MyModel, pk=pk)
     return render(request, 'model_detail.html', {'model': model})
 
-@permission_required('myapp.can_view_mymodel', raise_exception=True)
+@login_required
+@permission_required('myapp.view_mymodel', raise_exception=True)
 def model_list(request):
     models = MyModel.objects.all()
     return render(request, 'model_list.html', {'models': models})
 
 @login_required
-@permission_required('myapp.can_view_mymodel', raise_exception=True)
-def model_create(request):
-    if request.method == 'POST':
-        form = MyModelForm(request.POST, request.FILES)
-        if form.is_valid():
-            instance = form.save(commit=False)
-            for field_name, field_value in instance._dict_.items():
-                if not field_value and field_name != 'id':
-                    setattr(instance, field_name, 'VACÍO')
-            instance.save()
-            return redirect('model_list')
-    else:
-        form = MyModelForm()
-    return render(request, 'model_form.html', {'form': form})
-
-@login_required
-@permission_required('myapp.can_view_mymodel', raise_exception=True)
-def model_update(request, pk):
-    model = get_object_or_404(MyModel, pk=pk)
-    if request.method == 'POST':
-        form = MyModelForm(request.POST, request.FILES, instance=model)
-        cambio_form = CambioCustodioForm(request.POST)
-        if form.is_valid() and cambio_form.is_valid():
-            model = form.save(commit=False)
-            if 'archivo' in request.FILES:
-                model.archivo = request.FILES['archivo']
-                model.save()
-
-            cambio = model.cambiocustodio_set.first()
-            if not cambio:
-                cambio = CambioCustodio(modelo_relacionado=model)
-            cambio.nuevo_custodio = cambio_form.cleaned_data['nuevo_custodio']
-            cambio.cedula_nuevo_custodio = cambio_form.cleaned_data['cedula_nuevo_custodio']
-            cambio.fecha_cambio = timezone.now()
-            cambio.save()
-
-            return redirect('model_list')
-    else:
-        form = MyModelForm(instance=model)
-        cambio_form = CambioCustodioForm()
-
-    return render(request, 'actualizar.html', {'form': form, 'cambio_custodio_form': cambio_form, 'model': model})
-
-@login_required
-@permission_required('myapp.can_view_mymodel', raise_exception=True)
-def model_confirm_actualizar(request, pk):
-    model = get_object_or_404(MyModel, pk=pk)
-    if request.method == 'POST':
-        form_data = request.session.get('form_data')
-        if form_data:
-            form = MyModelForm(form_data, instance=model)
-            if form.is_valid():
-                form.save()
-                return redirect('model_list')
-                
-    else:
-        form = MyModelForm(instance=model)
-    return render(request, 'model_confirm_actualizar.html', {'form': form, 'model': model})
-
-@login_required
-@permission_required('myapp.can_view_mymodel', raise_exception=True)
-def model_confirm_delete(request, pk):
-    model = get_object_or_404(MyModel, pk=pk)
-    return render(request, 'model_confirm_delete.html', {'model': model})
-
-@login_required
-@permission_required('myapp.can_view_mymodel', raise_exception=True)
-def model_delete(request, pk):
-    model = get_object_or_404(MyModel, pk=pk)
-    if request.method == 'POST':
-        model.estado_registro = False
-        model.save()
-        return redirect('model_list')
-    return redirect('model_confirm_delete', pk=pk)
-
-# @login_required llama al login antes de que entre a el siguiente metodo
-@login_required
-def dashboard(request):
-    return render(request, 'registration/dashboard.html')
-
-@login_required
-def salir(request):
-    logout(request)
-    return redirect('/')
-@login_required
-def model_detail(request, pk):
-    model = get_object_or_404(MyModel, pk=pk)
-    return render(request, 'model_detail.html', {'model': model})
-@login_required
-def model_list(request):
-    models = MyModel.objects.all()
-    return render(request, 'model_list.html', {'models': models})
-@login_required
+@permission_required('myapp.view_mymodel', raise_exception=True)
 def model_create(request):
     if request.method == 'POST':
         form = MyModelForm(request.POST, request.FILES)
@@ -186,68 +84,62 @@ def model_update(request, pk):
 
     return render(request, 'actualizar.html', {'form': form, 'cambio_custodio_form': cambio_form, 'model': model})
 
-
 @login_required
-def model_confirm_actualizar(request, pk):
-    model = get_object_or_404(MyModel, pk=pk)
-    if request.method == 'POST':
-        # Guardar los cambios en la confirmación
-        form_data = request.session.get('form_data')
-        if form_data:
-            form = MyModelForm(form_data, instance=model)
-            if form.is_valid():
-                form.save()
-                return redirect('model_list')
-                
-    else:
-        form = MyModelForm(instance=model)
-    return render(request, 'model_confirm_actualizar.html', {'form': form, 'model': model})
-
-
-
-@login_required
-def model_confirm_delete(request, pk):
-    model = get_object_or_404(MyModel, pk=pk)
-    return render(request, 'model_confirm_delete.html', {'model': model})
-
-@login_required
+@permission_required('myapp.can_view_mymodel', raise_exception=True)
 def model_delete(request, pk):
     model = get_object_or_404(MyModel, pk=pk)
     if request.method == 'POST':
-        # Cambiar el estado_registro a False y guardar el objeto
         model.estado_registro = False
         model.save()
         return redirect('model_list')
     return redirect('model_confirm_delete', pk=pk)
 
-#Exportacion de EXCEL
+
+@login_required
+@permission_required('myapp.view_mymodel', raise_exception=True)
+def model_confirm_actualizar(request, pk):
+    model = get_object_or_404(MyModel, pk=pk)
+    if request.method == 'POST':
+        form = MyModelForm(request.POST, instance=model)
+        if form.is_valid():
+            form.save()
+            return redirect('model_list')
+    else:
+        form = MyModelForm(instance=model)
+    return render(request, 'model_confirm_actualizar.html', {'form': form, 'model': model})
+
+@login_required
+@permission_required('myapp.view_mymodel', raise_exception=True)
+def model_confirm_delete(request, pk):
+    model = get_object_or_404(MyModel, pk=pk)
+    return render(request, 'model_confirm_delete.html', {'model': model})
+
+@login_required
+def dashboard(request):
+    return render(request, 'registration/dashboard.html')
+
+@login_required
+def salir(request):
+    logout(request)
+    return redirect('/')
+
+# Exportación a Excel
 def export_to_excel(request):
-   
-    queryset1 = MyModel.objects.filter(estado_registro=True)
-    queryset2 = CambioCustodio.objects.filter(modelo_relacionado__in=queryset1)
+    queryset = MyModel.objects.all()
 
     # Crear un libro de trabajo y una hoja de trabajo
     wb = Workbook()
     ws = wb.active
 
     # Escribir encabezados de columna
-    column_names = ['codigo_bien', 'codigo_anterior', 'codigo_provisional', 'codigo_nuevo',
-                    'nombre_bien', 'serie', 'modelo', 'marca', 'color', 'material', 'estado',
-                    'ubicacion', 'cedula', 'custodio_actual', 'observacion', 'nuevo_custodio', 'cedula_nuevo_custodio', 'fecha_cambio']
+    column_names = ['DireccionIp', 'Usuario', 'Contrasena', 'Servicio', 'Puerto', 'RutaImportante', 
+                    'UbicacionFisica', 'NumeroSerie']
     ws.append(column_names)
 
-    # Crear un diccionario para almacenar los datos de CambioCustodio
-    custodia_dict = {item.modelo_relacionado_id: item for item in queryset2}
-
-    # Escribir datos de MyModel y agregar datos de CambioCustodio si están disponibles
-    for item in queryset1:
-        row = [getattr(item, col) for col in column_names[:15]]  # Datos de MyModel
-        cambio = custodia_dict.get(item.id, None)
-        if cambio:
-            row.extend([cambio.nuevo_custodio, cambio.cedula_nuevo_custodio, cambio.fecha_cambio.strftime('%d-%m-%Y')])
-        else:
-            row.extend(['N/A', 'N/A', 'N/A'])
-        ws.append(row)
+    # Escribir datos de los objetos en el libro
+    for obj in queryset:
+        ws.append([obj.DireccionIp, obj.Usuario, obj.Contrasena, obj.Servicio, obj.Puerto, obj.RutaImportante, 
+                   obj.UbicacionFisica, obj.NumeroSerie])
 
     # Crear una respuesta de HTTP con el archivo adjunto
     response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
@@ -256,9 +148,7 @@ def export_to_excel(request):
     return response
 
 def export_to_pdf(request):
-    
-    queryset1 = MyModel.objects.filter(estado_registro=True)
-    queryset2 = CambioCustodio.objects.filter(modelo_relacionado__in=queryset1)
+    queryset = MyModel.objects.all()
 
     # Crear un archivo PDF
     pdf_buffer = BytesIO()
@@ -279,55 +169,25 @@ def export_to_pdf(request):
 
     # Crear datos para la tabla en el PDF
     data = []
-    column_names = ['codigo_tic','codigo_bien', 'codigo_anterior', 'codigo_provisional', 'codigo_nuevo',
-                    'nombre_bien', 'serie', 'cedula', 'custodio_actual',
-                    'nuevo_custodio', 'cedula_nuevo_custodio']
+    column_names = ['DireccionIp', 'Usuario', 'Contrasena', 'Servicio', 'Puerto', 'RutaImportante', 
+                    'UbicacionFisica', 'NumeroSerie']
     data.append(column_names)
 
-    # Obtener los valores de los campos para cada objeto en queryset1
-    for item in queryset1:
-        row = []
-        for col in column_names[:9]:  # Solo hasta 'archivo'
-            value = getattr(item, col, None)
-            if value is None:
-                if hasattr(item, col):
-                    related_obj = getattr(item, col)
-                    value = str(related_obj)
-                else:
-                    value = 'N/A'
-            elif isinstance(value, (str, int)):
-                value = str(value)
-            else:
-                value = 'N/A'
-            row.append(value)
-
-        # Añadir valores por defecto para las columnas de CambioCustodio
-        row.extend(['N/A', 'N/A', 'N/A'])
+    # Obtener los valores de los campos para cada objeto en queryset
+    for item in queryset:
+        row = [item.DireccionIp, item.Usuario, item.Contrasena, item.Servicio, item.Puerto, item.RutaImportante, 
+               item.UbicacionFisica, item.NumeroSerie]
         data.append(row)
-
-    # Actualizar las filas con datos de CambioCustodio
-    for item in queryset2:
-        for row in data:
-            if row[0] == item.modelo_relacionado.codigo_bien:
-                row[-3] = item.nuevo_custodio
-                row[-2] = item.cedula_nuevo_custodio
-                row[-1] = item.fecha_cambio.strftime('%d-%m-%Y')
-                break
-
 
     # Calcular el ancho de la tabla en función del tamaño de la página
     page_width, page_height = pdf.pagesize
-    available_width = page_width * 0.8 # Usar el 95% del ancho de la página
+    available_width = page_width * 0.8 # Usar el 80% del ancho de la página
     column_width = available_width / len(column_names)
 
     # Crear la tabla en el PDF
     table_data = []
     for row in data:
-        table_row = []
-        for item in row:
-            # Ajustar el contenido de las celdas si es demasiado largo
-            adjusted_item = item[:50] + '...' if len(item) > 50 else item
-            table_row.append(Paragraph(adjusted_item, styles['TableStyle']))
+        table_row = [Paragraph(item[:50] + '...' if len(item) > 50 else item, styles['TableStyle']) for item in row]
         table_data.append(table_row)
 
     table = Table(table_data, colWidths=[column_width] * len(column_names))
@@ -355,41 +215,3 @@ def export_to_pdf(request):
     pdf_response['Content-Disposition'] = 'attachment; filename=Reporte.pdf'
 
     return pdf_response
-
-
-def recover(request):
-    return render(request, 'recover.html')
-
-def model_update(request, pk):
-    model = get_object_or_404(MyModel, pk=pk)
-    if request.method == 'POST':
-        form = MyModelForm(request.POST, request.FILES, instance=model)
-        cambio_form = CambioCustodioForm(request.POST)
-        if form.is_valid() and cambio_form.is_valid():
-            model = form.save(commit=False)
-            
-            # Asignación y guardado del código TIC
-            model.codigo_tic = request.POST.get('codigo_tic', '')  # Asegúrate de obtener el valor del campo código TIC correctamente
-
-            # Ejemplo de asignación de archivo
-            if 'archivo' in request.FILES:
-                model.archivo = request.FILES['archivo']
-            
-            model.save()
-
-            # Verificar si ya existe un objeto CambioCustodio para este modelo
-            cambio = model.cambiocustodio_set.first()
-            if not cambio:
-                cambio = CambioCustodio(modelo_relacionado=model)
-            cambio.nuevo_custodio = cambio_form.cleaned_data['nuevo_custodio']
-            cambio.cedula_nuevo_custodio = cambio_form.cleaned_data['cedula_nuevo_custodio']
-            cambio.fecha_cambio = timezone.now()  # Asigna la fecha actual
-            cambio.save()
-
-            messages.success(request, '¡Modelo actualizado correctamente!')
-            return redirect('model_list')  # Redirige a donde quieras después de actualizar el modelo
-    else:
-        form = MyModelForm(instance=model)
-        cambio_form = CambioCustodioForm()
-
-    return render(request, 'actualizar.html', {'form': form, 'cambio_custodio_form': cambio_form, 'model': model})
