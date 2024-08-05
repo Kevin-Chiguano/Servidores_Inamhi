@@ -11,6 +11,7 @@ from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 from io import BytesIO
 from django.utils import timezone
 from django.contrib import messages
+from .forms import MyModelForm
 import pytz
 
 def home(request):
@@ -56,6 +57,8 @@ def model_create(request):
     else:
         form = MyModelForm()
     return render(request, 'model_form.html', {'form': form})
+
+
 @login_required
 def model_update(request, pk):
     model = get_object_or_404(MyModel, pk=pk)

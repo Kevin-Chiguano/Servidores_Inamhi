@@ -56,16 +56,29 @@ ew{% load static %}
                     <th scope="col">Ruta Importante</th>
                     <th scope="col">Ubicacion Fisica</th>
                     <th scope="col">Numero de serie/ Modelo o identificacion</th>
-                    <!-- 
-                    <th scope="col">Custodio Actual</th>
-                    <th scope="col">Archivo</th> <!- Columna para el archivo ->
-                    <th scope="col">Nuevo Custodio</th> <!- Nueva columna para el nuevo custodio ->
-                    <th scope="col">Cedula de Nuevo Custodio</th> <!- Nueva columna para el nuevo custodio ->
-                    <th scope="col">Fecha de Cambio</th> <!- Nueva columna para el nuevo custodio ->
-                    <th scope="col">Acciones</th>
-                    -->
+                    <th scope="col">Acciones</th>                    
                 </tr>
-            </thead>      
+            </thead> 
+            <tbody id="tableBody">
+                {% for item in models %}
+                <tr>
+                    <td>{{ item.DireccionIp }}</td>
+                    <td>{{ item.Usuario }}</td>
+                    <td>{{ item.Contrasena }}</td>
+                    <td>{{ item.Servicio }}</td>
+                    <td>{{ item.Puerto }}</td>
+                    <td>{{ item.RutaImportante }}</td>
+                    <td>{{ item.UbicacionFisica }}</td>
+                    <td>{{ item.NumeroSerie }}</td>
+                    
+                    
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="8">No se encontraron registros.</td>
+                </tr>
+                {% endfor %}
+            </tbody>     
         </table>
     </div>
     <!-- Bootstrap JS -->
