@@ -47,4 +47,4 @@ class CustomUserCreationForm(UserCreationForm):
 class MyModelForm(forms.ModelForm):
     class Meta:
         model = MyModel
-        fields = ['DireccionIp', 'Usuario', 'Contrasena', 'Servicio', 'Puerto', 'RutaImportante', 'UbicacionFisica', 'NumeroSerie']
+        fields = ['DireccionIpLocal', 'Usuario', 'Contrasena', 'Servicio', 'Puerto', 'RutaImportante', 'UbicacionFisica', 'NumeroSerie']

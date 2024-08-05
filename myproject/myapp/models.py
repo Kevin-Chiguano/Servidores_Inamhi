@@ -2,7 +2,14 @@ from django.db import models
 
 class MyModel(models.Model):
     # Campos del modelo MyModel
-    DireccionIp = models.CharField(max_length=200, verbose_name='DireccionIp', blank=True, null=True)
+    NombreServidor = models.CharField(max_length=100, verbose_name='nombreServidor',  blank=True, null=True)
+    Marca = models.CharField(max_length=100, verbose_name='Marca',  blank=True, null=True)
+    Modelo = models.CharField(max_length=100, verbose_name='Modelo',  blank=True, null=True)
+    SistemaOperativo = models.CharField(max_length=100, verbose_name='SistemaOperativo',  blank=True, null=True)
+    Entorno = models.CharField(max_length=100, verbose_name='Entorno',  blank=True, null=True)
+    Estado = models.BooleanField(max_length=100, verbose_name='Estado',  blank=True, null=True)
+    direccionIpPublica = models.CharField(max_length=100, verbose_name='DireccionIpPublica',  blank=True, null=True)
+    DireccionIpLocal = models.CharField(max_length=100, verbose_name='DireccionIp', blank=True, null=True)
     Usuario = models.CharField(max_length=100, verbose_name='Usuario', blank=True, null=True)
     Contrasena = models.CharField(max_length=50, verbose_name='Contrasena', blank=True, null=True)
     Servicio = models.CharField(max_length=100, verbose_name='Servicio', blank=True, null=True)
@@ -10,6 +17,8 @@ class MyModel(models.Model):
     RutaImportante = models.CharField(max_length=100, verbose_name='RutaImportante', blank=True, null=True)
     UbicacionFisica = models.CharField(max_length=250, verbose_name='UbicacionFisica', blank=True, null=True)
     NumeroSerie = models.CharField(max_length=50, verbose_name='Serie/Modelo', blank=True, null=True)
+    DescripcionProcesos = models.CharField(max_length=200, verbose_name='DescripcionProcesos',  blank=True, null=True)
+
 
 
     def __str__(self):

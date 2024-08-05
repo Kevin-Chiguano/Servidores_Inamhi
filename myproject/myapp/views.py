@@ -11,7 +11,7 @@ from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 from io import BytesIO
 from django.utils import timezone
 from django.contrib import messages
-from .forms import MyModelForm
+from .forms import MyModelForm, CustomUserCreationForm
 import pytz
 
 def home(request):
@@ -123,7 +123,7 @@ def export_to_excel(request):
     ws = wb.active
 
     # Escribir encabezados de columna
-    column_names = ['DireccionIp', 'Usuario', 'Contrasena', 'Servicio', 'Puerto', 'RutaImportante', 
+    column_names = ['DireccionIpLocal', 'Usuario', 'Contrasena', 'Servicio', 'Puerto', 'RutaImportante', 
                     'UbicacionFisica', 'NumeroSerie']
     ws.append(column_names)
 
@@ -160,7 +160,7 @@ def export_to_pdf(request):
 
     # Crear datos para la tabla en el PDF
     data = []
-    column_names = ['DireccionIp', 'Usuario', 'Contrasena', 'Servicio', 'Puerto', 'RutaImportante', 
+    column_names = ['DireccionIpLocal', 'Usuario', 'Contrasena', 'Servicio', 'Puerto', 'RutaImportante', 
                     'UbicacionFisica', 'NumeroSerie']
     data.append(column_names)
 
