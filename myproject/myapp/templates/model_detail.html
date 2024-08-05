@@ -17,7 +17,7 @@
 <body>
     <div class="container">
         <div class="card">
-            <h1 class="card-title">Detalle de Bien</h1>
+            <h1 class="card-title">Información</h1>
             {% if model %}
                 <p><strong>Direccion IP:</strong> {{ model.DireccionIp }}</p>
                 <p><strong>Usuario:</strong> {{ model.Usuario }}</p>
@@ -52,7 +52,7 @@
     <div class="container btn-container">
         <a href="{% url 'model_list' %}" class="btn btn-secondary btn-actions mr-2">Regresar</a>
         {% if perms.myapp.change_mymodel %}
-        <a href="{% url 'model_update' pk=model.pk %}" class="btn btn-warning btn-actions mr-2">Actualizar</a>
+        <a href="{% url 'model_update' pk=model.pk %}" class="btn btn-warning btn-actions mr-2">Editar</a>
         {% endif %}
         {% if perms.myapp.delete_mymodel %}
         <a href="{% url 'model_delete' pk=model.pk %}" class="btn btn-danger btn-actions">Eliminar</a>

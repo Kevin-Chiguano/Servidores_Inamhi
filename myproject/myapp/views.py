@@ -64,38 +64,16 @@ def model_update(request, pk):
     model = get_object_or_404(MyModel, pk=pk)
     if request.method == 'POST':
         form = MyModelForm(request.POST, request.FILES, instance=model)
-        cambio_form = CambioCustodioForm(request.POST)
-        if form.is_valid() and cambio_form.is_valid():
+        if form.is_valid():
             model = form.save(commit=False)
             if 'archivo' in request.FILES:
                 model.archivo = request.FILES['archivo']
-                model.save()
-
-            # Verificar si ya existe un objeto CambioCustodio para este modelo
-            cambio = model.cambiocustodio_set.first()
-            if not cambio:
-                cambio = CambioCustodio(modelo_relacionado=model)
-            cambio.nuevo_custodio = cambio_form.cleaned_data['nuevo_custodio']
-            cambio.cedula_nuevo_custodio = cambio_form.cleaned_data['cedula_nuevo_custodio']
-            cambio.fecha_cambio = timezone.now()  # Asigna la fecha actual
-            cambio.save()
-
+            model.save()
             return redirect('model_list')  # Redirigir a la lista de modelos después de la actualización
     else:
         form = MyModelForm(instance=model)
-        cambio_form = CambioCustodioForm()
 
-    return render(request, 'actualizar.html', {'form': form, 'cambio_custodio_form': cambio_form, 'model': model})
-
-@login_required
-@permission_required('myapp.can_view_mymodel', raise_exception=True)
-def model_delete(request, pk):
-    model = get_object_or_404(MyModel, pk=pk)
-    if request.method == 'POST':
-        model.estado_registro = False
-        model.save()
-        return redirect('model_list')
-    return redirect('model_confirm_delete', pk=pk)
+    return render(request, 'actualizar.html', {'form': form, 'model': model})
 
 
 @login_required
@@ -110,6 +88,16 @@ def model_confirm_actualizar(request, pk):
     else:
         form = MyModelForm(instance=model)
     return render(request, 'model_confirm_actualizar.html', {'form': form, 'model': model})
+
+@login_required
+@permission_required('myapp.can_view_mymodel', raise_exception=True)
+def model_delete(request, pk):
+    model = get_object_or_404(MyModel, pk=pk)
+    if request.method == 'POST':
+        model.estado_registro = False
+        model.save()
+        return redirect('model_list')
+    return redirect('model_confirm_delete', pk=pk)
 
 @login_required
 @permission_required('myapp.view_mymodel', raise_exception=True)

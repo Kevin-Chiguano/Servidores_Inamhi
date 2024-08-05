@@ -70,7 +70,9 @@ ew{% load static %}
                     <td>{{ item.RutaImportante }}</td>
                     <td>{{ item.UbicacionFisica }}</td>
                     <td>{{ item.NumeroSerie }}</td>
-                    
+                    <td>
+                        <a href="{% url 'model_detail' pk=item.pk %}" class="btn btn-info btn-sm btn-action"><i class="far fa-eye"></i> Ver</a>
+                    </td>               
                     
                 </tr>
                 {% empty %}

@@ -11,6 +11,7 @@ class MyModel(models.Model):
     UbicacionFisica = models.CharField(max_length=250, verbose_name='UbicacionFisica', blank=True, null=True)
     NumeroSerie = models.CharField(max_length=50, verbose_name='Serie/Modelo', blank=True, null=True)
 
+
     def __str__(self):
         return self.DireccionIp
     
