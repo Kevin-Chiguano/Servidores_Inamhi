@@ -19,14 +19,22 @@
         <div class="card">
             <h1 class="card-title">Información</h1>
             {% if model %}
-                <p><strong>Direccion IP:</strong> {{ model.DireccionIp }}</p>
+                <p><strong>NombreServidor</strong> {{ model.NombreServidor }}</p>
+                <p><strong>Marca:</strong> {{ model.Marca }}</p>
+                <p><strong>Modelo:</strong> {{ model.Modelo }}</p>
+                <p><strong>SistemaOperativo:</strong> {{ model.SistemaOperativo }}</p>
+                <p><strong>Entorno:</strong> {{ model.Entorno }}</p>
+                <p><strong>Estado:</strong> {{ model.Estado }}</p>
+                <p><strong>direccionIpPublica:</strong> {{ model.direccionIpPublica }}</p>
+                <p><strong>DireccionIpLocal:</strong> {{ model.DireccionIpLocal }}</p>
                 <p><strong>Usuario:</strong> {{ model.Usuario }}</p>
-                <p><strong>Contraseña:</strong> {{ model.Contrasena }}</p>
+                <p><strong>Contrasena:</strong> {{ model.Contrasena }}</p>
                 <p><strong>Servicio:</strong> {{ model.Servicio }}</p>
                 <p><strong>Puerto:</strong> {{ model.Puerto }}</p>
-                <p><strong>Ruta Importante:</strong> {{ model.RutaImportante }}</p>
-                <p><strong>Ubicacion Fisica:</strong> {{ model.UbicacionFisica }}</p>
-                <p><strong>Numero de serie/ Modelo o identificacion:</strong> {{ model.NumeroSerie }}</p>
+                <p><strong>RutaImportante:</strong> {{ model.RutaImportante }}</p>
+                <p><strong>UbicacionFisica:</strong> {{ model.UbicacionFisica }}</p>
+                <p><strong>NumeroSerie:</strong> {{ model.NumeroSerie }}</p>
+                <p><strong>DescripcionProcesos:</strong> {{ model.DescripcionProcesos }}</p>
                 
 
                 {% if model.archivo %}

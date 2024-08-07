@@ -129,8 +129,8 @@ def export_to_excel(request):
 
     # Escribir datos de los objetos en el libro
     for obj in queryset:
-        ws.append([obj.DireccionIp, obj.Usuario, obj.Contrasena, obj.Servicio, obj.Puerto, obj.RutaImportante, 
-                   obj.UbicacionFisica, obj.NumeroSerie])
+        ws.append([obj.NombreServidor, obj.Marca, obj.Modelo, obj.SistemaOperativo, obj.Entorno, obj.Estado, 
+                   obj.direccionIpPublica, obj.DireccionIpLocal, obj.Usuario, obj.Contrasena, obj.Servicio, obj.Puerto, obj.RutaImportante, obj.UbicacionFisica, obj.NumeroSerie, obj.DescripcionProcesos])
 
     # Crear una respuesta de HTTP con el archivo adjunto
     response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
