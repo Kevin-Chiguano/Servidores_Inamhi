@@ -1,4 +1,4 @@
-ew{% load static %}
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,23 +17,18 @@ ew{% load static %}
 </head>
 <body>
     <div class="container">
-        
+        <div class="d-flex justify-content-end"> <!-- Este div envuelve el botón y lo alinea a la derecha -->
+            <a href="{% url 'salir' %}" class="btn btn-danger btn-action" style="width: 15%; font-size: 10px;"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a>
+        </div>
         <div class="header-image">
             <img src="{% static 'img/icono-inamhi.png' %}" alt="">
-        </div>
-        <div>
-            <a href="{% url 'dashboard' %}" class="btn btn-primary btn-action"><i class="fas fa-arrow-left"></i> Regresar al Dashboard</a>
-
-        </div>
-        <div class="d-flex justify-content-end"> <!-- Este div envuelve el botón y lo alinea a la derecha -->
-            <a href="{% url 'salir' %}" class="btn btn-danger"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a>
         </div>
         <div class="header-titles">
             <h5> REPÚBLICA DEL ECUADOR </h5>
             <h5>INSTITUTO NACIONAL DE METEOROLOGIA E HIDROLOGIA -INAMHI BIENES POR CUSTODIO</h5>
             <h5> REGISTRO DE CONSTATACIÓN FÍSICA DE BIENES 2024 </h5>
         </div>
-        
+        <br>
         <div class="menu">
             <p data-target="#servidores">Servidores</p>
             <p data-target="#apis">Apis </p>
@@ -41,74 +36,81 @@ ew{% load static %}
             <p data-target="#nodos">Nodos</p>
             <p data-target="#formulario">Formulario</p>
         </div>
-        <div class="content">
-            <div data-content id="servidores" class="active" >
-                <div class="mb-4">
-                    {% if perms.myapp.change_mymodel %}
-                    <a href="{% url 'model_create' %}" class="btn btn-primary btn-action"><i class="fas fa-plus"></i> Añadir Producto</a>
-                    {% endif %}
-                    <a href="{% url 'export_to_excel' %}" class="btn btn-success btn-action"><i class="fas fa-file-excel"></i> Exportar a Excel</a>
-                    <a href="{% url 'export_to_pdf' %}" class="btn btn-warning btn-action"><i class="fas fa-file-pdf"></i> Exportar a PDF</a>
+        <div class="tab">
+            <div class="content">
+                <div data-content id="servidores" class="tab-content active" >
+                    
+                    <div class="mb-4">
+                        {% if perms.myapp.change_mymodel %}
+                        <a href="{% url 'model_create' %}" class="btn btn-primary btn-action"><i class="fas fa-plus"></i> Añadir Producto</a>
+                        {% endif %}
+                        <a href="{% url 'export_to_excel' %}" class="btn btn-success btn-action"><i class="fas fa-file-excel"></i> Exportar a Excel</a>
+                        <a href="{% url 'export_to_pdf' %}" class="btn btn-warning btn-action"><i class="fas fa-file-pdf"></i> Exportar a PDF</a>
+                    </div>
+            
+                    <!-- Barra de búsqueda -->
+                    <div class="mb-4">
+                        <input id="searchInput" type="text" class="form-control" placeholder="Buscar...">
+                    </div>
+                    <div class="table-container">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Direccion IP Local</th>
+                                    <th scope="col">Usuario</th>
+                                    <th scope="col">Contraseña</th>
+                                    <th scope="col">Servicio</th>
+                                    <th scope="col">Puerto</th>
+                                    <th scope="col">Ruta Importante</th>
+                                    <th scope="col">Ubicacion Fisica</th>
+                                    <th scope="col">Numero de serie/ Modelo o identificacion</th>
+                                    <th scope="col">Acciones</th>                    
+                                </tr>
+                            </thead> 
+                            <tbody id="tableBody">
+                                {% for item in models %}
+                                <tr>
+                                    <td>{{ item.DireccionIpLocal }}</td>
+                                    <td>{{ item.Usuario }}</td>
+                                    <td>{{ item.Contrasena }}</td>
+                                    <td>{{ item.Servicio }}</td>
+                                    <td>{{ item.Puerto }}</td>
+                                    <td>{{ item.RutaImportante }}</td>
+                                    <td>{{ item.UbicacionFisica }}</td>
+                                    <td>{{ item.NumeroSerie }}</td>
+                                    <td>
+                                        <a href="{% url 'model_detail' pk=item.pk %}" class="btn btn-info btn-sm btn-action"><i class="far fa-eye"></i> Ver</a>
+                                    </td>               
+                                    
+                                </tr>
+                                {% empty %}
+                                <tr>
+                                    <td colspan="8">No se encontraron registros.</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>     
+                        </table>
+                    </div>
                 </div>
-        
-                <!-- Barra de búsqueda -->
-                <div class="mb-4">
-                    <input id="searchInput" type="text" class="form-control" placeholder="Buscar...">
+                <div data-content id="apis" class="tab-content">
+                    <h1>Aqui se agrega el crud de Apis </h1>
                 </div>
-                <div class="table-container">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th scope="col">Direccion IP Local</th>
-                                <th scope="col">Usuario</th>
-                                <th scope="col">Contraseña</th>
-                                <th scope="col">Servicio</th>
-                                <th scope="col">Puerto</th>
-                                <th scope="col">Ruta Importante</th>
-                                <th scope="col">Ubicacion Fisica</th>
-                                <th scope="col">Numero de serie/ Modelo o identificacion</th>
-                                <th scope="col">Acciones</th>                    
-                            </tr>
-                        </thead> 
-                        <tbody id="tableBody">
-                            {% for item in models %}
-                            <tr>
-                                <td>{{ item.DireccionIpLocal }}</td>
-                                <td>{{ item.Usuario }}</td>
-                                <td>{{ item.Contrasena }}</td>
-                                <td>{{ item.Servicio }}</td>
-                                <td>{{ item.Puerto }}</td>
-                                <td>{{ item.RutaImportante }}</td>
-                                <td>{{ item.UbicacionFisica }}</td>
-                                <td>{{ item.NumeroSerie }}</td>
-                                <td>
-                                    <a href="{% url 'model_detail' pk=item.pk %}" class="btn btn-info btn-sm btn-action"><i class="far fa-eye"></i> Ver</a>
-                                </td>               
-                                
-                            </tr>
-                            {% empty %}
-                            <tr>
-                                <td colspan="8">No se encontraron registros.</td>
-                            </tr>
-                            {% endfor %}
-                        </tbody>     
-                    </table>
+                <div data-content id="subdominios" class="tab-content">
+                    <h1>aqui se agrega el crud de subdominio</h1>
                 </div>
-            </div>
-            <div data-content id="apis">
-                <h1>Aqui se agrega el crud de Apis </h1>
-            </div>
-            <div data-content id="subdominios">
-                <h1>aqui se agrega el crud de subdominio</h1>
-            </div>
-            <div data-content id="nodos">
-                <h1> aqui se agrega el crud de Nodos</h1>
-            </div>
-            <div data-content id="formulario">
-                <h1> aqui  se guarda el crud de Formulario</h1>
+                <div data-content id="nodos" class="tab-content">
+                    <h1> aqui se agrega el crud de Nodos</h1>
+                </div>
+                <div data-content id="formulario" class="tab-content">
+                    <h1> aqui  se guarda el crud de Formulario</h1>
+                </div>
             </div>
         </div>
+        <br>
+        <div>
+            <a href="{% url 'dashboard' %}" class="btn btn-primary btn-action" style="width: 20%; font-size: 10px;"><i class="fas fa-arrow-left"></i> Regresar al Dashboard</a>
 
+        </div>
 
     </div>
     <!-- Bootstrap JS -->

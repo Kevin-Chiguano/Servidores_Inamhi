@@ -1,14 +1,18 @@
-const targets = document.querySelectorAll('[data-target]')
-const content = document.querySelectorAll('[data-content]')
+document.querySelectorAll('.menu p').forEach(button =>{
+    button.addEventListener('click', () => {
 
-targets.forEach(target =>{
-    target.addEventListener('click',() =>{
+        document.querySelectorAll('.menu p').forEach(btn =>{
+            btn.classList.remove('active');
+            btn.classList.add('inactive');
+        });
 
-        content.forEach(c => {
-            c.classList.remove('active')
-        })
-        const t = document.querySelector(target.dataset.target)
+        document.querySelectorAll('.tab-content').forEach(pane => pane.classList.remove('active'));
 
-        t.classList.add('active')
-    })
+        button.classList.remove('inactive');
+        button.classList.add('active');
+
+        const targetId = button.getAttribute('data-target');
+        document.querySelector(targetId).classList.add('active');
+    }) 
 })
+
