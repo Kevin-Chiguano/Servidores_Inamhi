@@ -11,9 +11,6 @@ ew{% load static %}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <!-- Tu hoja de estilos personalizada -->
     <link rel="stylesheet" type="text/css" href="{% static 'styles/model_list.css' %}">
-
- 
-    
 </head>
 <body>
     <div class="container">
@@ -34,78 +31,57 @@ ew{% load static %}
             <h5> REGISTRO DE CONSTATACIÓN FÍSICA DE BIENES 2024 </h5>
         </div>
         
-        <div class="menu">
-            <p data-target="#servidores">Servidores</p>
-            <p data-target="#apis">Apis Y Subdominios</p>
-            <p data-target="#nodos">Nodos</p>
-            <p data-target="#formulario">Formulario</p>
-        </div>
-        <div class="content">
-            <div data-content id="servidores" class="active" >
-                <div class="mb-4">
-                    {% if perms.myapp.change_mymodel %}
-                    <a href="{% url 'model_create' %}" class="btn btn-primary btn-action"><i class="fas fa-plus"></i> Añadir Producto</a>
-                    {% endif %}
-                    <a href="{% url 'export_to_excel' %}" class="btn btn-success btn-action"><i class="fas fa-file-excel"></i> Exportar a Excel</a>
-                    <a href="{% url 'export_to_pdf' %}" class="btn btn-warning btn-action"><i class="fas fa-file-pdf"></i> Exportar a PDF</a>
-                </div>
-        
-                <!-- Barra de búsqueda -->
-                <div class="mb-4">
-                    <input id="searchInput" type="text" class="form-control" placeholder="Buscar...">
-                </div>
-                <div class="table-container">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th scope="col">Direccion IP Local</th>
-                                <th scope="col">Usuario</th>
-                                <th scope="col">Contraseña</th>
-                                <th scope="col">Servicio</th>
-                                <th scope="col">Puerto</th>
-                                <th scope="col">Ruta Importante</th>
-                                <th scope="col">Ubicacion Fisica</th>
-                                <th scope="col">Numero de serie/ Modelo o identificacion</th>
-                                <th scope="col">Acciones</th>                    
-                            </tr>
-                        </thead> 
-                        <tbody id="tableBody">
-                            {% for item in models %}
-                            <tr>
-                                <td>{{ item.DireccionIpLocal }}</td>
-                                <td>{{ item.Usuario }}</td>
-                                <td>{{ item.Contrasena }}</td>
-                                <td>{{ item.Servicio }}</td>
-                                <td>{{ item.Puerto }}</td>
-                                <td>{{ item.RutaImportante }}</td>
-                                <td>{{ item.UbicacionFisica }}</td>
-                                <td>{{ item.NumeroSerie }}</td>
-                                <td>
-                                    <a href="{% url 'model_detail' pk=item.pk %}" class="btn btn-info btn-sm btn-action"><i class="far fa-eye"></i> Ver</a>
-                                </td>               
-                                
-                            </tr>
-                            {% empty %}
-                            <tr>
-                                <td colspan="8">No se encontraron registros.</td>
-                            </tr>
-                            {% endfor %}
-                        </tbody>     
-                    </table>
-                </div>
-            </div>
-            <div data-content id="apis">
-                <h1>Apis y Subdominios</h1>
-            </div>
-            <div data-content id="nodos">
-                <h1>Nodos</h1>
-            </div>
-            <div data-content id="formulario">
-                <h1>Formulario</h1>
-            </div>
+        <div class="mb-4">
+            {% if perms.myapp.change_mymodel %}
+            <a href="{% url 'model_create' %}" class="btn btn-primary btn-action"><i class="fas fa-plus"></i> Añadir Producto</a>
+            {% endif %}
+            <a href="{% url 'export_to_excel' %}" class="btn btn-success btn-action"><i class="fas fa-file-excel"></i> Exportar a Excel</a>
+            <a href="{% url 'export_to_pdf' %}" class="btn btn-warning btn-action"><i class="fas fa-file-pdf"></i> Exportar a PDF</a>
         </div>
 
-
+        <!-- Barra de búsqueda -->
+        <div class="mb-4">
+            <input id="searchInput" type="text" class="form-control" placeholder="Buscar...">
+        </div>
+    </div>
+    <div class="table-container">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Direccion IP Local</th>
+                    <th scope="col">Usuario</th>
+                    <th scope="col">Contraseña</th>
+                    <th scope="col">Servicio</th>
+                    <th scope="col">Puerto</th>
+                    <th scope="col">Ruta Importante</th>
+                    <th scope="col">Ubicacion Fisica</th>
+                    <th scope="col">Numero de serie/ Modelo o identificacion</th>
+                    <th scope="col">Acciones</th>                    
+                </tr>
+            </thead> 
+            <tbody id="tableBody">
+                {% for item in models %}
+                <tr>
+                    <td>{{ item.DireccionIpLocal }}</td>
+                    <td>{{ item.Usuario }}</td>
+                    <td>{{ item.Contrasena }}</td>
+                    <td>{{ item.Servicio }}</td>
+                    <td>{{ item.Puerto }}</td>
+                    <td>{{ item.RutaImportante }}</td>
+                    <td>{{ item.UbicacionFisica }}</td>
+                    <td>{{ item.NumeroSerie }}</td>
+                    <td>
+                        <a href="{% url 'model_detail' pk=item.pk %}" class="btn btn-info btn-sm btn-action"><i class="far fa-eye"></i> Ver</a>
+                    </td>               
+                    
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="8">No se encontraron registros.</td>
+                </tr>
+                {% endfor %}
+            </tbody>     
+        </table>
     </div>
     <!-- Bootstrap JS -->
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
@@ -169,7 +145,5 @@ ew{% load static %}
             restoreScrollPosition();
         });
     </script>
-
-<script src="{% static 'logica/model_list_pestañas.js'%}"></script>
 </body>
 </html>
