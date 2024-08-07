@@ -5,6 +5,7 @@ from django.contrib.auth.forms import AuthenticationForm
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit
 from .models import Servidores
+from .models import Nodos
 
 class CustomAuthenticationForm(AuthenticationForm):
     error_messages = {
@@ -48,3 +49,8 @@ class MyModelForm(forms.ModelForm):
     class Meta:
         model = Servidores
         fields = ['DireccionIp', 'Usuario', 'Contrasena', 'Servicio', 'Puerto', 'RutaImportante', 'UbicacionFisica', 'NumeroSerie']
+
+class NodosForm(forms.ModelForm):
+    class Meta:
+        model = Nodos
+        fields = ['Host', 'Usuario', 'Ram', 'Disco', 'SistemaOperativo', 'Descripcion', 'Contrasena']

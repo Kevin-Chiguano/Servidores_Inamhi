@@ -1,0 +1,39 @@
+<!-- templates/nodos/nodos_list.html -->
+{% load static %}
+
+{% block content %}
+<h2>Nodos List</h2>
+<a href="{% url 'nodos_create' %}">Create New Nodo</a>
+<table>
+  <thead>
+    <tr>
+      <th>Host</th>
+      <th>Usuario</th>
+      <th>Ram</th>
+      <th>Disco</th>
+      <th>SistemaOperativo</th>
+      <th>Descripcion</th>
+      <th>Contrasena</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for nodo in nodos %}
+    <tr>
+      <td>{{ nodo.Host }}</td>
+      <td>{{ nodo.Usuario }}</td>
+      <td>{{ nodo.Ram }}</td>
+      <td>{{ nodo.Disco }}</td>
+      <td>{{ nodo.SistemaOperativo }}</td>
+      <td>{{ nodo.Descripcion }}</td>
+      <td>{{ nodo.Contrasena }}</td>
+      <td>
+        <a href="{% url 'nodos_detail' nodo.pk %}">View</a>
+        <a href="{% url 'nodos_update' nodo.pk %}">Edit</a>
+        <a href="{% url 'nodos_delete' nodo.pk %}">Delete</a>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}
