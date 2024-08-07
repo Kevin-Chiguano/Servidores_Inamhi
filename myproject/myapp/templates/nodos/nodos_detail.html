@@ -1,16 +1,46 @@
 <!-- templates/nodos/nodos_detail.html -->
 {% load static %}
 
-{% block content %}
-<h2>Node Details</h2>
-<p>Host: {{ nodo.Host }}</p>
-<p>Usuario: {{ nodo.Usuario }}</p>
-<p>Ram: {{ nodo.Ram }}</p>
-<p>Disco: {{ nodo.Disco }}</p>
-<p>Sistema Operativo: {{ nodo.SistemaOperativo }}</p>
-<p>Descripcion: {{ nodo.Descripcion }}</p>
-<p>Contrasena: {{ nodo.Contrasena }}</p>
-<a href="{% url 'nodos_update' nodo.pk %}">Edit</a>
-<a href="{% url 'nodos_delete' nodo.pk %}">Delete</a>
-<a href="{% url 'nodos_list' %}">Back to List</a>
-{% endblock %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalle Nodo</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{% static 'styles/model_detail.css' %}">
+    <style>
+        .btn-download {
+            margin-top: 10px;
+        }
+        .btn-actions {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-4">
+        <div class="card">
+            <div class="card-body">
+                <h1 class="card-title">Detalles del Nodo</h1>
+                <p><strong>Host:</strong> {{ nodo.Host }}</p>
+                <p><strong>Usuario:</strong> {{ nodo.Usuario }}</p>
+                <p><strong>Ram:</strong> {{ nodo.Ram }}</p>
+                <p><strong>Disco:</strong> {{ nodo.Disco }}</p>
+                <p><strong>Sistema Operativo:</strong> {{ nodo.SistemaOperativo }}</p>
+                <p><strong>Descripción:</strong> {{ nodo.Descripcion }}</p>
+                <p><strong>Contraseña:</strong> {{ nodo.Contrasena }}</p>
+                
+                <div class="mt-4">
+                    <a href="{% url 'nodos_update' nodo.pk %}" class="btn btn-warning btn-sm"><i class="fas fa-edit"></i> Editar</a>
+                    <a href="{% url 'nodos_delete' nodo.pk %}" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i> Eliminar</a>
+                    <button type="button" onclick="window.history.back()" class="btn btn-primary btn-sm"><i class="fas fa-undo"></i> Volver</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

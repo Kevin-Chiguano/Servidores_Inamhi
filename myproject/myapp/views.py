@@ -42,7 +42,11 @@ def model_detail(request, pk):
 @permission_required('myapp.view_mymodel', raise_exception=True)
 def model_list(request):
     models = Servidores.objects.all()
-    return render(request, 'model_list.html', {'models': models})
+    nodos = Nodos.objects.all()
+    return render(request, 'model_list.html', {
+        'models': models,
+        'nodos': nodos
+    })
 
 @login_required
 @permission_required('myapp.view_mymodel', raise_exception=True)
@@ -215,7 +219,7 @@ def export_to_pdf(request):
 @permission_required('myapp.view_nodos', raise_exception=True)
 def nodos_list(request):
     nodos = Nodos.objects.all()
-    return render(request, 'nodos/nodos_list.html', {'nodos': nodos})
+    return render(request, 'model_list.html', {'nodos': nodos})
 
 @login_required
 @permission_required('myapp.add_nodos', raise_exception=True)
@@ -224,7 +228,8 @@ def nodos_create(request):
         form = NodosForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('nodos_list')
+            messages.success(request, '¡Nodo creado correctamente!')
+            return redirect('model_list')
     else:
         form = NodosForm()
     return render(request, 'nodos/nodos_form.html', {'form': form})
@@ -237,7 +242,8 @@ def nodos_update(request, pk):
         form = NodosForm(request.POST, instance=nodo)
         if form.is_valid():
             form.save()
-            return redirect('nodos_list')
+            messages.success(request, '¡Nodo actualizado correctamente!')
+            return redirect('model_list')
     else:
         form = NodosForm(instance=nodo)
     return render(request, 'nodos/nodos_form.html', {'form': form, 'nodo': nodo})
@@ -248,7 +254,8 @@ def nodos_delete(request, pk):
     nodo = get_object_or_404(Nodos, pk=pk)
     if request.method == 'POST':
         nodo.delete()
-        return redirect('nodos_list')
+        messages.success(request, '¡Nodo eliminado correctamente!')
+        return redirect('model_list')
     return render(request, 'nodos/nodos_confirm_delete.html', {'nodo': nodo})
 
 @login_required
