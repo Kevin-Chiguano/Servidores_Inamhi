@@ -4,6 +4,8 @@ body {
     color: #fff;
     margin: 0;
     padding: 0;
+    padding:5%;
+    box-sizing: border-box;
 }
 
 .container {
@@ -93,4 +95,24 @@ h5 {
 
 .table tbody td {
     word-wrap: break-word; /* Rompe palabras largas para evitar superposiciones */
+}
+
+.menu {
+    display: flex;
+    margin-left: 4%;
+    gap: 5%;
+}
+.menu p {
+    margin: right 2rem;
+    cursor: pointer;
+    color: black;
+}
+.content {
+    margin-top: 2rem;
+}
+[data-content]{
+    display: none;
+}
+.active[data-content]{
+    display: block;
 }
