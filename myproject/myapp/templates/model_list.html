@@ -105,6 +105,54 @@
                     <h1> aqui  se guarda el crud de Formulario</h1>
                 </div>
             </div>
+            <div data-content id="apis">
+                <h1>Aqui se agrega el crud de Apis </h1>
+            </div>
+            <div data-content id="subdominios">
+                <h1>aqui se agrega el crud de subdominio</h1>
+            </div>
+            <div data-content id="nodos">
+                <div class="mb-4">
+                    <a href="{% url 'nodos_create' %}" class="btn btn-primary"><i class="fas fa-plus"></i> Crear Nuevo Nodo</a>
+                </div>
+                <div class="table-container">
+                    <table class="table table-striped table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Host</th>
+                                <th>Usuario</th>
+                                <th>Ram</th>
+                                <th>Disco</th>
+                                <th>Sistema Operativo</th>
+                                <th>Descripción</th>
+                                <th>Contraseña</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for nodo in nodos %}
+                            <tr>
+                                <td>{{ nodo.Host }}</td>
+                                <td>{{ nodo.Usuario }}</td>
+                                <td>{{ nodo.Ram }}</td>
+                                <td>{{ nodo.Disco }}</td>
+                                <td>{{ nodo.SistemaOperativo }}</td>
+                                <td>{{ nodo.Descripcion }}</td>
+                                <td>{{ nodo.Contrasena }}</td>
+                                <td>
+                                    <a href="{% url 'nodos_detail' nodo.pk %}" class="btn btn-info btn-sm"><i class="fas fa-eye"></i> Ver</a>
+                                    
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <div data-content id="formulario">
+                <h1> aqui  se guarda el crud de Formulario</h1>
+            </div>
         </div>
         <br>
         <div>
@@ -175,6 +223,7 @@
             restoreScrollPosition();
         });
     </script>
+    
 
 <script src="{% static 'logica/model_list_pestañas.js'%}"></script>
 </body>

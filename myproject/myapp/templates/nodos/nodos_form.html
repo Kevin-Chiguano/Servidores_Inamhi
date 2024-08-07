@@ -1,12 +1,80 @@
 <!-- templates/nodos/nodos_form.html -->
 {% load static %}
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% if nodo %}Actualizar{% else %}Crear{% endif %} Nodo</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'styles/style_create.css' %}">
+    <!-- Font Awesome CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+    <div class="header">
+        <div class="header-image">
+            <img src="{% static 'img/icono-inamhi.png' %}" alt="Icono INAMHI">
+        </div>
+        <div class="header-titles">
+            <h5>REPÚBLICA DEL ECUADOR</h5>
+            <h5>INSTITUTO NACIONAL DE METEOROLOGIA E HIDROLOGIA -INAMHI BIENES POR CUSTODIO</h5>
+            <h5>REGISTRO DE ESTADO DE NODOS</h5>
+        </div>
+    </div>
 
-{% block content %}
-<h2>{% if nodo %}Update{% else %}Create{% endif %} Nodo</h2>
-<form method="post">
-  {% csrf_token %}
-  {{ form.as_p }}
-  <button type="submit">Save</button>
-</form>
-{% endblock %}
+    <div class="container">
+        <h2>{% if nodo %}Actualizar{% else %}Crear{% endif %} Nodo</h2>
+        <form method="post">
+            {% csrf_token %}
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Descripción</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><label for="id_Host">Host</label></td>
+                            <td>{{ form.Host }}</td>
+                        </tr>
+                        <tr>
+                            <td><label for="id_Usuario">Usuario</label></td>
+                            <td>{{ form.Usuario }}</td>
+                        </tr>
+                        <tr>
+                            <td><label for="id_Ram">Ram</label></td>
+                            <td>{{ form.Ram }}</td>
+                        </tr>
+                        <tr>
+                            <td><label for="id_Disco">Disco</label></td>
+                            <td>{{ form.Disco }}</td>
+                        </tr>
+                        <tr>
+                            <td><label for="id_SistemaOperativo">Sistema Operativo</label></td>
+                            <td>{{ form.SistemaOperativo }}</td>
+                        </tr>
+                        <tr>
+                            <td><label for="id_Descripcion">Descripción</label></td>
+                            <td>{{ form.Descripcion }}</td>
+                        </tr>
+                        <tr>
+                            <td><label for="id_Contrasena">Contraseña</label></td>
+                            <td>{{ form.Contrasena }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="button-container">
+                <button type="submit" class="btn btn-save"><i class="fas fa-save"></i> Guardar</button>
+                <button type="button" onclick="window.history.back()" class="btn btn-primary"><i class="fas fa-undo"></i> Volver</button>
+            </div>
+        </form>
+    </div>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
