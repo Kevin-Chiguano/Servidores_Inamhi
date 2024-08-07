@@ -1,0 +1,7 @@
+.menu {
+    display: flex;
+}
+.menu p {
+    margin: right 2rem;
+    cursor: pointer;
+}
