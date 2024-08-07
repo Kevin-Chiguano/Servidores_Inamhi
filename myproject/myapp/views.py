@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import MyModel
+from .models import Servidores
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required, permission_required
 from django.http import HttpResponse
@@ -33,13 +33,13 @@ def register(request):
 @login_required
 @permission_required('myapp.view_mymodel', raise_exception=True)
 def model_detail(request, pk):
-    model = get_object_or_404(MyModel, pk=pk)
+    model = get_object_or_404(Servidores, pk=pk)
     return render(request, 'model_detail.html', {'model': model})
 
 @login_required
 @permission_required('myapp.view_mymodel', raise_exception=True)
 def model_list(request):
-    models = MyModel.objects.all()
+    models = Servidores.objects.all()
     return render(request, 'model_list.html', {'models': models})
 
 @login_required
@@ -61,7 +61,7 @@ def model_create(request):
 
 @login_required
 def model_update(request, pk):
-    model = get_object_or_404(MyModel, pk=pk)
+    model = get_object_or_404(Servidores, pk=pk)
     if request.method == 'POST':
         form = MyModelForm(request.POST, request.FILES, instance=model)
         if form.is_valid():
@@ -79,7 +79,7 @@ def model_update(request, pk):
 @login_required
 @permission_required('myapp.view_mymodel', raise_exception=True)
 def model_confirm_actualizar(request, pk):
-    model = get_object_or_404(MyModel, pk=pk)
+    model = get_object_or_404(Servidores, pk=pk)
     if request.method == 'POST':
         form = MyModelForm(request.POST, instance=model)
         if form.is_valid():
@@ -92,7 +92,7 @@ def model_confirm_actualizar(request, pk):
 @login_required
 @permission_required('myapp.can_view_mymodel', raise_exception=True)
 def model_delete(request, pk):
-    model = get_object_or_404(MyModel, pk=pk)
+    model = get_object_or_404(Servidores, pk=pk)
     if request.method == 'POST':
         model.estado_registro = False
         model.save()
@@ -102,7 +102,7 @@ def model_delete(request, pk):
 @login_required
 @permission_required('myapp.view_mymodel', raise_exception=True)
 def model_confirm_delete(request, pk):
-    model = get_object_or_404(MyModel, pk=pk)
+    model = get_object_or_404(Servidores, pk=pk)
     return render(request, 'model_confirm_delete.html', {'model': model})
 
 @login_required
@@ -116,14 +116,14 @@ def salir(request):
 
 # Exportación a Excel
 def export_to_excel(request):
-    queryset = MyModel.objects.all()
+    queryset = Servidores.objects.all()
 
     # Crear un libro de trabajo y una hoja de trabajo
     wb = Workbook()
     ws = wb.active
 
     # Escribir encabezados de columna
-    column_names = ['DireccionIpLocal', 'Usuario', 'Contrasena', 'Servicio', 'Puerto', 'RutaImportante', 
+    column_names = ['DireccionIp', 'Usuario', 'Contrasena', 'Servicio', 'Puerto', 'RutaImportante', 
                     'UbicacionFisica', 'NumeroSerie']
     ws.append(column_names)
 
@@ -139,7 +139,7 @@ def export_to_excel(request):
     return response
 
 def export_to_pdf(request):
-    queryset = MyModel.objects.all()
+    queryset = Servidores.objects.all()
 
     # Crear un archivo PDF
     pdf_buffer = BytesIO()
@@ -160,7 +160,7 @@ def export_to_pdf(request):
 
     # Crear datos para la tabla en el PDF
     data = []
-    column_names = ['DireccionIpLocal', 'Usuario', 'Contrasena', 'Servicio', 'Puerto', 'RutaImportante', 
+    column_names = ['DireccionIp', 'Usuario', 'Contrasena', 'Servicio', 'Puerto', 'RutaImportante', 
                     'UbicacionFisica', 'NumeroSerie']
     data.append(column_names)
 

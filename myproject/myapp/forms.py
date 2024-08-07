@@ -4,7 +4,7 @@ from django.contrib.auth.models import User, Group
 from django.contrib.auth.forms import AuthenticationForm
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit
-from .models import MyModel
+from .models import Servidores
 
 class CustomAuthenticationForm(AuthenticationForm):
     error_messages = {
@@ -46,5 +46,5 @@ class CustomUserCreationForm(UserCreationForm):
 
 class MyModelForm(forms.ModelForm):
     class Meta:
-        model = MyModel
-        fields = ['DireccionIpLocal', 'Usuario', 'Contrasena', 'Servicio', 'Puerto', 'RutaImportante', 'UbicacionFisica', 'NumeroSerie']
+        model = Servidores
+        fields = ['DireccionIp', 'Usuario', 'Contrasena', 'Servicio', 'Puerto', 'RutaImportante', 'UbicacionFisica', 'NumeroSerie']
