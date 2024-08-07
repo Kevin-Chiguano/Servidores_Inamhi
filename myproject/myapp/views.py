@@ -11,6 +11,8 @@ from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 from io import BytesIO
 from django.utils import timezone
 from django.contrib import messages
+from .models import Nodos
+from .forms import NodosForm
 from .forms import MyModelForm, CustomUserCreationForm
 import pytz
 
@@ -206,3 +208,51 @@ def export_to_pdf(request):
     pdf_response['Content-Disposition'] = 'attachment; filename=Reporte.pdf'
 
     return pdf_response
+
+
+#Nodo ------------------------------------------------------------------------
+@login_required
+@permission_required('myapp.view_nodos', raise_exception=True)
+def nodos_list(request):
+    nodos = Nodos.objects.all()
+    return render(request, 'nodos/nodos_list.html', {'nodos': nodos})
+
+@login_required
+@permission_required('myapp.add_nodos', raise_exception=True)
+def nodos_create(request):
+    if request.method == 'POST':
+        form = NodosForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('nodos_list')
+    else:
+        form = NodosForm()
+    return render(request, 'nodos/nodos_form.html', {'form': form})
+
+@login_required
+@permission_required('myapp.change_nodos', raise_exception=True)
+def nodos_update(request, pk):
+    nodo = get_object_or_404(Nodos, pk=pk)
+    if request.method == 'POST':
+        form = NodosForm(request.POST, instance=nodo)
+        if form.is_valid():
+            form.save()
+            return redirect('nodos_list')
+    else:
+        form = NodosForm(instance=nodo)
+    return render(request, 'nodos/nodos_form.html', {'form': form, 'nodo': nodo})
+
+@login_required
+@permission_required('myapp.delete_nodos', raise_exception=True)
+def nodos_delete(request, pk):
+    nodo = get_object_or_404(Nodos, pk=pk)
+    if request.method == 'POST':
+        nodo.delete()
+        return redirect('nodos_list')
+    return render(request, 'nodos/nodos_confirm_delete.html', {'nodo': nodo})
+
+@login_required
+@permission_required('myapp.view_nodos', raise_exception=True)
+def nodos_detail(request, pk):
+    nodo = get_object_or_404(Nodos, pk=pk)
+    return render(request, 'nodos/nodos_detail.html', {'nodo': nodo})

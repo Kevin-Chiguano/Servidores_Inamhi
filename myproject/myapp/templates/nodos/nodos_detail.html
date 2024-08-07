@@ -1,0 +1,16 @@
+<!-- templates/nodos/nodos_detail.html -->
+{% load static %}
+
+{% block content %}
+<h2>Node Details</h2>
+<p>Host: {{ nodo.Host }}</p>
+<p>Usuario: {{ nodo.Usuario }}</p>
+<p>Ram: {{ nodo.Ram }}</p>
+<p>Disco: {{ nodo.Disco }}</p>
+<p>Sistema Operativo: {{ nodo.SistemaOperativo }}</p>
+<p>Descripcion: {{ nodo.Descripcion }}</p>
+<p>Contrasena: {{ nodo.Contrasena }}</p>
+<a href="{% url 'nodos_update' nodo.pk %}">Edit</a>
+<a href="{% url 'nodos_delete' nodo.pk %}">Delete</a>
+<a href="{% url 'nodos_list' %}">Back to List</a>
+{% endblock %}
