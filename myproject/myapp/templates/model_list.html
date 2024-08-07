@@ -48,7 +48,7 @@ ew{% load static %}
         <table class="table">
             <thead>
                 <tr>
-                    <th scope="col">Direccion IP</th>
+                    <th scope="col">Direccion IP Local</th>
                     <th scope="col">Usuario</th>
                     <th scope="col">Contraseña</th>
                     <th scope="col">Servicio</th>
@@ -62,7 +62,7 @@ ew{% load static %}
             <tbody id="tableBody">
                 {% for item in models %}
                 <tr>
-                    <td>{{ item.DireccionIp }}</td>
+                    <td>{{ item.DireccionIpLocal }}</td>
                     <td>{{ item.Usuario }}</td>
                     <td>{{ item.Contrasena }}</td>
                     <td>{{ item.Servicio }}</td>
