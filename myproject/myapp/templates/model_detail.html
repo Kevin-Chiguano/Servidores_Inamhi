@@ -46,7 +46,7 @@
                 <p>El objeto solicitado no existe o no se encontró.</p>
             {% endif %}
             <div class="container btn-container">
-                <a href="{% url 'model_list' %}" class="btn btn-secondary btn-actions mr-2">Volver</a>
+                <a href="{% url 'model_list' %}" onclick="window.history.back()" class="btn btn-secondary btn-actions mr-2">Volver</a>
                 {% if perms.myapp.change_mymodel %}
                 <a href="{% url 'model_update' pk=model.pk %}" class="btn btn-warning btn-actions mr-2">Editar</a>
                 {% endif %}

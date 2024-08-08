@@ -54,7 +54,7 @@
                         <input id="searchInput" type="text" class="form-control" placeholder="Buscar...">
                     </div>
                     <div class="table-container">
-                        <table class="table">
+                        <table class="table table-striped table-bordered">
                             <thead>
                                 <tr>
                                     <th scope="col">Direccion IP </th>
@@ -80,7 +80,7 @@
                                     <td>{{ item.UbicacionFisica }}</td>
                                     <td>{{ item.NumeroSerie }}</td>
                                     <td>
-                                        <a href="{% url 'model_detail' pk=item.pk %}" class="btn btn-info btn-sm btn-action"><i class="far fa-eye"></i> Ver</a>
+                                        <a href="{% url 'model_detail' pk=item.pk %}" class="btn btn-info btn-sm btn-action" ><i class="far fa-eye"></i> Ver</a>
                                     </td>               
                                     
                                 </tr>
@@ -107,7 +107,7 @@
                         <input id="searchInput" type="text" class="form-control" placeholder="Buscar...">
                     </div>
                     <div class="table-container">
-                        <table class="table">
+                        <table class="table table-striped table-bordered">
                             <thead>
                                 <tr>
                                     <th scope="col">Nombre Servicio HTTPS</th>
@@ -125,7 +125,7 @@
                                     <td>{{ item.Ip }}</td>
                                     <td>{{ item.puerto }}</td>
                                     <td>
-                                            <a href="{% url 'apis_detail' pk=item.pk %}" class="btn btn-info btn-sm "><i class="far fa-eye"></i> Ver</a>
+                                            <a href="{% url 'apis_detail' pk=item.pk %}" class="btn btn-info btn-sm btn-action"><i class="far fa-eye"></i> Ver</a>
                                     </td>
                                 </tr>
                                 {% empty %}
@@ -140,6 +140,7 @@
                 <div data-content id="subdominios" class="tab-content">
                     <h1>aqui se agrega el crud de subdominio</h1>
                 </div>
+
                 <div data-content id="nodos" class="tab-content">
                     <div class="mb-4">
                         <a href="{% url 'nodos_create' %}" class="btn btn-primary btn-action"><i class="fas fa-plus"></i> Crear Nuevo Nodo</a>
@@ -150,14 +151,14 @@
                         <table class="table table-striped table-bordered">
                             <thead>
                                 <tr>
-                                    <th>Host</th>
-                                    <th>Usuario</th>
-                                    <th>Ram</th>
-                                    <th>Disco</th>
-                                    <th>Sistema Operativo</th>
-                                    <th>Descripción</th>
-                                    <th>Contraseña</th>
-                                    <th>Acciones</th>
+                                    <th scope="col">Host</th>
+                                    <th scope="col">Usuario</th>
+                                    <th scope="col">Ram</th>
+                                    <th scope="col">Disco</th>
+                                    <th scope="col">Sistema Operativo</th>
+                                    <th scope="col">Descripción</th>
+                                    <th scope="col">Contraseña</th>
+                                    <th scope="col">Acciones</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -171,7 +172,7 @@
                                     <td>{{ nodo.Descripcion }}</td>
                                     <td>{{ nodo.Contrasena }}</td>
                                     <td>
-                                        <a href="{% url 'nodos_detail' nodo.pk %}" class="btn btn-info btn-sm"><i class="fas fa-eye"></i> Ver</a>
+                                        <a href="{% url 'nodos_detail' nodo.pk %}" class="btn btn-info btn-sm btn-action"><i class="fas fa-eye"></i> Ver</a>
                                     </td>
                                 </tr>
                                 {% endfor %}
@@ -256,5 +257,25 @@
     
 
 <script src="{% static 'logica/model_list_pestañas.js'%}"></script>
+<script>
+    // Manejo de pestañas
+    document.querySelectorAll('.menu p').forEach(tab => {
+        tab.addEventListener('click', function() {
+            const target = this.getAttribute('data-target');
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            document.querySelector(target).classList.add('active');
+
+            // Guardar el estado de la pestaña activa
+            saveActiveTab(target);
+        });
+    });
+
+    // Restaurar la pestaña activa al cargar la página
+    document.addEventListener('DOMContentLoaded', function() {
+        restoreActiveTab();
+    });
+</script>
 </body>
 </html>

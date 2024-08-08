@@ -29,7 +29,7 @@
                 <p>El objeto solicitado no existe o no se encontró.</p>
             {% endif %}
             <div class="container btn-container">
-                <a href="{% url 'apis' %}" class="btn btn-secondary btn-actions mr-2">Regresar</a>
+                <a onclick="window.history.back()" class="btn btn-secondary btn-actions mr-2">Volver</a>
                 {% if perms.myapp.change_mymodel %}
                 <a href="{% url 'apis_update' api.pk %}" class="btn btn-warning btn-actions mr-2">Editar</a>
                 {% endif %}

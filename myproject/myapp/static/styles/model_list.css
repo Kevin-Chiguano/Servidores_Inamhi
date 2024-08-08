@@ -65,7 +65,10 @@ h5 {
 .table tbody tr:hover {
     background-color: #d4edda;
 }
-
+.table-container .btn-info.btn-action{
+    font-size: 11px;
+    width: 65px;
+}
 .header-titles {
     text-align: center;
     color: black;
