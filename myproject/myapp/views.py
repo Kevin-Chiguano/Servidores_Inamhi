@@ -43,9 +43,11 @@ def model_detail(request, pk):
 def model_list(request):
     models = Servidores.objects.all()
     nodos = Nodos.objects.all()
+    apis = ApisYsubdominios.objects.all()
     return render(request, 'model_list.html', {
         'models': models,
-        'nodos': nodos
+        'nodos': nodos,
+        'apis': apis
     })
 
 @login_required
@@ -282,7 +284,7 @@ def apis_create(request):
         if form.is_valid():
             form.save()
             messages.success(request, '¡API creada correctamente!')
-            return redirect('apis')
+            return redirect('model_list')
     else:
         form = ApisYsubdominiosForm()
     return render(request, 'crear_apis.html', {'form': form})
@@ -296,7 +298,7 @@ def apis_update(request, pk):
         if form.is_valid():
             form.save()
             messages.success(request, '¡API actualizada correctamente!')
-            return redirect('apis')
+            return redirect('model_list')
     else:
         form = ApisYsubdominiosForm(instance=api)
     return render(request, 'apis_update.html', {'form': form, 'api': api})
@@ -308,7 +310,7 @@ def apis_delete(request, pk):
     if request.method == 'POST':
         api.delete()
         messages.success(request, '¡API eliminada correctamente!')
-        return redirect('apis')
+        return redirect('model_list')
     return render(request, 'apis_confirm_delete.html', {'api': api})
 
 @login_required
