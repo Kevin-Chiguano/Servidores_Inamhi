@@ -318,3 +318,39 @@ def apis_delete(request, pk):
 def apis_detail(request, pk):
     api = get_object_or_404(ApisYsubdominios, pk=pk)
     return render(request, 'apis_detail.html', {'api': api})
+
+
+import openpyxl
+from django.http import HttpResponse
+from .models import ApisYsubdominios
+
+def export_apisysubdominios_to_excel(request):
+    # Crear un libro de trabajo y una hoja de trabajo
+    workbook = openpyxl.Workbook()
+    worksheet = workbook.active
+    worksheet.title = 'Apis y Subdominios'
+
+    # Agregar encabezados de columna
+    headers = ['Nombre Servicio HTTPS', 'Descripción', 'IP', 'Puerto']
+    worksheet.append(headers)
+
+    # Obtener datos del modelo
+    apis = ApisYsubdominios.objects.all()
+
+    # Agregar datos a la hoja de trabajo
+    for api in apis:
+        row = [
+            api.NombreServicioHttps,
+            api.Descripcion,
+            api.Ip,
+            api.puerto
+        ]
+        worksheet.append(row)
+
+    # Crear la respuesta HTTP
+    response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+    response['Content-Disposition'] = 'attachment; filename="apis_y_subdominios.xlsx"'
+
+    # Guardar el archivo en la respuesta
+    workbook.save(response)
+    return response
