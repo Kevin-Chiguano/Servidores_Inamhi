@@ -11,10 +11,7 @@
 </head>
 <body>
     <div class="container mt-4">
-        <div class="header-image text-center mb-4">
-            <img src="{% static 'img/icono-inamhi.png' %}" alt="Logo INAMHI" class="img-fluid">
-        </div>
-        <h1 class="mb-4">Actualizar ApisYsubdominios</h1>
+        <h1 class="mb-4">Editar </h1>
         <form method="post" enctype="multipart/form-data">
             {% csrf_token %}
             <div class="card">
@@ -47,7 +44,7 @@
                     </table>
                     <div class="button-container mt-3">
                         <button type="submit" class="btn btn-primary">Guardar</button>
-                        <a href="{% url 'apis' %}" class="btn btn-secondary">Cancelar</a>
+                        <button type="button" onclick="window.history.back()" class="btn btn-primary">Cancelar</button>
                     </div>
                 </div>
             </div>

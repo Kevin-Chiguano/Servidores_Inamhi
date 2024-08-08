@@ -24,26 +24,27 @@
         <div class="card">
             <div class="card-body">
                 <h1 class="card-title">Detalles del Formulario</h1>
-                <p><strong>Nombre del Servidor:</strong> {{ formulario.NombreServidor }}</p>
-                <p><strong>Ubicacion:</strong> {{ formulario.Ubicacion }}</p>
-                <p><strong>Marca:</strong> {{ formulario.Marca }}</p>
-                <p><strong>Modelo:</strong> {{ formulario.Modelo }}</p>
-                <p><strong>Numero de Serie:</strong> {{ formulario.NumeroSerie }}</p>
-                <p><strong>Sistema Operativo:</strong> {{ formulario.SistemaOperativo }}</p>
-                <p><strong>Puerto Relevante:</strong> {{ formulario.PuertoRelevante }}</p>
-                <p><strong>Entorno:</strong> {{ formulario.Entorno }}</p>
-                <p><strong>Estado:</strong> {{ formulario.Estado }}</p>
-                <p><strong>Direccion Ip Local:</strong> {{ formulario.DireccionIpLocal }}</p>
-                <p><strong>Direccion Ip Publica:</strong> {{ formulario.DireccionIpPublica }}</p>
-                <p><strong>Usuario:</strong> {{ formulario.Usuario }}</p>
-                <p><strong>Clave:</strong> {{ formulario.Clave }}</p>
-                <p><strong>Descripcion de Procesos:</strong> {{ formulario.DescripcionProcesos }}</p>
+                -----------------------------------------------------------------------------
+                <p><strong>Nombre del Servidor:</strong> <span>{{ formulario.NombreServidor }}</span></p>
+                <p><strong>Ubicacion:</strong> <span>{{ formulario.Ubicacion }}</span></p>
+                <p><strong>Marca:</strong> <span>{{ formulario.Marca }}</span></p>
+                <p><strong>Modelo:</strong> <span>{{ formulario.Modelo }}</span></p>
+                <p><strong>Numero de Serie:</strong> <span>{{ formulario.NumeroSerie }}</span></p>
+                <p><strong>Sistema Operativo:</strong> <span>{{ formulario.SistemaOperativo }}</span></p>
+                <p><strong>Puerto Relevante:</strong> <span>{{ formulario.PuertoRelevante }}</span></p>
+                <p><strong>Entorno:</strong> <span>{{ formulario.Entorno }}</span></p>
+                <p><strong>Estado:</strong> <span>{{ formulario.Estado }}</span></p>
+                <p><strong>Direccion Ip Local:</strong> <span>{{ formulario.DireccionIpLocal }}</span></p>
+                <p><strong>Direccion Ip Publica:</strong> <span>{{ formulario.DireccionIpPublica }}</span></p>
+                <p><strong>Usuario:</strong> <span>{{ formulario.Usuario }}</span></p>
+                <p><strong>Clave:</strong> <span>{{ formulario.Clave }}</span></p>
+                <p><strong>Descripcion de Procesos:</strong> <span>{{ formulario.DescripcionProcesos }}</span></p>
 
 
-                <div class="mt-4">
-                    <a href="{% url 'formulario_update' formulario.pk %}" class="btn btn-warning btn-sm"><i class="fas fa-edit"></i> Editar</a>
-                    <a href="{% url 'formulario_delete' formulario.pk %}" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i> Eliminar</a>
-                    <button type="button" onclick="window.history.back()" class="btn btn-primary btn-sm"><i class="fas fa-undo"></i> Volver</button>
+                <div class="container btn-container">
+                    <a href="{% url 'formulario_update' formulario.pk %}" class="btn btn-warning btn-actions mr-2">Editar</a>
+                    <a href="{% url 'formulario_delete' formulario.pk %}" class="btn btn-danger btn-actions mr-2"> Eliminar</a>
+                    <button type="button" onclick="window.history.back()" class="btn btn-secondary btn-actions mr-2"></i> Volver</button>
                 </div>
             </div>
         </div>

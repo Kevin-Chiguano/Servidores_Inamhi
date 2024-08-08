@@ -18,6 +18,7 @@
     <div class="container">
         <div class="card">
             <h2 class="card-title">Información de API</h2>
+            ------------------------------------------------------------------------------------
             {% if api %}
                 <p><strong>Nombre del Servicio HTTPS:</strong> <span>{{ api.NombreServicioHttps }}</span> </p>
                 <p><strong>Descripción:</strong> <span>{{ api.Descripcion }}</span></p>
@@ -34,7 +35,7 @@
                 <a href="{% url 'apis_update' api.pk %}" class="btn btn-warning btn-actions mr-2">Editar</a>
                 {% endif %}
                 {% if perms.myapp.delete_mymodel %}
-                <a href="{% url 'apis_delete' api.pk %}" class="btn btn-danger btn-actions">Eliminar</a>
+                <a href="{% url 'apis_delete' api.pk %}" class="btn btn-danger btn-actions mr-2">Eliminar</a>
                 {% endif %}
             </div>
         </div>

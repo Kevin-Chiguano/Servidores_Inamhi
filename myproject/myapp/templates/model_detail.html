@@ -17,7 +17,8 @@
 <body>
     <div class="container">
         <div class="card">
-            <h2 class="card-title">INFORMACION </h2>
+            <h2 class="card-title">Informacion de Servidores </h2>
+            ------------------------------------------------------------------------------------
             {% if model %}
                 <p><strong>Usuario:</strong> <span> {{ model.Usuario }}</span></p> 
                 <p><strong>Contrasena:</strong><span>{{ model.Contrasena }}</span> </p>
@@ -51,7 +52,7 @@
                 <a href="{% url 'model_update' pk=model.pk %}" class="btn btn-warning btn-actions mr-2">Editar</a>
                 {% endif %}
                 {% if perms.myapp.delete_mymodel %}
-                <a href="{% url 'model_delete' pk=model.pk %}" class="btn btn-danger btn-actions">Eliminar</a>
+                <a href="{% url 'model_delete' pk=model.pk %}" class="btn btn-danger btn-actions mr-2">Eliminar</a>
                 {% endif %}
             </div>
         </div>

@@ -5,13 +5,25 @@
 <head>
     <title>Actualizar Modelo</title>
     <link rel="stylesheet" type="text/css" href="{% static 'style_actualizar.css' %}">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 <body>
+    <div class="header">
+        <div class="header-image">
+            <img src="{% static 'img/icono-inamhi.png' %}" alt="Icono INAMHI">
+        </div>
+        <div class="header-titles">
+            <h5>REPÚBLICA DEL ECUADOR</h5>
+            <h5>INSTITUTO NACIONAL DE METEOROLOGIA E HIDROLOGIA -INAMHI BIENES POR CUSTODIO</h5>
+            <h5>REGISTRO DE ESTADO DE NODOS</h5>
+        </div>
+    </div>
     <div class="container">
         <div class="header-image">
             <img src="../static/img/icono-inamhi.png" alt="">
         </div>
-        <h1>Actualización</h1>
+        <h1>Editar</h1>
         <form method="post" enctype="multipart/form-data">
             {% csrf_token %}
             <table>
@@ -26,10 +38,12 @@
                 </tbody>
             </table>
             <div class="button-container">
-                <button type="submit" class="btn btn-primary">Guardar</button>
-                <a href="{% url 'model_list' %}" class="btn btn-secondary">Cancelar</a>
+                <button type="submit" class="btn btn-save"><i class="fas fa-save"></i>Guardar</button>
+                <button type="button" onclick="window.history.back()" class="btn btn-primary">Cancelar</button>
             </div>
         </form>
     </div>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
 </body>
 </html>

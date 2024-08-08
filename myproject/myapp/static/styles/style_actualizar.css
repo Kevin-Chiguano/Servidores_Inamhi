@@ -15,7 +15,6 @@ body {
 }
 
 .container {
-    
     background-color: white;
     padding: 20px;
     box-shadow: 0 0 10px rgba(97, 11, 11, 0.1);
@@ -23,6 +22,7 @@ body {
     max-width: 70%; /* Tamaño del contendor ancho */
     margin: 20px ;
     overflow: hidden;
+    width: 50%;
 }
 
 table {
@@ -139,7 +139,7 @@ table textarea {
     max-width: 200px; /* Establece un ancho máximo opcional */
 }
 .container h1{
-    text-align: center;
+    text-align:left;
     text-transform: uppercase;
     font-size: 25px;
  
