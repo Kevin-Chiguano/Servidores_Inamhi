@@ -1,0 +1,107 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% if formulario %}Actualizar{% else %}Crear{% endif %} formulario</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'styles/style_create.css' %}">
+    <!-- Font Awesome CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+    <div class="header">
+        <div class="header-image">
+            <img src="{% static 'img/icono-inamhi.png' %}" alt="Icono INAMHI">
+        </div>
+        <div class="header-titles">
+            <h5>REPÚBLICA DEL ECUADOR</h5>
+            <h5>INSTITUTO NACIONAL DE METEOROLOGIA E HIDROLOGIA -INAMHI BIENES POR CUSTODIO</h5>
+            <h5>REGISTRO DE ESTADO DE FORMULARIOS</h5>
+        </div>
+    </div>
+
+    <div class="container">
+        <h2>{% if formulario %}Actualizar{% else %}Crear{% endif %} formulario</h2>
+        <form method="post">
+            {% csrf_token %}
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Descripción</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><label for="id_Host">NombreServidor</label></td>
+                            <td>{{ form.NombreServidor }}</td>
+                        </tr>
+                        <tr>
+                            <td><label for="id_Usuario">Ubicacion</label></td>
+                            <td>{{ form.Ubicacion }}</td>
+                        </tr>
+                        <tr>
+                            <td><label for="id_Ram">Marca</label></td>
+                            <td>{{ form.Marca }}</td>
+                        </tr>
+                        <tr>
+                            <td><label for="id_Disco">Modelo</label></td>
+                            <td>{{ form.Modelo }}</td>
+                        </tr>
+                        <tr>
+                            <td><label for="id_SistemaOperativo">NumeroSerie</label></td>
+                            <td>{{ form.NumeroSerie }}</td>
+                        </tr>
+                        <tr>
+                            <td><label for="id_Descripcion">SistemaOperativo</label></td>
+                            <td>{{ form.SistemaOperativo }}</td>
+                        </tr>
+                        <tr>
+                            <td><label for="id_Contrasena">PuertoRelevante</label></td>
+                            <td>{{ form.PuertoRelevante }}</td>
+                        </tr>
+                        <tr>
+                            <td><label for="id_Descripcion">Entorno</label></td>
+                            <td>{{ form.Entorno }}</td>
+                        </tr>
+                        <tr>
+                            <td><label for="id_Contrasena">Estado</label></td>
+                            <td>{{ form.Estado }}</td>
+                        </tr>
+                        <tr>
+                            <td><label for="id_Descripcion">DireccionIpLocal</label></td>
+                            <td>{{ form.DireccionIpLocal }}</td>
+                        </tr>
+                        <tr>
+                            <td><label for="id_Contrasena">DireccionIpPublica</label></td>
+                            <td>{{ form.DireccionIpPublica }}</td>
+                        </tr>
+                        <tr>
+                            <td><label for="id_Descripcion">Usuario</label></td>
+                            <td>{{ form.Usuario }}</td>
+                        </tr>
+                        <tr>
+                            <td><label for="id_Contrasena">Clave</label></td>
+                            <td>{{ form.Clave }}</td>
+                        </tr>
+                        <tr>
+                            <td><label for="id_Descripcion">DescripcionProcesos</label></td>
+                            <td>{{ form.DescripcionProcesos }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="button-container">
+                <button type="submit" class="btn btn-save"><i class="fas fa-save"></i> Guardar</button>
+                <button type="button" onclick="window.history.back()" class="btn btn-primary"><i class="fas fa-undo"></i> Volver</button>
+            </div>
+        </form>
+    </div>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

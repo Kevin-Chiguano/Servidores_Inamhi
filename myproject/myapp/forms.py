@@ -6,6 +6,8 @@ from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit
 from .models import Servidores,ApisYsubdominios
 from .models import Nodos
+from .models import Formulario
+
 
 class CustomAuthenticationForm(AuthenticationForm):
     error_messages = {
@@ -71,3 +73,8 @@ class ApisYsubdominiosForm(forms.ModelForm):
         self.helper = FormHelper()
         self.helper.form_method = 'post'
         self.helper.add_input(Submit('submit', 'Guardar'))
+
+class FormularioForm(forms.ModelForm):
+    class Meta:
+        model = Formulario
+        fields = ['NombreServidor', 'Ubicacion', 'Marca', 'Modelo', 'NumeroSerie', 'SistemaOperativo', 'PuertoRelevante', 'Entorno', 'Estado', 'DireccionIpLocal', 'DireccionIpPublica', 'Usuario', 'Clave', 'DescripcionProcesos']

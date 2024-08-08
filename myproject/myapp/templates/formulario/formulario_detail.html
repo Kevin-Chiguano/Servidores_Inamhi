@@ -1,0 +1,53 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalle del Formulario</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{% static 'styles/model_detail.css' %}">
+    <style>
+        .btn-download {
+            margin-top: 10px;
+        }
+        .btn-actions {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-4">    
+        <div class="card">
+            <div class="card-body">
+                <h1 class="card-title">Detalles del Formulario</h1>
+                <p><strong>Nombre del Servidor:</strong> {{ formulario.NombreServidor }}</p>
+                <p><strong>Ubicacion:</strong> {{ formulario.Ubicacion }}</p>
+                <p><strong>Marca:</strong> {{ formulario.Marca }}</p>
+                <p><strong>Modelo:</strong> {{ formulario.Modelo }}</p>
+                <p><strong>Numero de Serie:</strong> {{ formulario.NumeroSerie }}</p>
+                <p><strong>Sistema Operativo:</strong> {{ formulario.SistemaOperativo }}</p>
+                <p><strong>Puerto Relevante:</strong> {{ formulario.PuertoRelevante }}</p>
+                <p><strong>Entorno:</strong> {{ formulario.Entorno }}</p>
+                <p><strong>Estado:</strong> {{ formulario.Estado }}</p>
+                <p><strong>Direccion Ip Local:</strong> {{ formulario.DireccionIpLocal }}</p>
+                <p><strong>Direccion Ip Publica:</strong> {{ formulario.DireccionIpPublica }}</p>
+                <p><strong>Usuario:</strong> {{ formulario.Usuario }}</p>
+                <p><strong>Clave:</strong> {{ formulario.Clave }}</p>
+                <p><strong>Descripcion de Procesos:</strong> {{ formulario.DescripcionProcesos }}</p>
+
+
+                <div class="mt-4">
+                    <a href="{% url 'formulario_update' formulario.pk %}" class="btn btn-warning btn-sm"><i class="fas fa-edit"></i> Editar</a>
+                    <a href="{% url 'formulario_delete' formulario.pk %}" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i> Eliminar</a>
+                    <button type="button" onclick="window.history.back()" class="btn btn-primary btn-sm"><i class="fas fa-undo"></i> Volver</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
