@@ -267,6 +267,28 @@ def nodos_detail(request, pk):
     return render(request, 'nodos/nodos_detail.html', {'nodo': nodo})
 
 
+# Exportación a Excel NODOS
+def export_nodos_to_excel(request):
+    queryset = Nodos.objects.all()
+
+    # Crear un libro de trabajo y una hoja de trabajo
+    wb = Workbook()
+    ws = wb.active
+
+    # Escribir encabezados de columna
+    column_names = ['Host', 'Usuario', 'Ram', 'Disco', 'SistemaOperativo', 'Descripcion', 'Contrasena']
+    ws.append(column_names)
+
+    # Escribir datos de los objetos en el libro
+    for obj in queryset:
+        ws.append([obj.Host, obj.Usuario, obj.Ram, obj.Disco, obj.SistemaOperativo, obj.Descripcion, obj.Contrasena])
+
+    # Crear una respuesta de HTTP con el archivo adjunto
+    response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+    response['Content-Disposition'] = 'attachment; filename=Nodos_Report.xlsx'
+    wb.save(response)
+    return response
+
 # APIS -----------------------------------------------------------------------
 
 
