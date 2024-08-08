@@ -1,0 +1,44 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalle de API</title>
+    
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{% static 'styles/model_detail.css' %}">
+    <style>
+        .btn-download {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <h1 class="card-title">Información de API</h1>
+            {% if api %}
+                <p><strong>Nombre del Servicio HTTPS:</strong> {{ api.NombreServicioHttps }}</p>
+                <p><strong>Descripción:</strong> {{ api.Descripcion }}</p>
+                <p><strong>IP:</strong> {{ api.Ip }}</p>
+                <p><strong>Puerto:</strong> {{ api.puerto }}</p>
+
+                
+            {% else %}
+                <p>El objeto solicitado no existe o no se encontró.</p>
+            {% endif %}
+        </div>
+    </div>
+    <div class="container btn-container">
+        <a href="{% url 'apis' %}" class="btn btn-secondary btn-actions mr-2">Regresar</a>
+        {% if perms.myapp.change_mymodel %}
+        <a href="{% url 'apis_update' api.pk %}" class="btn btn-warning btn-actions mr-2">Editar</a>
+        {% endif %}
+        {% if perms.myapp.delete_mymodel %}
+        <a href="{% url 'apis_delete' api.pk %}" class="btn btn-danger btn-actions">Eliminar</a>
+        {% endif %}
+    </div>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

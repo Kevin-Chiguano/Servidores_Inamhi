@@ -1,0 +1,133 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Inventario</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Font Awesome CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <!-- Tu hoja de estilos personalizada -->
+    <link rel="stylesheet" type="text/css" href="{% static 'styles/model_list.css' %}">
+</head>
+<body>
+    <div class="container">
+        <div class="header-image">
+            <img src="{% static 'img/icono-inamhi.png' %}" alt="">
+        </div>
+        <div>
+            <a href="{% url 'dashboard' %}" class="btn btn-primary btn-action"><i class="fas fa-arrow-left"></i> Regresar al Dashboard</a>
+        </div>
+        <div class="d-flex justify-content-end">
+            <a href="{% url 'salir' %}" class="btn btn-danger"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a>
+        </div>
+        <div class="header-titles">
+            <h5> REPÚBLICA DEL ECUADOR </h5>
+            <h5>INSTITUTO NACIONAL DE METEOROLOGIA E HIDROLOGIA -INAMHI BIENES POR CUSTODIO</h5>
+            <h5> REGISTRO DE CONSTATACIÓN FÍSICA DE BIENES 2024 </h5>
+        </div>
+        <div class="mb-4">
+            {% if perms.myapp.change_mymodel %}
+            <a href="{% url 'crear_apis' %}" class="btn btn-primary btn-action"><i class="fas fa-plus"></i> Añadir registro de apis</a>
+            {% endif %}
+            <a href="{% url 'apis' %}" class="btn btn-primary btn-action"> apis</a>
+            <a href="{% url 'export_to_excel' %}" class="btn btn-success btn-action"><i class="fas fa-file-excel"></i> Exportar a Excel</a>
+            <a href="{% url 'export_to_pdf' %}" class="btn btn-warning btn-action"><i class="fas fa-file-pdf"></i> Exportar a PDF</a>
+        </div>
+        <div class="mb-4">
+            <input id="searchInput" type="text" class="form-control" placeholder="Buscar...">
+        </div>
+    </div>
+    <div class="table-container">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Nombre Servicio HTTPS</th>
+                    <th scope="col">Descripción</th>
+                    <th scope="col">IP</th>
+                    <th scope="col">Puerto</th>
+                    <th scope="col">Acciones</th>
+                </tr>
+            </thead>
+            <tbody id="tableBody">
+                {% for item in apis %}
+                <tr>
+                    <td>{{ item.NombreServicioHttps }}</td>
+                    <td>{{ item.Descripcion }}</td>
+                    <td>{{ item.Ip }}</td>
+                    <td>{{ item.puerto }}</td>
+                    <td>
+                        <td>
+                            <a href="{% url 'apis_detail' pk=item.pk %}" class="btn btn-info btn-sm btn-action"><i class="far fa-eye"></i> Ver</a>
+                        </td>
+                        
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="5">No se encontraron registros.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <!-- Bootstrap JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- Font Awesome JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
+    <!-- Script de búsqueda -->
+    <script>
+        document.getElementById('searchInput').addEventListener('keyup', function() {
+            let input = document.getElementById('searchInput').value.toLowerCase();
+            let rows = document.getElementById('tableBody').getElementsByTagName('tr');
+            
+            for (let i = 0; i < rows.length; i++) {
+                let row = rows[i];
+                let cells = row.getElementsByTagName('td');
+                let match = false;
+                
+                for (let j = 0; j < cells.length; j++) {
+                    if (cells[j].innerHTML.toLowerCase().includes(input)) {
+                        match = true;
+                        break;
+                    }
+                }
+                
+                if (match) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            }
+        });
+    </script>
+    <script>
+        function saveScrollPosition() {
+            sessionStorage.setItem('scrollPosition', window.scrollY);
+        }
+
+        function restoreScrollPosition() {
+            var scrollPosition = sessionStorage.getItem('scrollPosition');
+            if (scrollPosition !== null) {
+                window.scrollTo(0, parseInt(scrollPosition));
+                sessionStorage.removeItem('scrollPosition');
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            var detailLinks = document.querySelectorAll('.btn-info');
+            detailLinks.forEach(function(link) {
+                link.addEventListener('click', function() {
+                    saveScrollPosition();
+                });
+            });
+        });
+
+        window.addEventListener('load', function() {
+            restoreScrollPosition();
+        });
+    </script>
+</body>
+</html>

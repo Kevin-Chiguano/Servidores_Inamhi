@@ -11,9 +11,9 @@ from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 from io import BytesIO
 from django.utils import timezone
 from django.contrib import messages
-from .models import Nodos
+from .models import Nodos,ApisYsubdominios
 from .forms import NodosForm
-from .forms import MyModelForm, CustomUserCreationForm
+from .forms import MyModelForm, CustomUserCreationForm,ApisYsubdominiosForm
 import pytz
 
 def home(request):
@@ -43,9 +43,11 @@ def model_detail(request, pk):
 def model_list(request):
     models = Servidores.objects.all()
     nodos = Nodos.objects.all()
+    apis = ApisYsubdominios.objects.all()
     return render(request, 'model_list.html', {
         'models': models,
-        'nodos': nodos
+        'nodos': nodos,
+        'apis': apis
     })
 
 @login_required
@@ -263,3 +265,114 @@ def nodos_delete(request, pk):
 def nodos_detail(request, pk):
     nodo = get_object_or_404(Nodos, pk=pk)
     return render(request, 'nodos/nodos_detail.html', {'nodo': nodo})
+
+
+# Exportación a Excel NODOS
+def export_nodos_to_excel(request):
+    queryset = Nodos.objects.all()
+
+    # Crear un libro de trabajo y una hoja de trabajo
+    wb = Workbook()
+    ws = wb.active
+
+    # Escribir encabezados de columna
+    column_names = ['Host', 'Usuario', 'Ram', 'Disco', 'SistemaOperativo', 'Descripcion', 'Contrasena']
+    ws.append(column_names)
+
+    # Escribir datos de los objetos en el libro
+    for obj in queryset:
+        ws.append([obj.Host, obj.Usuario, obj.Ram, obj.Disco, obj.SistemaOperativo, obj.Descripcion, obj.Contrasena])
+
+    # Crear una respuesta de HTTP con el archivo adjunto
+    response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+    response['Content-Disposition'] = 'attachment; filename=Nodos_Report.xlsx'
+    wb.save(response)
+    return response
+
+# APIS -----------------------------------------------------------------------
+
+
+@login_required
+@permission_required('myapp.view_apisysubdominios', raise_exception=True)
+def apis_view(request):
+    apis = ApisYsubdominios.objects.all()
+    return render(request, 'model_list.html', {'apis': apis})
+
+@login_required
+@permission_required('myapp.add_apisysubdominios', raise_exception=True)
+def apis_create(request):
+    if request.method == 'POST':
+        form = ApisYsubdominiosForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, '¡API creada correctamente!')
+            return redirect('model_list')
+    else:
+        form = ApisYsubdominiosForm()
+    return render(request, 'crear_apis.html', {'form': form})
+
+@login_required
+@permission_required('myapp.change_apisysubdominios', raise_exception=True)
+def apis_update(request, pk):
+    api = get_object_or_404(ApisYsubdominios, pk=pk)
+    if request.method == 'POST':
+        form = ApisYsubdominiosForm(request.POST, instance=api)
+        if form.is_valid():
+            form.save()
+            messages.success(request, '¡API actualizada correctamente!')
+            return redirect('model_list')
+    else:
+        form = ApisYsubdominiosForm(instance=api)
+    return render(request, 'apis_update.html', {'form': form, 'api': api})
+
+@login_required
+@permission_required('myapp.delete_apisysubdominios', raise_exception=True)
+def apis_delete(request, pk):
+    api = get_object_or_404(ApisYsubdominios, pk=pk)
+    if request.method == 'POST':
+        api.delete()
+        messages.success(request, '¡API eliminada correctamente!')
+        return redirect('model_list')
+    return render(request, 'apis_confirm_delete.html', {'api': api})
+
+@login_required
+@permission_required('myapp.view_apisysubdominios', raise_exception=True)
+def apis_detail(request, pk):
+    api = get_object_or_404(ApisYsubdominios, pk=pk)
+    return render(request, 'apis_detail.html', {'api': api})
+
+
+import openpyxl
+from django.http import HttpResponse
+from .models import ApisYsubdominios
+
+def export_apisysubdominios_to_excel(request):
+    # Crear un libro de trabajo y una hoja de trabajo
+    workbook = openpyxl.Workbook()
+    worksheet = workbook.active
+    worksheet.title = 'Apis y Subdominios'
+
+    # Agregar encabezados de columna
+    headers = ['Nombre Servicio HTTPS', 'Descripción', 'IP', 'Puerto']
+    worksheet.append(headers)
+
+    # Obtener datos del modelo
+    apis = ApisYsubdominios.objects.all()
+
+    # Agregar datos a la hoja de trabajo
+    for api in apis:
+        row = [
+            api.NombreServicioHttps,
+            api.Descripcion,
+            api.Ip,
+            api.puerto
+        ]
+        worksheet.append(row)
+
+    # Crear la respuesta HTTP
+    response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+    response['Content-Disposition'] = 'attachment; filename="apis_y_subdominios.xlsx"'
+
+    # Guardar el archivo en la respuesta
+    workbook.save(response)
+    return response

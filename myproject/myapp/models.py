@@ -15,14 +15,14 @@ class Servidores(models.Model):
         return self.DireccionIp
     
 class ApisYsubdominios(models.Model):
-    NombreServicioHttps = models.CharField(max_length=150, verbose_name='NombreServicioHttps', blank=True, null=True)
-    Descripcion = models.CharField(max_length=250, verbose_name='Descripcion', blank=True, null=True)
-    Ip = models.CharField(max_length=100, verbose_name='Ip', blank=True, null=True)
-    puerto = models.CharField(max_length=50, verbose_name='puerto', blank=True, null=True)
-    NombreServicioHttps = models.CharField(max_length=100, verbose_name='NombreServicioHttps', blank=True, null=True)
+    NombreServicioHttps = models.CharField(max_length=150, verbose_name='Nombre Servicio HTTPS', blank=True, null=True)
+    Descripcion = models.CharField(max_length=250, verbose_name='Descripción', blank=True, null=True)
+    Ip = models.CharField(max_length=100, verbose_name='IP', blank=True, null=True)
+    puerto = models.CharField(max_length=50, verbose_name='Puerto', blank=True, null=True)
 
     def __str__(self):
         return self.NombreServicioHttps
+
     
 class Subdominios(models.Model):
     Nombre = models.CharField(max_length=100, verbose_name='Nombre', blank=True, null=True)

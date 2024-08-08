@@ -1,0 +1,62 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actualizar ApisYsubdominios</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'style_actualizar.css' %}">
+    <!-- Agregar Bootstrap CSS si lo necesitas -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-4">
+        <div class="header-image text-center mb-4">
+            <img src="{% static 'img/icono-inamhi.png' %}" alt="Logo INAMHI" class="img-fluid">
+        </div>
+        <h1 class="mb-4">Actualizar ApisYsubdominios</h1>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="card">
+                <div class="card-body">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Campo</th>
+                                <th>Descripción</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Nombre del Servicio HTTPS</td>
+                                <td>{{ form.NombreServicioHttps }}</td>
+                            </tr>
+                            <tr>
+                                <td>Descripción</td>
+                                <td>{{ form.Descripcion }}</td>
+                            </tr>
+                            <tr>
+                                <td>IP</td>
+                                <td>{{ form.Ip }}</td>
+                            </tr>
+                            <tr>
+                                <td>Puerto</td>
+                                <td>{{ form.puerto }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="button-container mt-3">
+                        <button type="submit" class="btn btn-primary">Guardar</button>
+                        <a href="{% url 'apis' %}" class="btn btn-secondary">Cancelar</a>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <!-- Agregar Bootstrap JS y dependencias si lo necesitas -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>

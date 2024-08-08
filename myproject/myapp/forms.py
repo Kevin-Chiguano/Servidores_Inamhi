@@ -4,7 +4,7 @@ from django.contrib.auth.models import User, Group
 from django.contrib.auth.forms import AuthenticationForm
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit
-from .models import Servidores
+from .models import Servidores,ApisYsubdominios
 from .models import Nodos
 
 class CustomAuthenticationForm(AuthenticationForm):
@@ -54,3 +54,20 @@ class NodosForm(forms.ModelForm):
     class Meta:
         model = Nodos
         fields = ['Host', 'Usuario', 'Ram', 'Disco', 'SistemaOperativo', 'Descripcion', 'Contrasena']
+
+class ApisYsubdominiosForm(forms.ModelForm):
+    class Meta:
+        model = ApisYsubdominios
+        fields = ['NombreServicioHttps', 'Descripcion', 'Ip', 'puerto']
+        widgets = {
+            'NombreServicioHttps': forms.TextInput(attrs={'class': 'form-control'}),
+            'Descripcion': forms.Textarea(attrs={'class': 'form-control'}),
+            'Ip': forms.TextInput(attrs={'class': 'form-control'}),
+            'puerto': forms.TextInput(attrs={'class': 'form-control'}),
+        }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_method = 'post'
+        self.helper.add_input(Submit('submit', 'Guardar'))

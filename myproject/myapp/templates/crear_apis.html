@@ -1,0 +1,55 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% if form.instance.pk %}Actualizar{% else %}Crear{% endif %}</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'styles/style_create.css' %}">
+    <!-- Font Awesome CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>   
+    <div class="header">
+        <div class="header-image">
+            <img src="{% static 'img/icono-inamhi.png' %}" alt="Icono INAMHI">
+        </div>
+        <div class="header-titles">
+            <h5>REPÚBLICA DEL ECUADOR</h5>
+            <h5>INSTITUTO NACIONAL DE METEOROLOGIA E HIDROLOGIA -INAMHI BIENES POR CUSTODIO</h5>
+            <h5>REGISTRO DE ESTADO DE SERVIDORES</h5>
+        </div>
+    </div>
+
+    <div class="container">            
+        <form method="post">
+            {% csrf_token %}
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Campo</th>
+                            <th>Valor</th>
+                        </tr>
+                    </thead>
+                    <tbody> 
+                        {% for field in form %}
+                        <tr>
+                            <td><label for="{{ field.id_for_label }}">{{ field.label }}</label></td>
+                            <td>{{ field }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <div class="button-container">
+                <button type="submit" class="btn btn-save"><i class="fas fa-plus"></i> Guardar</button>
+                <a href="{% url 'apis' %}" class="btn btn-actions"><i class="fas fa-undo"></i> Regresar</a>
+            </div>            
+        </form>
+    </div>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
