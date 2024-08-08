@@ -5,27 +5,29 @@ from .views import register, home
 from django.conf import settings
 from django.conf.urls.static import static
 
-# Importa las vistas de tickets
-
-
 urlpatterns = [
     path('', views.dashboard, name='dashboard'),
     path('accounts/login/', LoginView.as_view(), name='login'),
-    path('', home, name='home'),
+    path('home/', home, name='home'),  # Cambiado de '' a 'home/' para evitar conflicto
     path('register/', register, name='register'),
-    path('admin', views.login_required, name='login'),
+    path('admin/', views.login_required, name='login'),  # Asegúrate de que la vista `login_required` esté bien definida
     path('model_list/', views.model_list, name='model_list'),
     path('create/', views.model_create, name='model_create'),
-    path('<int:pk>/', views.model_detail, name='model_detail'),
-    path('<int:pk>/update/', views.model_update, name='model_update'),
-    path('<int:pk>/delete/', views.model_delete, name='model_delete'),
-    path('<int:pk>/delete/confirm/', views.model_confirm_delete, name='model_confirm_delete'),
-    path('<int:pk>/update/confirm/', views.model_confirm_actualizar, name='model_confirm_actualizar'),
+    path('model/<int:pk>/', views.model_detail, name='model_detail'),  # Prefijo 'model/' agregado
+    path('model/<int:pk>/update/', views.model_update, name='model_update'),
+    path('model/<int:pk>/delete/', views.model_delete, name='model_delete'),
+    path('model/<int:pk>/delete/confirm/', views.model_confirm_delete, name='model_confirm_delete'),
+    path('model/<int:pk>/update/confirm/', views.model_confirm_actualizar, name='model_confirm_actualizar'),
     path('export/', views.export_to_excel, name='export_to_excel'),
     path('exportpdf/', views.export_to_pdf, name='export_to_pdf'),
     path('nodos/create/', views.nodos_create, name='nodos_create'),
     path('nodos/<int:pk>/', views.nodos_detail, name='nodos_detail'),
     path('nodos/<int:pk>/update/', views.nodos_update, name='nodos_update'),
     path('nodos/<int:pk>/delete/', views.nodos_delete, name='nodos_delete'),
+    path('apis/', views.apis_view, name='apis'),
+    path('apis/create/', views.apis_create, name='crear_apis'),
+    path('apis/<int:pk>/', views.apis_detail, name='apis_detail'),  # Prefijo 'apis/' agregado
+    path('apis/<int:pk>/update/', views.apis_update, name='apis_update'),
+    path('apis/<int:pk>/delete/', views.apis_delete, name='apis_delete'),
     path('salir/', views.salir, name="salir")
-]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

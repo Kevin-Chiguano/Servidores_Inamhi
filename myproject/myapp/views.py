@@ -11,9 +11,9 @@ from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 from io import BytesIO
 from django.utils import timezone
 from django.contrib import messages
-from .models import Nodos
+from .models import Nodos,ApisYsubdominios
 from .forms import NodosForm
-from .forms import MyModelForm, CustomUserCreationForm
+from .forms import MyModelForm, CustomUserCreationForm,ApisYsubdominiosForm
 import pytz
 
 def home(request):
@@ -263,3 +263,56 @@ def nodos_delete(request, pk):
 def nodos_detail(request, pk):
     nodo = get_object_or_404(Nodos, pk=pk)
     return render(request, 'nodos/nodos_detail.html', {'nodo': nodo})
+
+
+# APIS -----------------------------------------------------------------------
+
+
+@login_required
+@permission_required('myapp.view_apisysubdominios', raise_exception=True)
+def apis_view(request):
+    apis = ApisYsubdominios.objects.all()
+    return render(request, 'model_list.html', {'apis': apis})
+
+@login_required
+@permission_required('myapp.add_apisysubdominios', raise_exception=True)
+def apis_create(request):
+    if request.method == 'POST':
+        form = ApisYsubdominiosForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, '¡API creada correctamente!')
+            return redirect('apis')
+    else:
+        form = ApisYsubdominiosForm()
+    return render(request, 'crear_apis.html', {'form': form})
+
+@login_required
+@permission_required('myapp.change_apisysubdominios', raise_exception=True)
+def apis_update(request, pk):
+    api = get_object_or_404(ApisYsubdominios, pk=pk)
+    if request.method == 'POST':
+        form = ApisYsubdominiosForm(request.POST, instance=api)
+        if form.is_valid():
+            form.save()
+            messages.success(request, '¡API actualizada correctamente!')
+            return redirect('apis')
+    else:
+        form = ApisYsubdominiosForm(instance=api)
+    return render(request, 'apis_update.html', {'form': form, 'api': api})
+
+@login_required
+@permission_required('myapp.delete_apisysubdominios', raise_exception=True)
+def apis_delete(request, pk):
+    api = get_object_or_404(ApisYsubdominios, pk=pk)
+    if request.method == 'POST':
+        api.delete()
+        messages.success(request, '¡API eliminada correctamente!')
+        return redirect('apis')
+    return render(request, 'apis_confirm_delete.html', {'api': api})
+
+@login_required
+@permission_required('myapp.view_apisysubdominios', raise_exception=True)
+def apis_detail(request, pk):
+    api = get_object_or_404(ApisYsubdominios, pk=pk)
+    return render(request, 'apis_detail.html', {'api': api})
