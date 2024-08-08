@@ -1,0 +1,43 @@
+{% load static %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirmar Eliminación</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" type="text/css" href="{% static 'styles/confirm_delete.css' %}">
+    <style>
+        .card {
+            margin-top: 50px;
+        }
+        .btn-group {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <div class="card-body text-center">
+                <h1 class="card-title"><i class="fas fa-exclamation-triangle mr-2"></i> Confirmar Eliminación</h1>
+                <p class="card-text">¿Está seguro de eliminar "{{ formulario.Host }}"?</p>
+                <form action="{% url 'formulario_delete' formulario.pk %}" method="post">
+                    {% csrf_token %}
+                    <div class="btn-group">
+                        <button type="submit" class="btn btn-danger"><i class="fas fa-trash-alt mr-2"></i> Eliminar</button>
+                        <button type="button" onclick="window.history.back()" class="btn btn-primary btn-sm"><i class="fas fa-undo"></i> Cancelar</button>
+                      </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- Bootstrap JS (optional) -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

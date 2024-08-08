@@ -13,6 +13,7 @@ from django.utils import timezone
 from django.contrib import messages
 from .models import Nodos,ApisYsubdominios
 from .forms import NodosForm
+from .forms import FormularioForm, Formulario
 from .forms import MyModelForm, CustomUserCreationForm,ApisYsubdominiosForm
 import pytz
 
@@ -44,10 +45,13 @@ def model_list(request):
     models = Servidores.objects.all()
     nodos = Nodos.objects.all()
     apis = ApisYsubdominios.objects.all()
+    formulario = Formulario.objects.all()
     return render(request, 'model_list.html', {
         'models': models,
         'nodos': nodos,
-        'apis': apis
+        'apis': apis,
+        'formulario': formulario
+
     })
 
 @login_required
@@ -375,4 +379,82 @@ def export_apisysubdominios_to_excel(request):
 
     # Guardar el archivo en la respuesta
     workbook.save(response)
+    return response
+
+
+#Formularios ------------------------------------------------------------------------
+@login_required
+@permission_required('myapp.view_formulario', raise_exception=True)
+def formulario_list(request):
+    formulario = formulario.objects.all()
+    return render(request, 'model_list.html', {'formulario': formulario})
+
+@login_required
+@permission_required('myapp.add_formulario', raise_exception=True)
+def formulario_create(request):
+    if request.method == 'POST':
+        form = FormularioForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, '¡Formulario creado correctamente!')
+            return redirect('model_list')
+    else:
+        form = FormularioForm()
+    return render(request, 'formulario/formulario_form.html', {'form': form})
+
+@login_required
+@permission_required('myapp.change_formulario', raise_exception=True)
+def formulario_update(request, pk):
+    formulario = get_object_or_404(Formulario, pk=pk)
+    if request.method == 'POST':
+        form = FormularioForm(request.POST, instance=formulario)
+        if form.is_valid():
+            form.save()
+            messages.success(request, '!Formulario actualizado correctamente!')
+            return redirect('model_list')
+    else:
+        form = FormularioForm(instance=formulario)
+    return render(request, 'formulario/formulario_form.html', {'form': form, 'formulario': formulario})
+
+@login_required
+@permission_required('myapp.delete_formulario', raise_exception=True)
+def formulario_delete(request, pk):
+    formulario = get_object_or_404(Formulario, pk=pk)
+    if request.method == 'POST':
+        formulario.delete()
+        messages.success(request, '¡Formulario eliminado correctamente!')
+        return redirect('model_list')
+    return render(request, 'formulario/formulario_confirm_delete.html', {'formulario': formulario})
+
+
+@login_required
+@permission_required('myapp.view_formulario', raise_exception=True)
+def formulario_detail(request, pk):
+    formulario = get_object_or_404(Formulario, pk=pk)
+    return render(request, 'formulario/formulario_detail.html', {'formulario': formulario})
+
+
+# Exportación a Excel
+def export_to_excel(request):
+    queryset = Formulario.objects.all()
+
+    # Crear un libro de trabajo y una hoja de trabajo
+    wb = Workbook()
+    ws = wb.active
+
+    # Escribir encabezados de columna
+    column_names = ['NombreServidor', 'Ubicacion', 'Marca', 'Modelo', 'NumeroSerie', 'SistemaOperativo', 
+                    'PuertoRelevante', 'Entorno','Estado','DireccionIpLocal','DireccionIpPublica','Usuario','Clave','DescripcionProcesos']
+    ws.append(column_names)
+
+    # Escribir datos de los objetos en el libro
+    for obj in queryset:
+        ws.append([obj.NombreServidor, obj.Ubicacion, obj.Marca, obj.Modelo, obj.NumeroSerie, obj.SistemaOperativo, 
+                   obj.PuertoRelevante, obj.Entorno, obj.Estado, obj.DireccionIpLocal, obj.DireccionIpPublica, obj.Usuario, obj.Clave, obj.DescripcionProcesos])
+
+    # Crear una respuesta de HTTP con el archivo adjunto
+    response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+    response['Content-Disposition'] = 'attachment; filename=Reporte.xlsx'
+    
+    wb.save(response)
     return response

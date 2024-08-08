@@ -1,0 +1,52 @@
+{% load static %}
+
+{% block content %}
+<h2>Formulario List</h2>
+<a href="{% url 'formulario_create' %}">Create New Formulario</a>
+<table>
+  <thead>
+    <tr>
+      <th>NombreServidor</th>
+      <th>Ubicacion</th>
+      <th>Marca</th>
+      <th>Modelo</th>
+      <th>NumeroSerie</th>
+      <th>SistemaOperativo</th>
+      <th>PuertoRelevante</th>
+      <th>Entorno</th>
+      <th>Estado</th>
+      <th>DireccionIpLocal</th>
+      <th>DireccionIpPublica</th>
+      <th>Usuario</th>
+      <th>Clave</th>
+      <th>DescripcionProcesos</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for item in formulario %}
+    <tr>
+      <td>{{ item.NombreServidor }}</td>
+      <td>{{ item.Ubicacion }}</td>
+      <td>{{ item.Marca }}</td>
+      <td>{{ item.Modelo }}</td>
+      <td>{{ item.NumeroSerie }}</td>
+      <td>{{ item.SistemaOperativo }}</td>
+      <td>{{ item.PuertoRelevante }}</td>
+      <td>{{ item.Entorno }}</td>
+      <td>{{ item.Estado }}</td>
+      <td>{{ item.DireccionIpLocal }}</td>
+      <td>{{ item.DireccionIpPublica }}</td>
+      <td>{{ item.Usuario }}</td>
+      <td>{{ item.Clave }}</td>
+      <td>{{ item.DescripcionProcesos }}</td>
+      <td>
+        <a href="{% url 'formulario_detail' formulario.pk %}">View</a>
+        <a href="{% url 'formulario_update' formulario.pk %}">Edit</a>
+        <a href="{% url 'formulario_delete' formulario.pk %}">Delete</a>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

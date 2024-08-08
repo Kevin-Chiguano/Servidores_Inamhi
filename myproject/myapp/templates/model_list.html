@@ -181,8 +181,62 @@
                     </div>
                 </div>
                 <div data-content id="formulario" class="tab-content">
-                    <h1> aqui  se guarda el crud de Formulario</h1>
+                    <div class="mb-4">
+                        <a href="{% url 'formulario_create' %}" class="btn btn-primary btn-action"><i class="fas fa-plus"></i> Crear Nuevo Formulario</a>
+                        <a href="{% url 'export_to_excel' %}" class="btn btn-success btn-action"><i class="fas fa-file-excel"></i> Exportar a Excel</a>
+                    </div>
+                    <div class="mb-4">
+                        <input id="searchInput" type="text" class="form-control" placeholder="Buscar...">
+                    </div>
+                    <div class="table-container">
+                        <table class="table table-striped table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>NombreServidor</th>
+                                    <th>Ubicacion</th>
+                                    <th>Marca</th>
+                                    <th>Modelo</th>
+                                    <th>NumeroSerie</th>
+                                    <th>SistemaOperativo</th>
+                                    <th>PuertoRelevante</th>
+                                    <th>Entorno</th>
+                                    <th>Estado</th>
+                                    <th>DireccionIpLocal</th>
+                                    <th>DireccionIpPublica</th>
+                                    <th>Usuario</th>
+                                    <th>Clave</th>
+                                    <th>DescripcionProcesos</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for item in formulario %}
+                                <tr>
+                                    <td>{{ item.NombreServidor }}</td>
+                                    <td>{{ item.Ubicacion }}</td>
+                                    <td>{{ item.Marca }}</td>
+                                    <td>{{ item.Modelo }}</td>
+                                    <td>{{ item.NumeroSerie }}</td>
+                                    <td>{{ item.SistemaOperativo }}</td>
+                                    <td>{{ item.PuertoRelevante }}</td>
+                                    <td>{{ item.Entorno }}</td>
+                                    <td>{{ item.Estado }}</td>
+                                    <td>{{ item.DireccionIpLocal }}</td>
+                                    <td>{{ item.DireccionIpPublica }}</td>
+                                    <td>{{ item.Usuario }}</td>
+                                    <td>{{ item.Clave }}</td>
+                                    <td>{{ item.DescripcionProcesos }}</td>
+                                    <td>
+                                        <a href="{% url 'formulario_detail' item.pk %}" class="btn btn-info btn-sm"><i class="fas fa-eye"></i> Ver</a>
+                                        
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
+
             </div>
         </div>
         <br>
