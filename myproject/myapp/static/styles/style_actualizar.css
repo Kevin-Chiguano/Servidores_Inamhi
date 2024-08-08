@@ -138,5 +138,11 @@ table textarea {
     height: auto; /* Mantén la proporción original de la imagen */
     max-width: 200px; /* Establece un ancho máximo opcional */
 }
+.container h1{
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 25px;
+ 
+}
 
 

@@ -48,6 +48,7 @@
                         <a href="{% url 'export_to_pdf' %}" class="btn btn-warning btn-action"><i class="fas fa-file-pdf"></i> Exportar a PDF</a>
                     </div>
             
+                    <div id="formContainer"></div>
                     <!-- Barra de búsqueda -->
                     <div class="mb-4">
                         <input id="searchInput" type="text" class="form-control" placeholder="Buscar...">
@@ -56,7 +57,7 @@
                         <table class="table">
                             <thead>
                                 <tr>
-                                    <th scope="col">Direccion IP Local</th>
+                                    <th scope="col">Direccion IP </th>
                                     <th scope="col">Usuario</th>
                                     <th scope="col">Contraseña</th>
                                     <th scope="col">Servicio</th>
@@ -70,7 +71,7 @@
                             <tbody id="tableBody">
                                 {% for item in models %}
                                 <tr>
-                                    <td>{{ item.DireccionIpLocal }}</td>
+                                    <td>{{ item.DireccionIp }}</td>
                                     <td>{{ item.Usuario }}</td>
                                     <td>{{ item.Contrasena }}</td>
                                     <td>{{ item.Servicio }}</td>

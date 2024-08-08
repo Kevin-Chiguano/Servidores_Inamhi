@@ -12,8 +12,7 @@ body {
     width: 100%;
     max-width: 600px;
     padding: 30px;
-    border-radius: 50px;
-    box-shadow: 0 0 100px rgba(0,0,0,0.1); /* Sombra */
+    border-radius: 10px;
     background-color: #fff; /* Color de fondo de la tarjeta */
 }
 .card-title {
@@ -21,17 +20,31 @@ body {
     margin-bottom: 20px;
     color: #333; /* Color del título */
 }
+.card p{
+    text-transform: uppercase;
+    margin:1%;
+}
+.card h4{
+    font-size: 25px;
+    text-align: center;
+}
+.card span{
+    text-transform: none;
+    padding-left: 10px;
+}
 .btn-actions {
-    margin-top: 10px;
     width: 100%;
     font-size: 18px;
     border-radius: 10px;
-    padding: 10px 0;
-    font-size: large;
+    padding: 5px ;
+    font-size: 15px;
     font-weight:bolder;
+    height: 30px;
+    box-shadow: 0px 20px 20px rgba(0, 0, 0, 0.2);
 }
 .btn-container {
-    margin-top: 20px;
+    margin-top: 10px;
     display: flex;
     justify-content: center;
+
 }

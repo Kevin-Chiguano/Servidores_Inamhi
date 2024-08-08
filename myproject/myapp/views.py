@@ -101,7 +101,7 @@ def model_delete(request, pk):
     model = get_object_or_404(Servidores, pk=pk)
     if request.method == 'POST':
         model.estado_registro = False
-        model.save()
+        model.delete()
         return redirect('model_list')
     return redirect('model_confirm_delete', pk=pk)
 

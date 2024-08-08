@@ -24,7 +24,7 @@
                 <div class="header-titles">
                     <h1 class="card-title"><i class="fas fa-exclamation-triangle mr-2"></i> Confirmar Eliminación</h1>
                 </div>
-                <p class="card-text">¿Está seguro de eliminar "{{ model.codigo_bien }}"?</p>
+                <p class="card-text">¿Está seguro de eliminar "{{ model.Usuario }}"?</p>
                 <form action="{% url 'model_delete' pk=model.pk %}" method="post">
                     {% csrf_token %}
                     <div class="btn-group">
