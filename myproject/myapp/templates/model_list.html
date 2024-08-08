@@ -38,7 +38,7 @@
         </div>
         <div class="tab">
             <div class="content">
-                <div data-content id="servidores" class="tab-content active" >
+                <div data-content id="servidores" class="tab-content active " >
                     
                     <div class="mb-4">
                         {% if perms.myapp.change_mymodel %}
@@ -125,10 +125,7 @@
                                     <td>{{ item.Ip }}</td>
                                     <td>{{ item.puerto }}</td>
                                     <td>
-                                        <td>
-                                            <a href="{% url 'apis_detail' pk=item.pk %}" class="btn btn-info btn-sm btn-action"><i class="far fa-eye"></i> Ver</a>
-                                        </td>
-                                        
+                                            <a href="{% url 'apis_detail' pk=item.pk %}" class="btn btn-info btn-sm "><i class="far fa-eye"></i> Ver</a>
                                     </td>
                                 </tr>
                                 {% empty %}
@@ -175,7 +172,6 @@
                                     <td>{{ nodo.Contrasena }}</td>
                                     <td>
                                         <a href="{% url 'nodos_detail' nodo.pk %}" class="btn btn-info btn-sm"><i class="fas fa-eye"></i> Ver</a>
-                                        
                                     </td>
                                 </tr>
                                 {% endfor %}

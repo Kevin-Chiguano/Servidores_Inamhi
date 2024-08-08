@@ -25,18 +25,18 @@
         <div class="card">
             <div class="card-body">
                 <h1 class="card-title">Detalles del Nodo</h1>
-                <p><strong>Host:</strong> {{ nodo.Host }}</p>
-                <p><strong>Usuario:</strong> {{ nodo.Usuario }}</p>
-                <p><strong>Ram:</strong> {{ nodo.Ram }}</p>
-                <p><strong>Disco:</strong> {{ nodo.Disco }}</p>
-                <p><strong>Sistema Operativo:</strong> {{ nodo.SistemaOperativo }}</p>
-                <p><strong>Descripción:</strong> {{ nodo.Descripcion }}</p>
-                <p><strong>Contraseña:</strong> {{ nodo.Contrasena }}</p>
+                <p><strong>Host:</strong> <span>{{ nodo.Host }}</span></p>
+                <p><strong>Usuario:</strong> <span>{{ nodo.Usuario }}</span></p>
+                <p><strong>Ram:</strong> <span>{{ nodo.Ram }}</span></p>
+                <p><strong>Disco:</strong> <span>{{ nodo.Disco }}</span></p>
+                <p><strong>Sistema Operativo:</strong> <span>{{ nodo.SistemaOperativo }}</span></p>
+                <p><strong>Descripción:</strong> <span>{{ nodo.Descripcion }}</span></p>
+                <p><strong>Contraseña:</strong> <span>{{ nodo.Contrasena }}</span></p>
                 
-                <div class="mt-4">
-                    <a href="{% url 'nodos_update' nodo.pk %}" class="btn btn-warning btn-sm"><i class="fas fa-edit"></i> Editar</a>
-                    <a href="{% url 'nodos_delete' nodo.pk %}" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i> Eliminar</a>
-                    <button type="button" onclick="window.history.back()" class="btn btn-primary btn-sm"><i class="fas fa-undo"></i> Volver</button>
+                <div class="container btn-container">
+                    <button type="button" onclick="window.history.back()" class="btn btn-secondary btn-actions mr-2"><i class="fas fa-undo"></i> Volver</button>
+                    <a href="{% url 'nodos_update' nodo.pk %}" class="btn btn-warning btn-actions mr-2"><i class="fas fa-edit"></i> Editar</a>
+                    <a href="{% url 'nodos_delete' nodo.pk %}" class="btn btn-danger btn-actions mr-2"><i class="fas fa-trash-alt"></i> Eliminar</a>
                 </div>
             </div>
         </div>
