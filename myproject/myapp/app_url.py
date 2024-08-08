@@ -19,6 +19,7 @@ urlpatterns = [
     path('model/<int:pk>/delete/confirm/', views.model_confirm_delete, name='model_confirm_delete'),
     path('model/<int:pk>/update/confirm/', views.model_confirm_actualizar, name='model_confirm_actualizar'),
     path('export/', views.export_to_excel, name='export_to_excel'),
+    path('nodos/export/', views.export_nodos_to_excel, name='export_nodos_to_excel'),  # Nueva ruta para exportar nodos a Excel
     path('exportpdf/', views.export_to_pdf, name='export_to_pdf'),
     path('nodos/create/', views.nodos_create, name='nodos_create'),
     path('nodos/<int:pk>/', views.nodos_detail, name='nodos_detail'),
