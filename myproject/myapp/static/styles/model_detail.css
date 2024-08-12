@@ -1,6 +1,7 @@
 body {
     padding-top: 20px;
-    background-color: #2d2d93; /* Color de fondo */
+    background-image: radial-gradient(circle 500px, #3f6a95, #3f6a95, #003686);
+   
 }
 .container {
     display: flex;
@@ -10,10 +11,11 @@ body {
 }
 .card {
     width: 100%;
-    max-width: 600px;
+    max-width: 700px;
     padding: 30px;
     border-radius: 10px;
-    background-color: #fff; /* Color de fondo de la tarjeta */
+    background-color: #fff; 
+    box-shadow: 0 0 40px rgba(0, 0, 0, 0.9);
 }
 .header-titles{
     text-align: center;

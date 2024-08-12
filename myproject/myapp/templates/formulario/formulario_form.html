@@ -17,12 +17,11 @@
         <div class="header-titles">
             <h5>REPÚBLICA DEL ECUADOR</h5>
             <h5>INSTITUTO NACIONAL DE METEOROLOGIA E HIDROLOGIA -INAMHI BIENES POR CUSTODIO</h5>
-            <h5>REGISTRO DE ESTADO DE FORMULARIOS</h5>
         </div>
     </div>
 
     <div class="container">
-        <h2>{% if formulario %}Actualizar{% else %}Ingresar{% endif %} Datos</h2>
+        <h2>{% if formulario %} Editar{% else %}Agregar{% endif %} Registro</h2>
         <form method="post">
             {% csrf_token %}
             <div class="table-responsive">

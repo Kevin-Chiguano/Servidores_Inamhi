@@ -15,7 +15,7 @@ body{
     background-attachment: fixed;
     width: 100%;
     height: 100%;
-    background-image: radial-gradient(circle 800px,#6437b7,#4d338a, #2b2a2c);
+    background-image: radial-gradient(circle 500px, #3f6a95, #3f6a95, #003686);
 }
 /* para que se centre el contenido del main */
 main{
@@ -47,7 +47,7 @@ main{
     justify-content: flex-end;
     
     /* poner color y opacidad con el 0.5 */
-    background-color: RGB(114,79,152);
+    background-color: #006bbd;
     border-radius: 15px;
 }
 .caja_trasera img{
@@ -96,7 +96,7 @@ main{
 /* boton para cuadno apse el cursor enciam del boton  */
 .caja_trasera button:hover{
     background: white;
-    color: #4C3DA8;
+    color: #0092ff;
 }
 /* formularios  */
 .contenedor__login-register{
@@ -128,7 +128,7 @@ main{
     font-size: 40px;
     text-align: center;
     margin-bottom: 20px ;
-    color: #4C3DA8;
+    color: #0092ff;
 }
 /* los input */
 .contenedor__login-register form input{
@@ -155,7 +155,7 @@ main{
     margin-top: 40px;
     border: none;
     font-size: 14px;
-    background: #4C3DA8;
+    background: #0092ff;
     color: white;
     /* para que sepan que se peude dar clic */
     cursor: pointer;

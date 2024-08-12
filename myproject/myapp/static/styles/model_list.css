@@ -1,6 +1,6 @@
 body {
     font-family: Arial, sans-serif;
-    background-image: radial-gradient(circle 800px, #6437b7, #4d338a, #2b2a2c);
+    background-image: radial-gradient(circle 500px, #3f6a95, #3f6a95, #003686);
     color: #fff;
     margin: 0;
     padding: 0;
@@ -12,7 +12,7 @@ body {
     padding: 20px;
     background-color: #d4cfcf;
     border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 20px rgba(0, 0, 0, 5);
 }
 
 h1 {

@@ -22,7 +22,7 @@
     </div>
 
     <div class="container">
-        <h2>{% if nodo %}Actualizar{% else %}Crear{% endif %} Nodo</h2>
+        <h2>{% if nodo %}Editar{% else %}Agregar{% endif %} Registro</h2>
         <form method="post">
             {% csrf_token %}
             <div class="table-responsive">

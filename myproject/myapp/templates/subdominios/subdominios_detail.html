@@ -21,20 +21,25 @@
     </style>
 </head>
 <body>
+    <div class="header-titles">
+        <h5>REPÚBLICA DEL ECUADOR</h5>
+        <h5>INSTITUTO NACIONAL DE METEOROLOGIA E HIDROLOGIA -INAMHI</h5>
+    </div>
     <div class="container mt-4">
         <div class="card">
             <div class="card-body">
-                <h1 class="card-title">Detalles del Subdominio</h1>
-                <p><strong>ID:</strong> {{ subdominio.Id }}</p>
-                <p><strong>Nombre:</strong> {{ subdominio.Nombre }}</p>
-                <p><strong>IP Pública:</strong> {{ subdominio.IpPublica }}</p>
-                <p><strong>IP Interna:</strong> {{ subdominio.IpInterna }}</p>
-                <p><strong>Host:</strong> {{ subdominio.Host }}</p>
+                <h2 class="card-title">Detalles del Subdominio</h2>
+                -----------------------------------------------------------------------------
+                <p><strong>ID:</strong> <span>{{ subdominio.Id }}</span></p>
+                <p><strong>Nombre:</strong> <span>{{ subdominio.Nombre }}</span></p>
+                <p><strong>IP Pública:</strong> <span>{{ subdominio.IpPublica }}</span></p>
+                <p><strong>IP Interna:</strong> <span>{{ subdominio.IpInterna }}</span></p>
+                <p><strong>Host:</strong> <span>{{ subdominio.Host }}</span></p>
                 
-                <div class="mt-4">
-                    <a href="{% url 'subdominios_update' subdominio.pk %}" class="btn btn-warning btn-sm"><i class="fas fa-edit"></i> Editar</a>
-                    <a href="{% url 'subdominios_delete' subdominio.pk %}" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i> Eliminar</a>
-                    <button type="button" onclick="window.history.back()" class="btn btn-primary btn-sm"><i class="fas fa-undo"></i> Volver</button>
+                <div class="container btn-container">
+                    <button type="button" onclick="window.history.back()" class="btn btn-secondary btn-actions mr-2"><i class="fas fa-undo"></i> Volver</button>
+                    <a href="{% url 'subdominios_update' subdominio.pk %}" class="btn btn-warning btn-actions mr-2"><i class="fas fa-edit"></i> Editar</a>
+                    <a href="{% url 'subdominios_delete' subdominio.pk %}" class="btn btn-danger btn-actions mr-2"><i class="fas fa-trash-alt"></i> Eliminar</a>
                 </div>
             </div>
         </div>

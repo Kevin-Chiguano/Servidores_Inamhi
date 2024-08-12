@@ -37,9 +37,10 @@
         <div class="tab">
             <div class="content">
                 <div data-content id="servidores" class="tab-content">
+                    <h1>Registro de Servidores</h1>
                     <div class="mb-4">
                         {% comment %} {% if perms.myapp.change_mymodel %} {% endcomment %}
-                        <a href="{% url 'model_create' %}" class="btn btn-primary btn-action"><i class="fas fa-plus"></i> Añadir Producto</a>
+                        <a href="{% url 'model_create' %}" class="btn btn-primary btn-action"><i class="fas fa-plus"></i> Añadir Servidor</a>
                         {% comment %} {% endif %} {% endcomment %}
                         <a href="{% url 'export_to_excel_servidores' %}" class="btn btn-success btn-action"><i class="fas fa-file-excel"></i> Exportar a Excel</a>
                     </div>
@@ -52,6 +53,7 @@
                         <table class="table table-striped table-bordered">
                             <thead>
                                 <tr>
+                                    <th scope="col">ID</th>
                                     <th scope="col">Direccion IP</th>
                                     <th scope="col">Usuario</th>
                                     <th scope="col">Contraseña</th>
@@ -63,9 +65,10 @@
                                     <th scope="col">Acciones</th>
                                 </tr>
                             </thead>
-                            <tbody id="tableBody">
+                            <tbody id="tableBodyServidores">
                                 {% for item in models %}
                                 <tr>
+                                    <td>{{ item.id }}</td>
                                     <td>{{ item.DireccionIp }}</td>
                                     <td>{{ item.Usuario }}</td>
                                     <td>{{ item.Contrasena }}</td>
@@ -91,7 +94,7 @@
                     <h1>Registro de Apis</h1>
                     <div class="mb-4">
                         {% if perms.myapp.change_mymodel %}
-                        <a href="{% url 'crear_apis' %}" class="btn btn-primary btn-action"><i class="fas fa-plus"></i> Añadir registro de apis</a>
+                        <a href="{% url 'crear_apis' %}" class="btn btn-primary btn-action"><i class="fas fa-plus"></i> Añadir Api</a>
                         {% endif %}
                         <a href="{% url 'export_apisysubdominios' %}" class="btn btn-success btn-action"><i class="fas fa-file-excel"></i> Exportar a Excel</a>
                     </div>
@@ -102,6 +105,7 @@
                         <table class="table table-striped table-bordered">
                             <thead>
                                 <tr>
+                                    <th scope="col">ID</th>
                                     <th scope="col">Nombre Servicio HTTPS</th>
                                     <th scope="col">Descripción</th>
                                     <th scope="col">IP</th>
@@ -109,9 +113,10 @@
                                     <th scope="col">Acciones</th>
                                 </tr>
                             </thead>
-                            <tbody id="tableBody">
+                            <tbody id="tableBodyApis">
                                 {% for item in apis %}
                                 <tr>
+                                    <td>{{ item.id }}</td>
                                     <td>{{ item.NombreServicioHttps }}</td>
                                     <td>{{ item.Descripcion }}</td>
                                     <td>{{ item.Ip }}</td>
@@ -130,6 +135,7 @@
                     </div>
                 </div>
                 <div data-content id="subdominios" class="tab-content">
+                    <h1>Registro de Subdominios</h1>
                     <div class="mb-4">
                         {% if perms.myapp.add_subdominios %}
                         <a href="{% url 'subdominios_create' %}" class="btn btn-primary btn-action"><i class="fas fa-plus"></i> Añadir Subdominio</a>
@@ -143,7 +149,7 @@
                         <table class="table table-striped table-bordered">
                             <thead>
                                 <tr>
-                                    <th scope="col">Id</th>
+                                    <th scope="col">ID</th>
                                     <th scope="col">Nombre</th>
                                     <th scope="col">IpPublica</th>
                                     <th scope="col">IpInterna</th>
@@ -175,13 +181,17 @@
                 <div data-content id="nodos" class="tab-content">
                     <h1>Registro de nodos</h1>
                     <div class="mb-4">
-                        <a href="{% url 'nodos_create' %}" class="btn btn-primary btn-action"><i class="fas fa-plus"></i> Crear Nuevo Nodo</a>
+                        <a href="{% url 'nodos_create' %}" class="btn btn-primary btn-action"><i class="fas fa-plus"></i> Añadir Nodo</a>
                         <a href="{% url 'export_nodos_to_excel' %}" class="btn btn-success btn-action"><i class="fas fa-file-excel"></i> Exportar a Excel</a>
+                    </div>
+                    <div class="mb-4">
+                        <input id="searchInput" type="text" class="form-control" placeholder="Buscar...">
                     </div>
                     <div class="table-container">
                         <table class="table table-striped table-bordered">
                             <thead>
                                 <tr>
+                                    <th scope="col">ID</th>
                                     <th scope="col">Host</th>
                                     <th scope="col">Usuario</th>
                                     <th scope="col">Ram</th>
@@ -192,9 +202,10 @@
                                     <th scope="col">Acciones</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody id="tableBodyNodos">
                                 {% for nodo in nodos %}
                                 <tr>
+                                    <td>{{ nodo.id }}</td>
                                     <td>{{ nodo.Host }}</td>
                                     <td>{{ nodo.Usuario }}</td>
                                     <td>{{ nodo.Ram }}</td>
@@ -214,7 +225,7 @@
                 <div data-content id="formulario" class="tab-content">
                     <h1>Formulario</h1>
                     <div class="mb-4">
-                        <a href="{% url 'formulario_create' %}" class="btn btn-primary btn-action"><i class="fas fa-plus"></i> Crear Nuevo Formulario</a>
+                        <a href="{% url 'formulario_create' %}" class="btn btn-primary btn-action"><i class="fas fa-plus"></i> Añadir Formulario</a>
                         <a href="{% url 'export_to_excel' %}" class="btn btn-success btn-action"><i class="fas fa-file-excel"></i> Exportar a Excel</a>
                     </div>
                     <div class="mb-4">
@@ -224,26 +235,28 @@
                         <table class="table table-striped table-bordered" style="width:125%;">
                             <thead>
                                 <tr>
-                                    <th>Nombre Servidor</th>
-                                    <th>Ubicacion</th>
-                                    <th>Marca</th>
-                                    <th>Modelo</th>
-                                    <th>Numero Serie</th>
-                                    <th>Sistema Operativo</th>
-                                    <th>Puerto Relevante</th>
-                                    <th>Entorno</th>
-                                    <th>Estado</th>
-                                    <th>Direccion IpLocal</th>
-                                    <th>Direccion IpPublica</th>
-                                    <th>Usuario</th>
-                                    <th>Clave</th>
-                                    <th>Descripcion Procesos</th>
-                                    <th>Acciones</th>
+                                    <th scope="col">ID</th>
+                                    <th scope="col">Nombre Servidor</th>
+                                    <th scope="col">Ubicacion</th>
+                                    <th scope="col">Marca</th>
+                                    <th scope="col">Modelo</th>
+                                    <th scope="col">Numero Serie</th>
+                                    <th scope="col">Sistema Operativo</th>
+                                    <th scope="col">Puerto Relevante</th>
+                                    <th scope="col">Entorno</th>
+                                    <th scope="col">Estado</th>
+                                    <th scope="col">Direccion IpLocal</th>
+                                    <th scope="col">Direccion IpPublica</th>
+                                    <th scope="col">Usuario</th>
+                                    <th scope="col">Clave</th>
+                                    <th scope="col">Descripcion Procesos</th>
+                                    <th scope="col">Acciones</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody id="tableBodyFormulario"> 
                                 {% for item in formulario %}
                                 <tr>
+                                    <td>{{ item.id }}</td>
                                     <td>{{ item.NombreServidor }}</td>
                                     <td>{{ item.Ubicacion }}</td>
                                     <td>{{ item.Marca }}</td>
@@ -278,30 +291,31 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
     <!-- Script de búsqueda -->
     <script>
-        document.getElementById('searchInput').addEventListener('keyup', function() {
-            let input = document.getElementById('searchInput').value.toLowerCase();
-            let rows = document.getElementById('tableBody').getElementsByTagName('tr');
-            
-            for (let i = 0; i < rows.length; i++) {
-                let row = rows[i];
-                let cells = row.getElementsByTagName('td');
-                let match = false;
-                
-                for (let j = 0; j < cells.length; j++) {
-                    if (cells[j].innerHTML.toLowerCase().includes(input)) {
-                        match = true;
-                        break;
+        document.addEventListener('DOMContentLoaded', function() {
+            function setupSearch(inputId, tableBodyId) {
+                document.getElementById(inputId).addEventListener('keyup', function() {
+                    let input = document.getElementById(inputId).value.toLowerCase();
+                    let rows = document.getElementById(tableBodyId).getElementsByTagName('tr');
+        
+                    for (let i = 0; i < rows.length; i++) {
+                        let row = rows[i];
+                        let cells = row.getElementsByTagName('td');
+                        let match = false;
+        
+                        for (let j = 0; j < cells.length; j++) {
+                            if (cells[j].innerHTML.toLowerCase().includes(input)) {
+                                match = true;
+                                break;
+                            }
+                        }
+        
+                        row.style.display = match ? '' : 'none';
                     }
-                }
-                
-                if (match) {
-                    row.style.display = '';
-                } else {
-                    row.style.display = 'none';
-                }
+                });
             }
         });
-    </script>
+        </script>
+        
     <script>
         // Función para almacenar la posición de desplazamiento en sessionStorage
         function saveScrollPosition() {

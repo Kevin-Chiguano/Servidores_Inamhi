@@ -448,7 +448,7 @@ def subdominios_detail(request, pk):
     return render(request, 'subdominios/subdominios_detail.html', {'subdominio': subdominio})
 
 # Exportación a Excel
-def export_to_excel(request):
+def export_to_excel_subdominios(request):
     queryset = Subdominios.objects.all()
 
     # Crear un libro de trabajo y una hoja de trabajo
@@ -465,6 +465,6 @@ def export_to_excel(request):
 
     # Crear una respuesta de HTTP con el archivo adjunto
     response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
-    response['Content-Disposition'] = 'attachment; filename=Reporte.xlsx'
+    response['Content-Disposition'] = 'attachment; filename=Subdominio_Report.xlsx'
     wb.save(response)
     return response
