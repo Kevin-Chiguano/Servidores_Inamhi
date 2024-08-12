@@ -25,6 +25,7 @@ class ApisYsubdominios(models.Model):
 
     
 class Subdominios(models.Model):
+    Id = models.CharField(max_length=100, verbose_name='Id', blank=True, null=True)
     Nombre = models.CharField(max_length=100, verbose_name='Nombre', blank=True, null=True)
     IpPublica = models.CharField(max_length=100, verbose_name='IpPublica', blank=True, null=True)
     IpInterna = models.CharField(max_length=100, verbose_name='IpInterna', blank=True, null=True)

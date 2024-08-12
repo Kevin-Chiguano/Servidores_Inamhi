@@ -1,0 +1,44 @@
+<!-- templates/subdominios/subdominio_detail.html -->
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalle Subdominio</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{% static 'styles/model_detail.css' %}">
+    <style>
+        .btn-download {
+            margin-top: 10px;
+        }
+        .btn-actions {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-4">
+        <div class="card">
+            <div class="card-body">
+                <h1 class="card-title">Detalles del Subdominio</h1>
+                <p><strong>ID:</strong> {{ subdominio.Id }}</p>
+                <p><strong>Nombre:</strong> {{ subdominio.Nombre }}</p>
+                <p><strong>IP Pública:</strong> {{ subdominio.IpPublica }}</p>
+                <p><strong>IP Interna:</strong> {{ subdominio.IpInterna }}</p>
+                <p><strong>Host:</strong> {{ subdominio.Host }}</p>
+                
+                <div class="mt-4">
+                    <a href="{% url 'subdominios_update' subdominio.pk %}" class="btn btn-warning btn-sm"><i class="fas fa-edit"></i> Editar</a>
+                    <a href="{% url 'subdominios_delete' subdominio.pk %}" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i> Eliminar</a>
+                    <button type="button" onclick="window.history.back()" class="btn btn-primary btn-sm"><i class="fas fa-undo"></i> Volver</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
