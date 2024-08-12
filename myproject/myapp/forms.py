@@ -7,6 +7,7 @@ from crispy_forms.layout import Submit
 from .models import Servidores,ApisYsubdominios
 from .models import Nodos
 from .models import Formulario
+from .models import Subdominios
 
 
 class CustomAuthenticationForm(AuthenticationForm):
@@ -78,3 +79,8 @@ class FormularioForm(forms.ModelForm):
     class Meta:
         model = Formulario
         fields = ['NombreServidor', 'Ubicacion', 'Marca', 'Modelo', 'NumeroSerie', 'SistemaOperativo', 'PuertoRelevante', 'Entorno', 'Estado', 'DireccionIpLocal', 'DireccionIpPublica', 'Usuario', 'Clave', 'DescripcionProcesos']
+
+class SubdominioForm(forms.ModelForm):
+    class Meta:
+        model = Subdominios
+        fields= ['Id', 'Nombre', 'IpPublica', 'IpInterna', 'Host']

@@ -1,0 +1,43 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subdominios List</title>
+    <link href="{% static 'styles/style.css' %}" rel="stylesheet">
+</head>
+<body>
+    <h2>Subdominios List</h2>
+    <a href="{% url 'subdominios_create' %}">Create New Subdominio</a>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>IpPublica</th>
+                <th>IpInterna</th>
+                <th>Host</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for subdominio in subdominios %}
+            <tr>
+                <td>{{ subdominio.Id }}</td>
+                <td>{{ subdominio.Nombre }}</td>
+                <td>{{ subdominio.IpPublica }}</td>
+                <td>{{ subdominio.IpInterna }}</td>
+                <td>{{ subdominio.Host }}</td>
+                <td>
+                    <a href="{% url 'subdominios_detail' subdominio.pk %}">View</a>
+                    <a href="{% url 'subdominios_update' subdominio.pk %}">Edit</a>
+                    <a href="{% url 'subdominios_delete' subdominio.pk %}">Delete</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

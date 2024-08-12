@@ -13,7 +13,7 @@ from django.utils import timezone
 from django.contrib import messages
 from .models import Nodos,ApisYsubdominios
 from .forms import NodosForm
-from .forms import FormularioForm, Formulario
+from .forms import FormularioForm, Formulario, SubdominioForm, Subdominios
 from .forms import MyModelForm, CustomUserCreationForm,ApisYsubdominiosForm
 import pytz
 
@@ -46,11 +46,15 @@ def model_list(request):
     nodos = Nodos.objects.all()
     apis = ApisYsubdominios.objects.all()
     formulario = Formulario.objects.all()
+    subdominios = Subdominios.objects.all()
+
     return render(request, 'model_list.html', {
         'models': models,
         'nodos': nodos,
         'apis': apis,
-        'formulario': formulario
+        'formulario': formulario,
+        'subdominios': subdominios
+
 
     })
 
@@ -456,5 +460,82 @@ def export_to_excel(request):
     response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
     response['Content-Disposition'] = 'attachment; filename=Reporte.xlsx'
     
+    wb.save(response)
+    return response
+
+#Subdominio ----------------------------------------------------------------------------
+# Lista de Subdominios
+@login_required
+@permission_required('myapp.view_subdominios', raise_exception=True)
+def subdominios_list(request):
+    subdominios = Subdominios.objects.all()
+    return render(request, 'model_list.html', {'subdominios': subdominios})
+
+# Crear Subdominio
+@login_required
+@permission_required('myapp.add_subdominios', raise_exception=True)
+def subdominios_create(request):
+    if request.method == 'POST':
+        form = SubdominioForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, '¡Subdominio creado correctamente!')
+            return redirect('model_list')  # Redirige a la página con la lista de subdominios
+    else:
+        form = SubdominioForm()
+    return render(request, 'subdominios/subdominios_form.html', {'form': form})
+
+# Actualizar Subdominio
+@login_required
+@permission_required('myapp.change_subdominios', raise_exception=True)
+def subdominios_update(request, pk):
+    subdominio = get_object_or_404(Subdominios, pk=pk)
+    if request.method == 'POST':
+        form = SubdominioForm(request.POST, instance=subdominio)
+        if form.is_valid():
+            form.save()
+            messages.success(request, '¡Subdominio actualizado correctamente!')
+            return redirect('model_list')  # Redirige a la página con la lista de subdominios
+    else:
+        form = SubdominioForm(instance=subdominio)
+    return render(request, 'subdominios/subdominios_form.html', {'form': form, 'subdominio': subdominio})
+
+# Eliminar Subdominio
+@login_required
+@permission_required('myapp.delete_subdominios', raise_exception=True)
+def subdominios_delete(request, pk):
+    subdominio = get_object_or_404(Subdominios, pk=pk)
+    if request.method == 'POST':
+        subdominio.delete()
+        messages.success(request, '¡Subdominio eliminado correctamente!')
+        return redirect('model_list')  # Redirige a la página con la lista de subdominios
+    return render(request, 'subdominios/subdominios_confirm_delete.html', {'subdominio': subdominio})
+
+# Detalle del Subdominio
+@login_required
+@permission_required('myapp.view_subdominios', raise_exception=True)
+def subdominios_detail(request, pk):
+    subdominio = get_object_or_404(Subdominios, pk=pk)
+    return render(request, 'subdominios/subdominios_detail.html', {'subdominio': subdominio})
+
+# Exportación a Excel
+def export_to_excel(request):
+    queryset = Subdominios.objects.all()
+
+    # Crear un libro de trabajo y una hoja de trabajo
+    wb = Workbook()
+    ws = wb.active
+
+    # Escribir encabezados de columna
+    column_names = ['Id', 'Nombre', 'IpPublica', 'IpInterna', 'Host']
+    ws.append(column_names)
+
+    # Escribir datos de los objetos en el libro
+    for obj in queryset:
+        ws.append([obj.Id, obj.Nombre, obj.IpPublica, obj.IpInterna, obj.Host])
+
+    # Crear una respuesta de HTTP con el archivo adjunto
+    response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+    response['Content-Disposition'] = 'attachment; filename=Reporte.xlsx'
     wb.save(response)
     return response
