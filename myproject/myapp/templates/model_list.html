@@ -36,7 +36,7 @@
         </div>
         <div class="tab">
             <div class="content">
-                <div data-content id="servidores" class="tab-content">
+                <div data-content id="servidores" class="tab-content active">
                     <h1>Registro de Servidores</h1>
                     <div class="mb-4">
                         {% comment %} {% if perms.myapp.change_mymodel %} {% endcomment %}
@@ -44,7 +44,7 @@
                         {% comment %} {% endif %} {% endcomment %}
                         <a href="{% url 'export_to_excel_servidores' %}" class="btn btn-success btn-action"><i class="fas fa-file-excel"></i> Exportar a Excel</a>
                     </div>
-                    <div id="formContainer"></div>
+                    
                     <!-- Barra de búsqueda -->
                     <div class="mb-4">
                         <input id="searchInput" type="text" class="form-control" placeholder="Buscar...">
