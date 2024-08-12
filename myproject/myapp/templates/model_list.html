@@ -24,7 +24,7 @@
             <h5> REPÚBLICA DEL ECUADOR </h5>
             <h5>INSTITUTO NACIONAL DE METEOROLOGIA E HIDROLOGIA -INAMHI BIENES POR CUSTODIO</h5>
             <h5> REGISTRO DE CONSTATACIÓN FÍSICA DE BIENES 2024 </h5>
-            <h5>Bienvenido, {{ user}}!</h5>
+            <h5>Bienvenido, {{ user }}!</h5>
         </div>
         <br>
         <div class="menu">
@@ -36,18 +36,17 @@
         </div>
         <div class="tab">
             <div class="content">
+                <!-- Registro de Servidores -->
                 <div data-content id="servidores" class="tab-content active">
                     <h1>Registro de Servidores</h1>
                     <div class="mb-4">
-                        {% comment %} {% if perms.myapp.change_mymodel %} {% endcomment %}
                         <a href="{% url 'model_create' %}" class="btn btn-primary btn-action"><i class="fas fa-plus"></i> Añadir Servidor</a>
-                        {% comment %} {% endif %} {% endcomment %}
                         <a href="{% url 'export_to_excel_servidores' %}" class="btn btn-success btn-action"><i class="fas fa-file-excel"></i> Exportar a Excel</a>
                     </div>
                     
                     <!-- Barra de búsqueda -->
                     <div class="mb-4">
-                        <input id="searchInput" type="text" class="form-control" placeholder="Buscar...">
+                        <input id="searchInputServidores" type="text" class="form-control" placeholder="Buscar...">
                     </div>
                     <div class="table-container">
                         <table class="table table-striped table-bordered">
@@ -83,13 +82,15 @@
                                 </tr>
                                 {% empty %}
                                 <tr>
-                                    <td colspan="8">No se encontraron registros.</td>
+                                    <td colspan="10">No se encontraron registros.</td>
                                 </tr>
                                 {% endfor %}
                             </tbody>
                         </table>
                     </div>
                 </div>
+
+                <!-- Registro de Apis -->
                 <div data-content id="apis" class="tab-content">
                     <h1>Registro de Apis</h1>
                     <div class="mb-4">
@@ -99,7 +100,7 @@
                         <a href="{% url 'export_apisysubdominios' %}" class="btn btn-success btn-action"><i class="fas fa-file-excel"></i> Exportar a Excel</a>
                     </div>
                     <div class="mb-4">
-                        <input id="searchInput" type="text" class="form-control" placeholder="Buscar...">
+                        <input id="searchInputApis" type="text" class="form-control" placeholder="Buscar...">
                     </div>
                     <div class="table-container">
                         <table class="table table-striped table-bordered">
@@ -127,13 +128,15 @@
                                 </tr>
                                 {% empty %}
                                 <tr>
-                                    <td colspan="5">No se encontraron registros.</td>
+                                    <td colspan="6">No se encontraron registros.</td>
                                 </tr>
                                 {% endfor %}
                             </tbody>
                         </table>
                     </div>
                 </div>
+
+                <!-- Registro de Subdominios -->
                 <div data-content id="subdominios" class="tab-content">
                     <h1>Registro de Subdominios</h1>
                     <div class="mb-4">
@@ -178,6 +181,8 @@
                         </table>
                     </div>
                 </div>
+
+                <!-- Registro de Nodos -->
                 <div data-content id="nodos" class="tab-content">
                     <h1>Registro de nodos</h1>
                     <div class="mb-4">
@@ -185,7 +190,7 @@
                         <a href="{% url 'export_nodos_to_excel' %}" class="btn btn-success btn-action"><i class="fas fa-file-excel"></i> Exportar a Excel</a>
                     </div>
                     <div class="mb-4">
-                        <input id="searchInput" type="text" class="form-control" placeholder="Buscar...">
+                        <input id="searchInputNodos" type="text" class="form-control" placeholder="Buscar...">
                     </div>
                     <div class="table-container">
                         <table class="table table-striped table-bordered">
@@ -222,6 +227,8 @@
                         </table>
                     </div>
                 </div>
+
+                <!-- Formulario -->
                 <div data-content id="formulario" class="tab-content">
                     <h1>Formulario</h1>
                     <div class="mb-4">
@@ -283,7 +290,6 @@
             </div>
         </div>
         <br>
-       
     </div>
     <!-- Bootstrap JS -->
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
@@ -313,9 +319,14 @@
                     }
                 });
             }
+
+            setupSearch('searchInputServidores', 'tableBodyServidores');
+            setupSearch('searchInputApis', 'tableBodyApis');
+            setupSearch('searchInputSubdominios', 'tableBodySubdominios');
+            setupSearch('searchInputNodos', 'tableBodyNodos');
+            setupSearch('searchInputFormulario', 'tableBodyFormulario');
         });
-        </script>
-        
+    </script>
     <script>
         // Función para almacenar la posición de desplazamiento en sessionStorage
         function saveScrollPosition() {
