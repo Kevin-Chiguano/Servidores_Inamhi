@@ -10,7 +10,6 @@ body {
     background-size: cover;
     background-position: center;
     background-image: radial-gradient(circle 800px,#6437b7,#4d338a, #2b2a2c);
-    background-color: #4C3DA8;
 
 }
 
@@ -50,7 +49,7 @@ th {
 }
 
 .btn-primary {
-    background-color: #4C3DA8; /* Color de fondo azul */
+    background-color: #0069d9; /* Color de fondo azul */
     color: white;              /* Color del texto blanco */
     border: none;              /* Sin borde */
     padding: 10px 20px;        /* Relleno del botón */
@@ -68,7 +67,7 @@ th {
     background-color: #2f9edf; /* Color de fondo al pasar el ratón */
 }
 .btn-secondary {
-    background-color: #6c757d; /* Color de fondo gris */
+    background-color:#28a745; /* Color de fondo gris */
     color: white;              /* Color del texto blanco */
     border: none;              /* Sin borde */
     padding: 10px 20px;        /* Relleno del botón */
@@ -83,7 +82,7 @@ th {
 }
 
 .btn-secondary:hover {
-    background-color: #5a6268; /* Color de fondo al pasar el ratón */
+    background-color: #1b742f; /* Color de fondo al pasar el ratón */
 }
 
 label {

@@ -20,6 +20,10 @@
     </style>
 </head>
 <body>
+    <div class="header-titles">
+        <h5>REPÚBLICA DEL ECUADOR</h5>
+        <h5>INSTITUTO NACIONAL DE METEOROLOGIA E HIDROLOGIA -INAMHI</h5>
+    </div>
     <div class="container mt-4">    
         <div class="card">
             <div class="card-body">
@@ -42,9 +46,9 @@
 
 
                 <div class="container btn-container">
+                    <button type="button" onclick="window.history.back()" class="btn btn-secondary btn-actions mr-2"></i> Volver</button>
                     <a href="{% url 'formulario_update' formulario.pk %}" class="btn btn-warning btn-actions mr-2">Editar</a>
                     <a href="{% url 'formulario_delete' formulario.pk %}" class="btn btn-danger btn-actions mr-2"> Eliminar</a>
-                    <button type="button" onclick="window.history.back()" class="btn btn-secondary btn-actions mr-2"></i> Volver</button>
                 </div>
             </div>
         </div>

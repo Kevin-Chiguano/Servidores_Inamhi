@@ -5,11 +5,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Actualizar ApisYsubdominios</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link rel="stylesheet" type="text/css" href="{% static 'style_actualizar.css' %}">
-    <!-- Agregar Bootstrap CSS si lo necesitas -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 </head>
 <body>
+    <div class="header">
+        <div class="header-titles">
+            <h5>REPÚBLICA DEL ECUADOR</h5>
+            <h5>INSTITUTO NACIONAL DE METEOROLOGIA E HIDROLOGIA -INAMHI BIENES POR CUSTODIO</h5>
+            
+        </div>
+    </div>
     <div class="container mt-4">
         <h1 class="mb-4">Editar </h1>
         <form method="post" enctype="multipart/form-data">
@@ -43,8 +50,8 @@
                         </tbody>
                     </table>
                     <div class="button-container mt-3">
-                        <button type="submit" class="btn btn-primary">Guardar</button>
-                        <button type="button" onclick="window.history.back()" class="btn btn-primary">Cancelar</button>
+                        <button class="btn btn-secondary"><i class="fas fa-save"></i>Guardar</button>
+                        <button type="button" onclick="window.history.back()" class="btn-primary">Cancelar</button>
                     </div>
                 </div>
             </div>
