@@ -6,7 +6,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
-    path('', views.dashboard, name='dashboard'),
+    path('', views.model_list, name='model_list'), 
     path('accounts/login/', LoginView.as_view(), name='login'),
     path('home/', home, name='home'),  # Cambiado de '' a 'home/' para evitar conflicto
     path('register/', register, name='register'),
@@ -19,9 +19,9 @@ urlpatterns = [
     path('model/<int:pk>/delete/confirm/', views.model_confirm_delete, name='model_confirm_delete'),
     path('model/<int:pk>/update/confirm/', views.model_confirm_actualizar, name='model_confirm_actualizar'),
     path('export/', views.export_to_excel, name='export_to_excel'),
-     path('export_apis/', views.export_apisysubdominios_to_excel, name='export_apisysubdominios'),  # Exportar datos de ApisYsubdominios a Excel
+    path('export_excel/', views.export_to_excel_servidores, name='export_to_excel_servidores'),
+    path('export_apis/', views.export_apisysubdominios_to_excel, name='export_apisysubdominios'),  # Exportar datos de ApisYsubdominios a Excel
     path('nodos/export/', views.export_nodos_to_excel, name='export_nodos_to_excel'),  # Nueva ruta para exportar nodos a Excel
-    path('exportpdf/', views.export_to_pdf, name='export_to_pdf'),
     path('nodos/create/', views.nodos_create, name='nodos_create'),
     path('nodos/<int:pk>/', views.nodos_detail, name='nodos_detail'),
     path('nodos/<int:pk>/update/', views.nodos_update, name='nodos_update'),

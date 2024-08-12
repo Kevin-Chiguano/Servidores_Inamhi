@@ -37,6 +37,10 @@ def register(request):
 @permission_required('myapp.view_mymodel', raise_exception=True)
 def model_detail(request, pk):
     model = get_object_or_404(Servidores, pk=pk)
+    context = {
+        'user': request.user.get_full_name(),
+        'model': model
+    }
     return render(request, 'model_detail.html', {'model': model})
 
 @login_required
@@ -118,16 +122,12 @@ def model_confirm_delete(request, pk):
     return render(request, 'model_confirm_delete.html', {'model': model})
 
 @login_required
-def dashboard(request):
-    return render(request, 'registration/dashboard.html')
-
-@login_required
 def salir(request):
     logout(request)
     return redirect('/')
 
 # Exportación a Excel
-def export_to_excel(request):
+def export_to_excel_servidores(request):
     queryset = Servidores.objects.all()
 
     # Crear un libro de trabajo y una hoja de trabajo
@@ -141,85 +141,14 @@ def export_to_excel(request):
 
     # Escribir datos de los objetos en el libro
     for obj in queryset:
-        ws.append([obj.NombreServidor, obj.Marca, obj.Modelo, obj.SistemaOperativo, obj.Entorno, obj.Estado, 
-                   obj.direccionIpPublica, obj.DireccionIpLocal, obj.Usuario, obj.Contrasena, obj.Servicio, obj.Puerto, obj.RutaImportante, obj.UbicacionFisica, obj.NumeroSerie, obj.DescripcionProcesos])
+        ws.append([obj.DireccionIp, obj.Usuario, obj.Contrasena, obj.Servicio, obj.Puerto, obj.RutaImportante, obj.UbicacionFisica, 
+                   obj.NumeroSerie])
 
     # Crear una respuesta de HTTP con el archivo adjunto
     response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
-    response['Content-Disposition'] = 'attachment; filename=Reporte.xlsx'
+    response['Content-Disposition'] = 'attachment; filename=Servidores_Report.xlsx'
     wb.save(response)
     return response
-
-def export_to_pdf(request):
-    queryset = Servidores.objects.all()
-
-    # Crear un archivo PDF
-    pdf_buffer = BytesIO()
-    pdf = SimpleDocTemplate(pdf_buffer, pagesize=landscape(letter))
-
-    # Configurar estilos para el PDF
-    styles = getSampleStyleSheet()
-    styles.add(ParagraphStyle(name='TableStyle', fontSize=8, leading=10))
-    font_size = 8  # Reducir el tamaño de la fuente para ajustarse mejor a las celdas
-
-    # Añadir título y fecha de generación
-    title = "Reporte de Bienes"
-    timezone_bogota = pytz.timezone('America/Bogota')
-    fecha_generacion = f"Fecha de generación: {timezone.localtime(timezone.now(), timezone_bogota).strftime('%d-%m-%Y %H:%M:%S')}"
-
-    title_paragraph = Paragraph(title, styles['Title'])
-    date_paragraph = Paragraph(fecha_generacion, styles['Normal'])
-
-    # Crear datos para la tabla en el PDF
-    data = []
-    column_names = ['DireccionIp', 'Usuario', 'Contrasena', 'Servicio', 'Puerto', 'RutaImportante', 
-                    'UbicacionFisica', 'NumeroSerie']
-    data.append(column_names)
-
-    # Obtener los valores de los campos para cada objeto en queryset
-    for item in queryset:
-        row = [item.DireccionIp, item.Usuario, item.Contrasena, item.Servicio, item.Puerto, item.RutaImportante, 
-               item.UbicacionFisica, item.NumeroSerie]
-        data.append(row)
-
-    # Calcular el ancho de la tabla en función del tamaño de la página
-    page_width, page_height = pdf.pagesize
-    available_width = page_width * 0.8 # Usar el 80% del ancho de la página
-    column_width = available_width / len(column_names)
-
-    # Crear la tabla en el PDF
-    table_data = []
-    for row in data:
-        table_row = [Paragraph(item[:50] + '...' if len(item) > 50 else item, styles['TableStyle']) for item in row]
-        table_data.append(table_row)
-
-    table = Table(table_data, colWidths=[column_width] * len(column_names))
-
-    # Configurar estilos para la tabla
-    style = TableStyle([('BACKGROUND', (0, 0), (-1, 0), colors.gray),  # Fondo gris para la fila de encabezado
-                        ('TEXTCOLOR', (0, 0), (-1, 0), colors.whitesmoke),  # Texto blanco para la fila de encabezado
-                        ('ALIGN', (0, 0), (-1, -1), 'LEFT'),  # Alinear el texto a la izquierda
-                        ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),  # Fuente en negrita para la fila de encabezado
-                        ('FONTSIZE', (0, 0), (-1, -1), font_size),  # Aplicar el tamaño de fuente reducido
-                        ('BOTTOMPADDING', (0, 0), (-1, 0), 12),  # Relleno inferior para la fila de encabezado
-                        ('BACKGROUND', (0, 1), (-1, -1), colors.beige),  # Fondo beige para las demás filas
-                        ('GRID', (0, 0), (-1, -1), 1, colors.black),  # Líneas de cuadrícula negras
-                        ('VALIGN', (0, 0), (-1, -1), 'TOP'),  # Alinear el contenido de las celdas en la parte superior
-                        ('LEFTPADDING', (0, 0), (-1, -1), 2),  # Reducir el relleno izquierdo
-                        ('RIGHTPADDING', (0, 0), (-1, -1), 2),  # Reducir el relleno derecho
-                        ('TOPPADDING', (0, 0), (-1, -1), 2)])  # Reducir el relleno superior
-    table.setStyle(style)
-
-    # Construir el PDF
-    pdf.build([title_paragraph, Spacer(1, 0.2 * inch), date_paragraph, Spacer(1, 0.5 * inch), table])
-
-    # Obtener el contenido del PDF como un HttpResponse
-    pdf_response = HttpResponse(pdf_buffer.getvalue(), content_type='application/pdf')
-    pdf_response['Content-Disposition'] = 'attachment; filename=Reporte.pdf'
-
-    return pdf_response
-
-
 #Nodo ------------------------------------------------------------------------
 @login_required
 @permission_required('myapp.view_nodos', raise_exception=True)
@@ -375,7 +304,7 @@ def export_apisysubdominios_to_excel(request):
 
     # Crear la respuesta HTTP
     response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
-    response['Content-Disposition'] = 'attachment; filename="apis_y_subdominios.xlsx"'
+    response['Content-Disposition'] = 'attachment; filename="Apis_Report.xlsx"'
 
     # Guardar el archivo en la respuesta
     workbook.save(response)
@@ -454,7 +383,7 @@ def export_to_excel(request):
 
     # Crear una respuesta de HTTP con el archivo adjunto
     response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
-    response['Content-Disposition'] = 'attachment; filename=Reporte.xlsx'
+    response['Content-Disposition'] = 'attachment; filename=Forumulario_Report.xlsx'
     
     wb.save(response)
     return response

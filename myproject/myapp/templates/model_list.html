@@ -27,6 +27,7 @@
             <h5> REPÚBLICA DEL ECUADOR </h5>
             <h5>INSTITUTO NACIONAL DE METEOROLOGIA E HIDROLOGIA -INAMHI BIENES POR CUSTODIO</h5>
             <h5> REGISTRO DE CONSTATACIÓN FÍSICA DE BIENES 2024 </h5>
+            <h5>Bienvenido, {{ user}}!</h5>
         </div>
         <br>
         <div class="menu">
@@ -38,13 +39,13 @@
         </div>
         <div class="tab">
             <div class="content">
-                <div data-content id="servidores" class="tab-content " >
-                    
+                <div data-content id="servidores" class="tab-content active" >
+                       <h1>Registro de Servidores</h1>
                     <div class="mb-4">
-                        {% if perms.myapp.change_mymodel %}
+                        {% comment %} {% if perms.myapp.change_mymodel %} {% endcomment %}
                         <a href="{% url 'model_create' %}" class="btn btn-primary btn-action"><i class="fas fa-plus"></i> Añadir Producto</a>
-                        {% endif %}
-                        <a href="{% url 'export_to_excel' %}" class="btn btn-success btn-action"><i class="fas fa-file-excel"></i> Exportar a Excel</a>
+                        {% comment %} {% endif %} {% endcomment %}
+                        <a href="{% url 'export_to_excel_servidores' %}" class="btn btn-success btn-action"><i class="fas fa-file-excel"></i> Exportar a Excel</a>
                     </div>
             
                     <div id="formContainer"></div>
@@ -93,6 +94,7 @@
                     </div>
                 </div>
                 <div data-content id="apis" class="tab-content">
+                    <h1>Registro de Apis</h1>
                     <div class="mb-4">
                         {% if perms.myapp.change_mymodel %}
                         <a href="{% url 'crear_apis' %}" class="btn btn-primary btn-action"><i class="fas fa-plus"></i> Añadir registro de apis</a>
@@ -135,10 +137,11 @@
                     </div>
                 </div>
                 <div data-content id="subdominios" class="tab-content">
-                    <h1>aqui se agrega el crud de subdominio</h1>
+                    <h1>Registro de subdominios</h1>
                 </div>
 
                 <div data-content id="nodos" class="tab-content">
+                    <h1>Registro de nodos</h1>
                     <div class="mb-4">
                         <a href="{% url 'nodos_create' %}" class="btn btn-primary btn-action"><i class="fas fa-plus"></i> Crear Nuevo Nodo</a>
                         <a href="{% url 'export_nodos_to_excel' %}" class="btn btn-success btn-action"><i class="fas fa-file-excel"></i> Exportar a Excel</a>
@@ -178,6 +181,7 @@
                     </div>
                 </div>
                 <div data-content id="formulario" class="tab-content">
+                    <h1>Formulario</h1>
                     <div class="mb-4">
                         <a href="{% url 'formulario_create' %}" class="btn btn-primary btn-action"><i class="fas fa-plus"></i> Crear Nuevo Formulario</a>
                         <a href="{% url 'export_to_excel' %}" class="btn btn-success btn-action"><i class="fas fa-file-excel"></i> Exportar a Excel</a>
@@ -237,10 +241,6 @@
             </div>
         </div>
         <br>
-        <div>
-            <a href="{% url 'dashboard' %}" class="btn btn-primary btn-action" style="width: 20%; font-size: 10px;"><i class="fas fa-arrow-left"></i> Regresar al Dashboard</a>
-
-        </div>
 
     </div>
     <!-- Bootstrap JS -->
