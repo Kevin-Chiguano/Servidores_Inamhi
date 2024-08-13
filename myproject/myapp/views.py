@@ -357,38 +357,61 @@ def apis_detail(request, pk):
     return render(request, 'apis_detail.html', {'api': api})
 
 
+def export_Api_to_excel(request):
+    queryset = ApisYsubdominios.objects.all()
 
+    wb = Workbook()
+    ws = wb.active
 
-def export_apisysubdominios_to_excel(request):
-    # Crear un libro de trabajo y una hoja de trabajo
-    workbook = openpyxl.Workbook()
-    worksheet = workbook.active
-    worksheet.title = 'Apis y Subdominios'
+    title = 'Reporte de Apis'
+    ws.append([title])
 
-    # Agregar encabezados de columna
-    headers = ['Nombre Servicio HTTPS', 'Descripción', 'IP', 'Puerto']
-    worksheet.append(headers)
+    title_cell = ws.cell(row=1, column=1)
+    title_cell.font = Font(size=25, bold=True)
+    ws.merge_cells('A1:E1')
+    title_cell.alignment = Alignment(horizontal='center', vertical='center')
+    total_columns = 5
 
-    # Obtener datos del modelo
-    apis = ApisYsubdominios.objects.all()
+    additional_info = [
+        'INSTITUTO NACIONAL DE METEOROLOGÍA E HIDROLOGÍA - INAMHI',
+        'BIENES POR CUSTODIO',
+        'REGISTRO DE CONSTATACIÓN FÍSICA DE BIENES 2024'
+    ]
+    start_row_for_info = 2
+    for i, info in enumerate(additional_info, start=start_row_for_info):
+        ws.append([''] * total_columns)
+        info_cell = ws.cell(row=i, column=1)
+        info_cell.value = info
+        info_cell.font = Font(size=14, bold=True)
+        info_cell.alignment = Alignment(horizontal='center', vertical='center')
+        ws.merge_cells(start_row=i, start_column=1, end_row=i, end_column=total_columns)
+    ws.append([''] * total_columns)
 
-    # Agregar datos a la hoja de trabajo
-    for api in apis:
-        row = [
-            api.NombreServicioHttps,
-            api.Descripcion,
-            api.Ip,
-            api.puerto
-        ]
-        worksheet.append(row)
+    colums_names = ['ID','NombreServicioHTTPS', 'Descripción','IP','Puerto']
+    ws.append(colums_names)
 
-    # Crear la respuesta HTTP
+    for cell in ws[ws.max_row]:  # Los encabezados están en la fila 3
+        cell.font = Font(bold=True)
+        cell.alignment = Alignment(horizontal='center', vertical='center')  # Centrar texto
+
+    for obj in queryset:
+        ws.append([obj.id, obj.NombreServicioHttps,obj.Descripcion, obj.Ip, obj.puerto])
+        cell.font = Font(bold=True)
+    
+    for row in ws.iter_rows(min_row=4, max_col=5, max_row=ws.max_row):  # Empezando desde la fila 4
+        for cell in row:
+            cell.alignment = Alignment(horizontal='center', vertical='center')  # Centrar texto
+
+    column_widths = [10, 30, 35, 20, 10]  # Ajustar estos valores según tus necesidades
+    for i, width in enumerate(column_widths, start=1):
+        ws.column_dimensions[chr(64 + i)].width = width  # A, B, C, D, E corresponden a 1, 2, 3, 4, 5
+
     response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
-    response['Content-Disposition'] = 'attachment; filename="Apis_Report.xlsx"'
-
-    # Guardar el archivo en la respuesta
-    workbook.save(response)
+    response['Content-Disposition'] = 'attachment; filename=Apis_Report.xlsx'
+    wb.save(response)
     return response
+
+
 
 
 #Formularios ------------------------------------------------------------------------
@@ -442,31 +465,70 @@ def formulario_detail(request, pk):
     formulario = get_object_or_404(Formulario, pk=pk)
     return render(request, 'formulario/formulario_detail.html', {'formulario': formulario})
 
-
-# Exportación a Excel
-def export_to_excel(request):
+def export_to_excel_formulario(request):
     queryset = Formulario.objects.all()
 
     # Crear un libro de trabajo y una hoja de trabajo
     wb = Workbook()
     ws = wb.active
+    # Agregar y formatear el título
+    title = 'Reporte de Formulario'
+    ws.append([title])
+    
+    title_cell = ws.cell(row=1, column=1)
+    title_cell.font = Font(size=25, bold=True)  # Negrita y tamaño de fuente
+    ws.merge_cells('A1:O1')  # Combinar celdas para el título
+    title_cell.alignment = Alignment(horizontal='center', vertical='center')  # Centrar texto horizontal y verticalmente
+    total_columns = 15 
+    # Agregar información adicional
+    additional_info = [
+        'INSTITUTO NACIONAL DE METEOROLOGÍA E HIDROLOGÍA - INAMHI',
+        'BIENES POR CUSTODIO',
+        'REGISTRO DE CONSTATACIÓN FÍSICA DE BIENES 2024'
+    ]
+    start_row_for_info = 2
+    for i, info in enumerate(additional_info, start=start_row_for_info):
+        # Añadir una fila en blanco para que la información adicional se pueda colocar en varias celdas
+        ws.append([''] * total_columns)
+        info_cell = ws.cell(row=i, column=1)
+        info_cell.value = info
+        info_cell.font = Font(size=14, bold=True)
+        info_cell.alignment = Alignment(horizontal='center', vertical='center')  # Centrar texto
+        ws.merge_cells(start_row=i, start_column=1, end_row=i, end_column=total_columns)
+    ws.append([''] * total_columns)
 
+       
     # Escribir encabezados de columna
-    column_names = ['NombreServidor', 'Ubicacion', 'Marca', 'Modelo', 'NumeroSerie', 'SistemaOperativo', 
+    column_names = ['ID','NombreServidor', 'Ubicacion', 'Marca', 'Modelo', 'NumeroSerie', 'SistemaOperativo', 
                     'PuertoRelevante', 'Entorno','Estado','DireccionIpLocal','DireccionIpPublica','Usuario','Clave','DescripcionProcesos']
     ws.append(column_names)
+    
+    # Aplicar formato a los encabezados de columna
+    for cell in ws[ws.max_row]:  # Los encabezados están en la fila 3
+        cell.font = Font(bold=True)
+        cell.alignment = Alignment(horizontal='center', vertical='center')  # Centrar texto
 
     # Escribir datos de los objetos en el libro
     for obj in queryset:
-        ws.append([obj.NombreServidor, obj.Ubicacion, obj.Marca, obj.Modelo, obj.NumeroSerie, obj.SistemaOperativo, 
+        ws.append([obj.id, obj.NombreServidor, obj.Ubicacion, obj.Marca, obj.Modelo, obj.NumeroSerie, obj.SistemaOperativo, 
                    obj.PuertoRelevante, obj.Entorno, obj.Estado, obj.DireccionIpLocal, obj.DireccionIpPublica, obj.Usuario, obj.Clave, obj.DescripcionProcesos])
+        cell.font = Font(bold=True)
+
+    # Aplicar formato a las celdas de datos
+    for row in ws.iter_rows(min_row=4, max_col=5, max_row=ws.max_row):  # Empezando desde la fila 4
+        for cell in row:
+            cell.alignment = Alignment(horizontal='center', vertical='center')  # Centrar texto
+
+    column_widths = [10, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 30]  
+    for i, width in enumerate(column_widths, start=1):
+        ws.column_dimensions[chr(64 + i)].width = width  
 
     # Crear una respuesta de HTTP con el archivo adjunto
     response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
     response['Content-Disposition'] = 'attachment; filename=Formulario_Report.xlsx'
-    
     wb.save(response)
     return response
+
 
 #Subdominio ----------------------------------------------------------------------------
 # Lista de Subdominios

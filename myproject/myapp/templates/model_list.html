@@ -97,7 +97,7 @@
                         {% if perms.myapp.change_mymodel %}
                         <a href="{% url 'crear_apis' %}" class="btn btn-primary btn-action"><i class="fas fa-plus"></i> Añadir Api</a>
                         {% endif %}
-                        <a href="{% url 'export_apisysubdominios' %}" class="btn btn-success btn-action"><i class="fas fa-file-excel"></i> Exportar a Excel</a>
+                        <a href="{% url 'export_apis' %}" class="btn btn-success btn-action"><i class="fas fa-file-excel"></i> Exportar a Excel</a>
                     </div>
                     <div class="mb-4">
                         <input id="searchInputApis" type="text" class="form-control" placeholder="Buscar...">
@@ -233,7 +233,7 @@
                     <h1>Formulario</h1>
                     <div class="mb-4">
                         <a href="{% url 'formulario_create' %}" class="btn btn-primary btn-action"><i class="fas fa-plus"></i> Añadir Formulario</a>
-                        <a href="{% url 'export_to_excel' %}" class="btn btn-success btn-action"><i class="fas fa-file-excel"></i> Exportar a Excel</a>
+                        <a href="{% url 'export_to_excel_formulario' %}" class="btn btn-success btn-action"><i class="fas fa-file-excel"></i> Exportar a Excel</a>
                     </div>
                     <div class="mb-4">
                         <input id="searchInputFormulario" type="text" class="form-control" placeholder="Buscar...">
